@@ -223,8 +223,21 @@ legend{font:16px/1.4 var(--serif);padding:0;margin:0 0 8px}
 .choice.right{color:var(--ink)}
 
 /* crowd */
-.crowd-count{font:700 44px/1 var(--sans);color:var(--blue);font-variant-numeric:tabular-nums}
+.crowd-row{display:flex;align-items:center;flex-wrap:wrap;gap:4px 18px}
+.crowd-count{font:700 40px/1 var(--sans);color:var(--blue);font-variant-numeric:tabular-nums}
+.crowd-clock span{display:block;font:700 12px/1.3 var(--sans);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.crowd-clock b{display:block;font:700 22px/1.1 var(--sans);color:var(--ink);font-variant-numeric:tabular-nums}
+.crowd-replay{margin-left:auto;padding:0 14px;font-size:15px}
+.crowd-replay[hidden]{display:none}
 .crowd-sub{font:14px/1.35 var(--sans);color:var(--ink);margin:4px 0 0}
+.crowd-legend{margin-top:6px;font-size:12px}
+.legend i.ring{background:transparent;border:1.5px solid var(--ink)}
+.crowd-note{font:12px/1.4 var(--sans);color:var(--muted);margin:4px 0 0}
+.crowd-pill{position:fixed;z-index:40;bottom:calc(16px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border:1.5px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink);font:700 15px var(--sans);font-variant-numeric:tabular-nums;white-space:nowrap;transition:opacity .6s}
+.crowd-pill[hidden]{display:none}
+.crowd-pill i{width:10px;height:10px;border-radius:50%;background:var(--accent);flex:none}
+.crowd-pill.fade{opacity:0}
+@media (min-width:1024px){ .crowd-pill{left:auto;right:24px;transform:none} }
 
 /* ---------- check your block ---------- */
 .check{padding-top:40px;padding-bottom:10px;border-top:1px solid var(--line);margin-top:20px}
@@ -429,7 +442,12 @@ footer{font:13px var(--sans);color:var(--muted);padding:0 0 calc(40px + env(safe
       <div class="scene chart" data-scene="crowd" id="sc-crowd">
         <div class="s-head"><p class="fig"></p><p class="s-title">One Midtown block, weekday evening rush</p></div>
         <div class="s-body" id="crowdBody"></div>
-        <div class="s-foot"><div class="crowd-count" id="crowdN">Hundreds</div><p class="crowd-sub" id="crowdSub"></p><p id="crowdRange"></p><span>NYC DOT pedestrian counts; NYPD 911 call times. An illustration.</span></div>
+        <div class="s-foot">
+          <div class="crowd-row"><div class="crowd-count" id="crowdN">0</div><div class="crowd-clock"><span>Since the 911 call</span><b id="crowdClock">0:00</b></div><button class="btn ghost crowd-replay" type="button" id="crowdReplay">Replay</button></div>
+          <p class="crowd-sub" id="crowdSub"></p><p id="crowdRange"></p>
+          <p class="legend crowd-legend"><span><i style="background:var(--accent)"></i>Assault</span><span><i style="background:var(--ink);opacity:.6"></i>Passerby</span><span><i class="ring"></i>Stops to watch or help</span><span><i style="background:var(--blue)"></i>Police</span></p>
+          <p class="crowd-note" id="crowdNote"></p>
+        </div>
       </div>
       <div class="scene chart" data-scene="ytd" id="sc-ytd">
         <div class="s-head"><p class="fig"></p><p class="s-title" id="ytdTitle">Midtown, 2026 so far vs. the same period of 2025</p></div>
@@ -677,6 +695,7 @@ footer{font:13px var(--sans);color:var(--muted);padding:0 0 calc(40px + env(safe
 </main>
 <footer class="wrap">The Bigger Apple · Manhattan Institute</footer>
 
+<div class="crowd-pill" id="crowdPill" hidden aria-hidden="true"><i></i><span id="pillTxt"></span></div>
 <script src="data.js"></script>
 <script src="basemap.js"></script>
 <script src="addresses.js"></script>
@@ -1328,54 +1347,203 @@ function renderExcl(lvl, anim){
   svg.setAttribute("aria-label", "Dot plot of Midtown felony assault reports, 2019 vs 2025, as groups are left out: " + M.exclusions.map(function(e){ return e[0].replace(" (complaint records)", "") + ": " + e[1] + " to " + e[2]; }).join("; ") + ".");
 }
 
-/* crowd: walkers on a sidewalk plus a counter */
-var CROWD_N = Math.round(W.perMinMedian*W.policeArrivalMin);
-var crowd = { raf:0, t:0, walkers:[], layer:null, w:0, sy:0, sh:0, last:0, count:false };
+/* crowd: one sidewalk at evening rush, an assault, the minutes until police arrive and until they wrap up the call */
+var CROWD_N = Math.round(W.perMinMedian*W.policeArrivalMin);           // people passing before police typically arrive
+var CROWD_N2 = Math.round(W.perMinMedian*W.jobClosedMin);              // ... before police typically wrap up the call
+var CR_S1 = Math.round(W.policeArrivalMin*60), CR_S2 = Math.round(W.jobClosedMin*60);
+var CR_FIT = (function(){
+  var all = M.points.rows.filter(function(r){ return r[0] === 2025; });
+  var k = all.filter(function(r){ return r[5] === "street" && r[4] === 1 && r[3] >= 16 && r[3] <= 18; }).length;
+  var ratio = Math.round(all.length/k), nice = ratio >= 10 ? Math.round(ratio/5)*5 : ratio;
+  return { k:k, n:all.length, ratio:ratio, nice:nice };
+})();
+console.assert(CR_FIT.nice === 20 && Math.abs(CR_FIT.ratio - CR_FIT.nice)/CR_FIT.nice < 0.15, "about 1 in 20 sidewalk assaults at evening rush");
+// timeline, in seconds after the scene starts
+var CR_A = 1.6, CR_P1 = 4.5, CR_T1 = CR_A + CR_P1, CR_T2 = CR_T1 + 0.8, CR_P2 = 7.5, CR_T2E = CR_T2 + CR_P2, CR_OFF = 1.4, CR_FREEZE = CR_T2E + CR_OFF + 0.2;
+var CR = { started:false, done:false, stat:false, t0:0, last:0, T:0, raf:0, walkers:[], spawn:0, w:0, h:0, sy:0, sh:0, curbY:0, streetY:0, ax:0, ay:0, tx:0, assault:false, rejoin:false, stopped:0, need:0, fadeTimer:0, pillOn:false };
+function mmss(s){ var m = Math.floor(s/60), r = s % 60; return m + ":" + (r < 10 ? "0" : "") + r; }
+function crEase(t){ return t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2)/2; }
+function crValues(T){
+  if (CR.stat || CR.done) return { n:CROWD_N2, s:CR_S2, ph:2 };
+  if (T < CR_A) return { n:0, s:0, ph:1 };
+  if (T < CR_T1){ var f = (T - CR_A)/CR_P1; return { n:Math.round(CROWD_N*f), s:Math.round(CR_S1*f), ph:1 }; }
+  if (T < CR_T2) return { n:CROWD_N, s:CR_S1, ph:1 };
+  if (T < CR_T2E){ var e = crEase((T - CR_T2)/CR_P2); return { n:Math.round(CROWD_N + (CROWD_N2 - CROWD_N)*e), s:Math.round(CR_S1 + (CR_S2 - CR_S1)*e), ph:2 }; }
+  return { n:CROWD_N2, s:CR_S2, ph:2 };
+}
+function crPolice(T){
+  var t0 = CR_A + .78*CR_P1, start = CR.w + 14, curb = CR.curbY + 9;
+  if (T < t0) return null;
+  if (T < CR_T1){ var q = (T - t0)/(CR_T1 - t0), e = 1 - Math.pow(1 - q, 3); return { x:start + (CR.tx - start)*e, y:q < .8 ? CR.streetY : CR.streetY + (curb - CR.streetY)*(q - .8)/.2 }; }
+  if (T < CR_T2E) return { x:CR.tx, y:curb };
+  if (T < CR_T2E + CR_OFF){ var q2 = (T - CR_T2E)/CR_OFF; if (q2 < .25) return { x:CR.tx, y:curb + (CR.streetY - curb)*q2/.25 }; var e2 = Math.pow((q2 - .25)/.75, 2); return { x:CR.tx + (-16 - CR.tx)*e2, y:CR.streetY }; }
+  return null;
+}
+function crMk(p){ p.el = S("circle", { r:3.6 }, CR.gW); }
+function crStopped(p){ return p.st === "go" || p.st === "stay" || p.st === "wgo" || p.st === "watch"; }
+function crSpawn(x){
+  var dir = Math.random() < .5 ? 1 : -1, y = CR.sy + 8 + Math.random()*(CR.sh - 16);
+  var p = { x:x != null ? x : (dir > 0 ? -6 : CR.w + 6), y:y, base:y, v:dir*(50 + Math.random()*40), st:"walk", pvx:0, pvy:0 };
+  crMk(p); CR.walkers.push(p);
+}
+function crTarget(p, r0, r1){
+  var a = Math.random()*Math.PI*2, r = r0 + Math.random()*(r1 - r0);
+  p.tx = CR.ax + r*Math.cos(a); p.ty = Math.max(CR.sy + 6, Math.min(CR.sy + CR.sh - 6, CR.ay + r*Math.sin(a)));
+}
+function crRecruit(p, close){ p.st = close ? "go" : "wgo"; if (close){ var i = CR.walkers.filter(function(q){ return q.st === "go" || q.st === "stay"; }).length; p.tx = CR.ax + (i ? 15 : -15); p.ty = CR.ay + (i ? 3 : -3); } else crTarget(p, 34, 48); CR.stopped++; }
+function crOnAssault(){
+  CR.walkers.forEach(function(p){
+    var dx = p.x - CR.ax, dy = p.y - CR.ay, d = Math.sqrt(dx*dx + dy*dy);
+    if (d < 60 && d > 0.1){ p.pvx = dx/d*45; p.pvy = dy/d*45; }
+  });
+  var near = CR.walkers.filter(function(p){ return p.st === "walk"; }).sort(function(a, b){ return Math.hypot(a.x - CR.ax, a.y - CR.ay) - Math.hypot(b.x - CR.ax, b.y - CR.ay); });
+  near.slice(0, 2).forEach(function(p){ crRecruit(p, true); });
+  var watch = near.slice(2).filter(function(p){ return Math.abs(p.x - CR.ax) < 220; }).slice(0, 5);
+  watch.forEach(function(p){ crRecruit(p, false); });
+  CR.need = 5 - watch.length;
+}
+function crStep(p, dt, T){
+  var band0 = CR.sy + 5, band1 = CR.sy + CR.sh - 5;
+  if (crStopped(p)){
+    var dx = p.tx - p.x, dy = p.ty - p.y, d = Math.sqrt(dx*dx + dy*dy), sp = 45*dt;
+    if (d <= sp){ p.x = p.tx; p.y = p.ty; if (p.st === "go") p.st = "stay"; else if (p.st === "wgo"){ p.st = "watch"; p.until = T + 3 + Math.random()*4; } }
+    else { p.x += dx/d*sp; p.y += dy/d*sp; }
+    var leaveAt = p.st === "watch" ? p.until : Infinity;
+    if (p.leaveAt != null) leaveAt = Math.min(leaveAt, p.leaveAt);
+    if (T >= leaveAt){ p.st = "walk"; p.base = p.y; p.v = (Math.random() < .5 ? 1 : -1)*(50 + Math.random()*40); CR.stopped--; }
+  } else {
+    p.x += p.v*dt;
+    var want = p.base;
+    if (CR.assault && T < CR_T2E && Math.abs(p.x - CR.ax) < 80){
+      var berth = Math.min(46, CR.sh/2 - 5), side = p.base >= CR.ay ? 1 : -1, edge = CR.ay + side*berth;
+      if (side > 0 ? p.base < edge : p.base > edge) want = edge;
+    }
+    p.y += (want - p.y)*Math.min(1, dt*5);
+  }
+  p.x += p.pvx*dt; p.y += p.pvy*dt;
+  var k = Math.exp(-dt/0.3); p.pvx *= k; p.pvy *= k;
+  p.y = Math.max(band0, Math.min(band1, p.y));
+  if (p.x < -12 || p.x > CR.w + 12){ if (p.el) p.el.remove(); if (crStopped(p)) CR.stopped--; return false; }
+  return true;
+}
+function crInView(){
+  var sc = $("#sc-crowd"); if (curScene !== "crowd" || !sc.classList.contains("on")) return false;
+  var r = sc.getBoundingClientRect(); return r.bottom > 40 && r.top < window.innerHeight - 40;
+}
+function crPill(v){
+  var pill = $("#crowdPill");
+  var show = CR.started && !CR.stat && !reduced() && !CR.done && !crInView();
+  if (show){ clearTimeout(CR.fadeTimer); pill.classList.remove("fade"); pill.hidden = false; CR.pillOn = true; }
+  else if (CR.pillOn && !CR.done){ pill.hidden = true; CR.pillOn = false; }
+  if (!pill.hidden) $("#pillTxt").textContent = fmt(v.n) + " people · " + mmss(v.s);
+}
+function crowdDraw(){
+  if (!CR.gW) return;
+  var T = CR.stat ? CR_T1 + 0.5 : CR.T, v = crValues(T);
+  CR.walkers.forEach(function(p){
+    if (!p.el) crMk(p);
+    p.el.setAttribute("cx", p.x.toFixed(1)); p.el.setAttribute("cy", p.y.toFixed(1));
+    if (crStopped(p)){ p.el.setAttribute("fill", "none"); p.el.setAttribute("stroke", "var(--ink)"); p.el.setAttribute("stroke-width", 1.5); p.el.setAttribute("opacity", .9); }
+    else { p.el.setAttribute("fill", "var(--ink)"); p.el.removeAttribute("stroke"); p.el.setAttribute("opacity", .6); }
+  });
+  // the assault: an orange dot with a soft pulse; in phase 2 it becomes a hollow ring (being helped); gone at wrap-up
+  var on = (CR.stat || (CR.assault && T < CR_T2E)) && !(CR.done);
+  CR.dot.setAttribute("cx", CR.ax); CR.dot.setAttribute("cy", CR.ay); CR.pulse.setAttribute("cx", CR.ax); CR.pulse.setAttribute("cy", CR.ay);
+  CR.dot.style.display = on ? "" : "none"; CR.pulse.style.display = on && T < CR_T2 ? "" : "none";
+  var fill = T < CR_T2 ? 1 : Math.max(0, 1 - (T - CR_T2)/1.5);
+  CR.dot.setAttribute("fill-opacity", fill.toFixed(2)); CR.dot.setAttribute("stroke-opacity", (1 - fill).toFixed(2));
+  if (CR.stat){ CR.pulse.setAttribute("r", 12); CR.pulse.setAttribute("opacity", .35); }
+  else { var ph = (((T - CR_A) % 1.4 + 1.4) % 1.4)/1.4; CR.pulse.setAttribute("r", (8 + 10*ph).toFixed(1)); CR.pulse.setAttribute("opacity", (.6*(1 - ph)).toFixed(2)); }
+  // police
+  var pp = crPolice(T);
+  CR.pol.style.display = pp ? "" : "none";
+  if (pp){ CR.pol.setAttribute("cx", pp.x.toFixed(1)); CR.pol.setAttribute("cy", pp.y.toFixed(1)); }
+  var lbl = T >= CR_T2E || CR.done ? "Police wrap up the call" : (T >= CR_T1 + 0.15 ? "Police arrive" : "");
+  if (CR.stat) lbl = "Police arrive";
+  CR.lbl.textContent = lbl;
+  var lw = textW(lbl, 13, true), right = CR.tx + 14 + lw < CR.w - 2;
+  CR.lbl.setAttribute("x", right ? CR.tx + 14 : CR.tx - 14); CR.lbl.setAttribute("text-anchor", right ? "start" : "end"); CR.lbl.setAttribute("y", CR.curbY + 14);
+  // counter, clock, subtext, pill
+  $("#crowdN").textContent = fmt(v.n);
+  $("#crowdClock").textContent = mmss(v.s);
+  $("#crowdSub").textContent = CR.stat
+    ? "people walk by before police typically wrap up the call (about " + Math.round(W.jobClosedMin) + " minutes); " + fmt(CROWD_N) + " pass before police typically arrive (" + mmss(CR_S1) + ")"
+    : (v.ph === 1 ? "people walk by before police typically arrive" : "people walk by before police typically wrap up the call (about " + Math.round(W.jobClosedMin) + " minutes)");
+  crPill(v);
+}
+function crowdTick(now){
+  var dt = Math.min(0.05, (now - CR.last)/1000); CR.last = now;
+  var T = (now - CR.t0)/1000; CR.T = T;
+  if (T < CR_FREEZE){ CR.spawn += dt*14; while (CR.spawn >= 1){ CR.spawn -= 1; crSpawn(); } }
+  if (!CR.assault && T >= CR_A){ CR.assault = true; crOnAssault(); }
+  if (CR.assault && T < CR_T1){
+    var cand = CR.walkers.filter(function(p){ return p.st === "walk" && Math.abs(p.x - CR.ax) < 70; });
+    if (cand.length && CR.stopped < 10 && (CR.need > 0 || Math.random() < dt*0.6)){ crRecruit(cand[Math.floor(Math.random()*cand.length)], false); if (CR.need > 0) CR.need--; }
+  }
+  if (!CR.rejoin && T >= CR_T2){
+    CR.rejoin = true;
+    CR.walkers.forEach(function(p){ if (crStopped(p)) p.leaveAt = CR_T2 + 0.3 + Math.random()*(0.65*CR_P2 - 0.3); });
+  }
+  CR.walkers = CR.walkers.filter(function(p){ return crStep(p, dt, T); });
+  if (T >= CR_FREEZE){
+    CR.done = true; CR.raf = 0; crowdDraw();
+    if (CR.pillOn){ $("#pillTxt").textContent = fmt(CROWD_N2) + " people · " + mmss(CR_S2); CR.fadeTimer = setTimeout(function(){ var pill = $("#crowdPill"); pill.classList.add("fade"); setTimeout(function(){ pill.hidden = true; pill.classList.remove("fade"); CR.pillOn = false; }, 650); }, 3000); }
+    return;
+  }
+  crowdDraw();
+  CR.raf = requestAnimationFrame(crowdTick);
+}
+function crowdStatic(){
+  CR.walkers.forEach(function(p){ if (p.el) p.el.remove(); }); CR.walkers = [];
+  var berth = Math.min(46, CR.sh/2 - 5), n = Math.round(CR.w/9);
+  for (var i=0;i<n;i++){
+    var x = (i*37.3) % CR.w, y = CR.sy + 8 + ((i*53.7) % (CR.sh - 16));
+    if (Math.abs(x - CR.ax) < 80 && Math.abs(y - CR.ay) < berth) y = CR.ay + (y >= CR.ay ? 1 : -1)*berth;
+    CR.walkers.push({ x:x, y:y, base:y, v:0, st:"walk", pvx:0, pvy:0 });
+  }
+  [[-15, -3], [15, 3]].forEach(function(o){ CR.walkers.push({ x:CR.ax + o[0], y:CR.ay + o[1], st:"stay", pvx:0, pvy:0 }); });
+  [-2.4, -0.7, 0.7, 2.4].forEach(function(a){ CR.walkers.push({ x:CR.ax + 41*Math.cos(a), y:Math.max(CR.sy + 6, Math.min(CR.sy + CR.sh - 6, CR.ay + 41*Math.sin(a))), st:"watch", pvx:0, pvy:0 }); });
+}
 function renderCrowd(lvl){
   var P = prep($("#crowdBody")), svg = P.svg, w = P.w, h = P.h;
-  var sh = Math.min(110, h*0.75), sy = (h - sh)/2;
-  crowd.w = w; crowd.sy = sy; crowd.sh = sh; crowd.walkers = []; crowd.count = lvl >= 2;
-  S("rect", { x:0, y:sy, width:w, height:sh, fill:"var(--paper)" }, svg);
-  S("line", { x1:0, x2:w, y1:sy + sh, y2:sy + sh, stroke:"var(--muted)", "stroke-width":3 }, svg);
-  S("text", { "class":"c-lbl m", x:4, y:sy + sh + 16, "font-size":12 }, svg, "curb");
-  crowd.layer = S("g", null, svg);
-  if (reduced()) for (var i=0;i<40;i++) S("circle", { cx:(i*37.3) % w, cy:sy + 8 + ((i*53.7) % (sh - 16)), r:3.6, fill:"var(--ink)", opacity:.55 }, crowd.layer);
-  svg.setAttribute("aria-label", "Illustration of people walking along a Midtown sidewalk.");
-  if (lvl >= 2){
-    $("#crowdN").textContent = fmt(CROWD_N);
-    $("#crowdSub").textContent = "people walk by, at a typical " + W.perMinMedian + " a minute, in the roughly " + Math.round(W.policeArrivalMin) + " minutes before police typically arrive";
-    $("#crowdRange").textContent = "Midtown’s counted blocks: " + W.perMinRange[0] + "–" + W.perMinRange[1] + " people a minute, weekdays 4–7pm.";
-  } else {
-    $("#crowdN").textContent = "Hundreds";
-    $("#crowdSub").textContent = "of people walk by in the roughly " + Math.round(W.policeArrivalMin) + " minutes before police typically arrive";
-    $("#crowdRange").textContent = "";
+  var sh = Math.max(56, Math.min(120, h - 34)), sy = Math.max(2, (h - sh - 30)/2);
+  if (CR.w && (CR.w !== w || CR.sy !== sy || CR.sh !== sh)){
+    var kx = w/CR.w;
+    CR.walkers.forEach(function(p){ p.x *= kx; if (p.tx != null) p.tx *= kx; p.y = sy + (p.y - CR.sy)*sh/CR.sh; p.base = sy + (p.base - CR.sy)*sh/CR.sh; if (p.ty != null) p.ty = sy + (p.ty - CR.sy)*sh/CR.sh; });
   }
+  CR.w = w; CR.h = h; CR.sy = sy; CR.sh = sh; CR.curbY = sy + sh; CR.streetY = CR.curbY + 18;
+  CR.ax = w*0.55; CR.ay = sy + sh/2; CR.tx = CR.ax + 30;
+  S("rect", { x:0, y:sy, width:w, height:sh, fill:"var(--paper)" }, svg);
+  S("line", { x1:0, x2:w, y1:CR.curbY, y2:CR.curbY, stroke:"var(--muted)", "stroke-width":3 }, svg);
+  S("line", { x1:0, x2:w, y1:CR.streetY, y2:CR.streetY, stroke:"var(--line)", "stroke-width":1.5, "stroke-dasharray":"8 7" }, svg);
+  S("text", { "class":"c-lbl m", x:4, y:CR.curbY + 14, "font-size":12 }, svg, "curb");
+  CR.gW = S("g", null, svg);
+  CR.pulse = S("circle", { fill:"none", stroke:"var(--accent)", "stroke-width":2, r:10 }, svg);
+  CR.dot = S("circle", { r:6.5, fill:"var(--accent)", stroke:"var(--accent)", "stroke-width":2.5 }, svg);
+  CR.pol = S("circle", { r:7, fill:"var(--blue)" }, svg);
+  CR.lbl = S("text", { "class":"c-lbl b halo", style:"stroke:var(--panel)" }, svg);
+  svg.setAttribute("aria-label", "Illustration: people walk along a Midtown sidewalk at evening rush. Someone is assaulted; a few people stop to watch or help while the rest walk around. Police arrive after about " + Math.round(W.policeArrivalMin) + " minutes, when " + fmt(CROWD_N) + " people have passed, and wrap up the call after about " + Math.round(W.jobClosedMin) + " minutes, when " + fmt(CROWD_N2) + " have passed.");
+  if (reduced()){ CR.stat = true; crowdStatic(); }
+  else if (CR.stat){ CR.stat = false; CR.walkers = []; CR.started = false; }
+  CR.walkers.forEach(function(p){ p.el = null; });
+  $("#crowdRange").textContent = lvl >= 2 ? "Midtown’s counted blocks: " + W.perMinRange[0] + "–" + W.perMinRange[1] + " people a minute, weekdays 4–7pm; typically " + W.perMinMedian + "." : "";
+  $("#crowdReplay").hidden = reduced();
+  crowdDraw();
 }
 function crowdStart(){
-  cancelAnimationFrame(crowd.raf); clearTimeout(crowd.snap);
-  if (reduced()){ if (crowd.count) $("#crowdN").textContent = fmt(CROWD_N); return; }
-  crowd.t = 0; if (crowd.count) $("#crowdN").textContent = "0";
-  crowd.last = performance.now();
-  crowd.raf = requestAnimationFrame(crowdTick);
-  crowd.snap = setTimeout(function(){ if (crowd.count) $("#crowdN").textContent = fmt(CROWD_N); }, 5500);
+  cancelAnimationFrame(CR.raf); clearTimeout(CR.fadeTimer);
+  CR.walkers.forEach(function(p){ if (p.el) p.el.remove(); }); CR.walkers = [];
+  CR.started = true; CR.done = false; CR.assault = false; CR.rejoin = false; CR.stopped = 0; CR.need = 0; CR.spawn = 0; CR.T = 0;
+  $("#crowdPill").hidden = true; CR.pillOn = false;
+  if (reduced()){ CR.stat = true; crowdStatic(); crowdDraw(); return; }
+  CR.stat = false;
+  for (var i=0, n = Math.round(CR.w/5); i<n; i++) crSpawn(Math.random()*CR.w);
+  CR.t0 = CR.last = performance.now();
+  crowdDraw();
+  CR.raf = requestAnimationFrame(crowdTick);
 }
-function crowdStop(){ cancelAnimationFrame(crowd.raf); crowd.raf = 0; if (crowd.count) $("#crowdN").textContent = fmt(CROWD_N); }
-function crowdTick(now){
-  var dt = Math.min(0.05, (now - crowd.last)/1000); crowd.last = now;
-  if (crowd.t < 1){ crowd.t = Math.min(1, crowd.t + dt/4); if (crowd.count) $("#crowdN").textContent = fmt(Math.round(CROWD_N*crowd.t)); }
-  if (crowd.layer && Math.random() < dt*14){
-    var dir = Math.random() < .5 ? 1 : -1;
-    var c = S("circle", { r:3.6, fill:"var(--ink)", opacity:.6 }, crowd.layer);
-    crowd.walkers.push({ el:c, x:dir > 0 ? -6 : crowd.w + 6, y:crowd.sy + 8 + Math.random()*(crowd.sh - 16), v:dir*(50 + Math.random()*40) });
-  }
-  crowd.walkers = crowd.walkers.filter(function(p){
-    p.x += p.v*dt;
-    if (p.x < -10 || p.x > crowd.w + 10){ p.el.remove(); return false; }
-    p.el.setAttribute("cx", p.x.toFixed(1)); p.el.setAttribute("cy", p.y.toFixed(1));
-    return true;
-  });
-  crowd.raf = requestAnimationFrame(crowdTick);
-}
+$("#crowdReplay").addEventListener("click", crowdStart);
+$("#crowdNote").textContent = "Illustration: a sidewalk assault on a busy block at evening rush. About 1 in " + CR_FIT.nice + " Midtown felony assaults fit that description. ‘Wrap up the call’ is when the 911 job is closed, a stand-in for when officers leave. Sources: NYC DOT pedestrian counts; NYPD 911 call times.";
 
 function renderYtd(lvl, anim){
   var P = prep($("#ytdBody")), svg = P.svg, w = P.w, h = P.h;
@@ -1533,7 +1701,7 @@ function activate(key, force){
   showScene(sceneFor(key), lvl, force);
   if (MAPSTATES[key]) setMapState(key, lvl);
   if (key === "b" && prev !== "b" && !force) counter();
-  if (key === "i"){ if (prev !== "i" || force) crowdStart(); } else if (prev === "i") crowdStop();
+  if (key === "i" && !CR.started) crowdStart(); // once started, it runs to the end even if the reader scrolls on
 }
 
 /* guess (tap buttons on phones and tablets, drawing on desktops) */
@@ -2051,7 +2219,7 @@ function exRender(full){
     "Time of day: by the reported start time, in three-hour windows (Explore the map uses single hours). " + T.note + " Weekdays are Monday through Friday.",
     "Subway: " + SUB.note + " Rides: " + (SUB.ridesMillions[0]/1000).toFixed(3) + " billion in 2019 and " + (SUB.ridesMillions[1]/1000).toFixed(3) + " billion in 2025. Felony assaults on riders per 100 million rides: " + SUB.per100M[0] + " in 2019 and " + SUB.per100M[1] + " in 2025. All felony assaults in Midtown subway stations: " + SUB.midtownAll[0] + " in 2019 and " + SUB.midtownAll[1] + " in 2025.",
     "“Still roughly doubled”: individual reports, 2019 → 2025. " + EX2.map(function(e){ return e[0] + ": " + fmt(e[1]) + " → " + fmt(e[2]); }).join("; ") + ". The simple chart shows the third row; “×” is the 2025 count divided by the 2019 count.",
-    "The crowd: an illustration. NYC DOT counts at Midtown’s " + M.pedSites.length + " counted blocks show " + W.perMinRange[0] + "–" + W.perMinRange[1] + " people a minute pass on weekdays 4–7pm, typically " + W.perMinMedian + ". Police typically arrive " + W.policeArrivalMin + " minutes after a 911 call (" + W.perMinMedian + " × " + W.policeArrivalMin + " ≈ " + CROWD_N + " people) and wrap up the call about " + W.jobClosedMin + " minutes after it comes in, by which time " + fmt(Math.round(W.perMinRange[0]*W.jobClosedMin)) + "–" + fmt(Math.round(W.perMinRange[1]*W.jobClosedMin)) + " people pass at those rates. Caveat: " + W.note,
+    "The crowd: an illustration. NYC DOT counts at Midtown’s " + M.pedSites.length + " counted blocks show " + W.perMinRange[0] + "–" + W.perMinRange[1] + " people a minute pass on weekdays 4–7pm, typically " + W.perMinMedian + ". Police typically arrive " + W.policeArrivalMin + " minutes after a 911 call (" + W.perMinMedian + " × " + W.policeArrivalMin + " ≈ " + CROWD_N + " people) and wrap up the call about " + W.jobClosedMin + " minutes after it comes in, by which time " + fmt(Math.round(W.perMinRange[0]*W.jobClosedMin)) + "–" + fmt(Math.round(W.perMinRange[1]*W.jobClosedMin)) + " people pass at those rates. The sidewalk-assault illustration: " + CR_FIT.k + " of " + fmt(CR_FIT.n) + " felony assault reports in 2025 were on a street, sidewalk or in a park on a weekday between 4 and 7 p.m. Caveat: " + W.note,
     "2026 so far, NYPD CompStat through " + Y.through + ": Midtown felony assault " + fmt(Y.midtown[1]) + " vs. " + fmt(Y.midtown[0]) + " (" + pct(Y.pct) + "); Midtown South " + fmt(Y.south[1]) + " vs. " + fmt(Y.south[0]) + " (" + pct(Y.southPct) + "), Midtown North " + fmt(Y.north[1]) + " vs. " + fmt(Y.north[0]) + " (" + pct(Y.northPct) + "); citywide " + pct(Y.citywidePct) + ". Midtown robbery " + pct(Y.robberyPct) + "; all major crime " + pct(Y.allMajorPct) + ". Misdemeanor assault " + fmt(MD.ytd2026.midtown[1]) + " vs. " + fmt(MD.ytd2026.midtown[0]) + " (" + pct(MD.ytd2026.pct) + "); Midtown South " + pct(MD.ytd2026.southPct) + ", Midtown North " + pct(MD.ytd2026.northPct) + "; citywide " + fmt(MD.ytd2026.citywide[1]) + " vs. " + fmt(MD.ytd2026.citywide[0]) + " (" + pct(MD.ytd2026.citywidePct) + ").",
     "How it feels: Citizens Budget Commission survey. Felt safe on the subway at night: " + PER.subwayNightSafe.map(function(p){ return p[1] + "% in " + p[0]; }).join(", ") + ". During the day: " + PER.subwayDaySafe.map(function(p){ return p[1] + "% in " + p[0]; }).join(", ") + "."
   ];
