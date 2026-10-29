@@ -1,0 +1,2124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Midtown, Block by Block</title>
+<meta name="description" content="Felony assaults in Midtown Manhattan more than doubled from 2019 to 2025. See where and when, and check your block.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Midtown, Block by Block">
+<meta property="og:description" content="Felony assaults in Midtown more than doubled from 2019 to 2025: 375 to 884. See where and when, and check your block.">
+<meta property="og:url" content="https://lienaz.github.io/midtown-block-by-block/">
+<meta name="twitter:card" content="summary">
+<script>window.SHARE_URL = "https://lienaz.github.io/midtown-block-by-block/";</script>
+
+<meta name="description" content="Felony assaults in Midtown Manhattan have more than doubled since 2019. See where and when, and check your block.">
+<style>
+:root{
+  --paper:#FFFFFF; --panel:#E8ECFC; --panel-2:#F0F3FF; --panel-3:#E1E6FA;
+  --ink:#20222E; --muted:#5A5D6B; --line:#AEB0B7;
+  --blue:#2C48DC; --blue-dark:#1F38BC; --y2019:#AEB0B7; --accent:#FF8000; --on-blue:#FFFFFF;
+  --band:#D3DAF7;
+  --serif:"Le Monde Livre Pro",Georgia,serif;
+  --sans:"GT America",Arial,Helvetica,sans-serif;
+  --gl:max(16px, env(safe-area-inset-left)); --gr:max(16px, env(safe-area-inset-right));
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#20222E; --panel:#2A2D3B; --panel-2:#252836; --panel-3:#30344A;
+    --ink:#E8ECFC; --muted:#AEB0B7; --line:#4A4E5E;
+    --blue:#2FA8FF; --blue-dark:#6CC2FF; --y2019:#AEB0B7; --accent:#FF8000; --on-blue:#20222E;
+    --band:#3A3F58;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#20222E; --panel:#2A2D3B; --panel-2:#252836; --panel-3:#30344A;
+  --ink:#E8ECFC; --muted:#AEB0B7; --line:#4A4E5E;
+  --blue:#2FA8FF; --blue-dark:#6CC2FF; --y2019:#AEB0B7; --accent:#FF8000; --on-blue:#20222E;
+  --band:#3A3F58;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:var(--blue)}
+a:hover{color:var(--blue-dark)}
+button{font:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:1240px;margin:0 auto;padding-left:var(--gl);padding-right:var(--gr)}
+svg text{font-family:var(--sans);font-variant-numeric:tabular-nums}
+
+/* ---------- levels: 1 everywhere, 2 from 600px, 3 from 1,024px; a step's toggle opens them ---------- */
+@media (max-width:599.98px){ .xp:not(.x-open) [data-level="2"]{display:none!important} }
+@media (max-width:1023.98px){ .xp:not(.x-open) [data-level="3"]{display:none!important} [data-only="3"]{display:none!important} }
+@media (min-width:600px){ [data-upto="1"]{display:none!important} .more-btn[data-max="2"]{display:none!important} }
+@media (min-width:1024px){ [data-upto="2"]{display:none!important} .more-btn{display:none!important} }
+.x-open [data-upto="1"]{display:none!important}
+.more-btn{display:inline-flex;align-items:center;gap:6px;min-height:44px;margin:10px 0 2px;padding:0 16px;border:1.5px solid var(--line);border-radius:999px;background:var(--paper);color:var(--blue);font:700 15px var(--sans);cursor:pointer}
+.more-btn::before{content:"+";font-weight:700;width:.8em}
+.more-btn[aria-expanded="true"]::before{content:"\2212"}
+.more-btn:hover{border-color:var(--blue)}
+.detail{border-top:1px solid var(--line);margin-top:12px;padding-top:10px}
+.detail > .dl{font:700 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin:0 0 6px}
+.detail p{font-size:17px;line-height:1.45}
+
+/* ---------- header ---------- */
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding-top:env(safe-area-inset-top)}
+.logo{margin:0;line-height:0}
+.logo a{display:inline-block;padding:10px 0 14px}
+.logo img{width:180px;height:auto;display:block}
+.logo .on-dark{display:none}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .logo .on-light{display:none}
+  :root:not([data-theme="light"]) .logo .on-dark{display:block}
+}
+:root[data-theme="dark"] .logo .on-light{display:none}
+:root[data-theme="dark"] .logo .on-dark{display:block}
+.theme-btn{margin-top:8px;min-width:44px;min-height:44px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink);font:700 14px var(--sans);padding:0 14px;cursor:pointer}
+.kicker{font:700 13px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin:0 0 10px}
+h1{font-family:var(--serif);font-weight:700;font-size:40px;line-height:1.12;margin:0 0 20px;letter-spacing:-.01em;max-width:16em}
+.short{background:var(--panel);padding:18px 20px 16px;margin:0 0 14px}
+.short h2{font:700 13px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin:0 0 8px}
+.short ul{margin:0;padding:0 0 0 1.1em}
+.short li{margin:0 0 10px;font-size:18px;line-height:1.45}
+.short li:last-child{margin-bottom:0}
+.short li::marker{color:var(--blue)}
+.hero-nums{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:flex-end;border-top:1px solid var(--line);padding:16px 0 6px;margin:0 0 6px}
+.hn b{display:block;font:700 36px/1 var(--sans);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.hn .lab{display:block;font:700 12px/1.4 var(--sans);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:6px}
+.hn .c25{color:var(--blue)}
+.hn .arrow{color:var(--muted);font-weight:400}
+.intro-links{display:flex;flex-wrap:wrap;align-items:center;gap:4px 20px;font-family:var(--sans);font-size:16px;margin:0 0 8px}
+.intro-links a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none}
+.intro-links a:hover{text-decoration:underline}
+.cue{color:var(--ink)!important;font-weight:700}
+
+/* ---------- scrolly ---------- */
+.scrolly{position:relative}
+.graphic{position:sticky;top:0;z-index:3;background:var(--paper);height:56vh;height:56svh;padding:6px 0 8px}
+.stage{position:relative;height:100%}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;visibility:hidden}
+.scene.on{visibility:visible}
+.scene.chart{background:var(--panel);padding:12px 14px 10px}
+.s-head{flex:none;margin:0 0 6px}
+.fig{font:700 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin:0}
+.s-title{font:700 17px/1.25 var(--serif);margin:2px 0 0}
+.s-body{flex:1;position:relative;min-height:0}
+.s-body > svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
+.s-foot{flex:none;font:13px/1.35 var(--sans);color:var(--muted);margin-top:6px}
+.s-foot p{margin:0}
+.legend{display:flex;flex-wrap:wrap;gap:2px 14px;font:13px var(--sans);color:var(--ink);margin:0}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.legend .q{color:var(--muted)}
+.legend [hidden]{display:none}
+.legend i.ln{width:16px;height:3px;border-radius:0}
+
+.mapbox{position:absolute;inset:0}
+.mapbox svg,.mapbox canvas{position:absolute;left:0;top:0;display:block}
+.mapbox svg.top-layer{overflow:visible}
+.m-street{fill:none;stroke:var(--line);stroke-width:.7;stroke-linecap:round;stroke-linejoin:round}
+.m-major{fill:none;stroke:var(--line);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.m-hwy{fill:none;stroke:var(--line);stroke-width:1;stroke-dasharray:3 3;opacity:.7}
+.m-prec{fill:var(--panel)}
+.m-prec-line{fill:none;stroke:var(--blue);stroke-width:1.5;stroke-linejoin:round}
+.m-frame{fill:var(--paper)}
+.m-edge{fill:none;stroke:var(--line);stroke-width:1}
+.lbl{font-family:var(--sans);fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round}
+.lbl.av{fill:var(--muted);stroke:none}
+.lbl.st{fill:var(--muted)}
+.lbl.area{fill:var(--blue);letter-spacing:.08em;font-weight:700;stroke:var(--panel)}
+.lbl.lm{font-weight:700}
+.lm-mark{fill:var(--ink);stroke:var(--paper);stroke-width:1.5}
+.pin-ring{fill:none;stroke:var(--accent);stroke-width:2.5}
+.pin-dot{fill:var(--accent);stroke:var(--paper);stroke-width:2}
+
+/* chart marks */
+.bar19{fill:var(--y2019)} .bar25{fill:var(--blue)} .barInk{fill:var(--muted)}
+.c-lbl{font-family:var(--sans);font-size:13px;fill:var(--ink);font-variant-numeric:tabular-nums}
+.c-lbl.m{fill:var(--muted)} .c-lbl.b{font-weight:700} .c-lbl.big{font-size:22px;font-weight:700}
+.c-blue{fill:var(--blue)}
+.c-axis{stroke:var(--line);stroke-width:1}
+.c-grid{stroke:var(--line);stroke-width:1;opacity:.6}
+.halo{paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+.hl-band{fill:var(--band)}
+.grow{animation:grow .7s cubic-bezier(.2,.7,.2,1)}
+.growx{animation:growx .7s cubic-bezier(.2,.7,.2,1)}
+@keyframes grow{from{transform:scaleY(.05)}to{transform:scaleY(1)}}
+@keyframes growx{from{transform:scaleX(.05)}to{transform:scaleX(1)}}
+.grow,.growx{transform-box:fill-box}
+.grow{transform-origin:50% 100%} .growx{transform-origin:0 50%}
+
+/* step cards (from the walk) */
+.steps{position:relative;z-index:1}
+.step{min-height:62vh;min-height:62svh;padding:12px 0 0}
+.step.first{min-height:58vh;min-height:58svh}
+.step:last-child{min-height:50vh;min-height:50svh}
+.card{max-width:34em;font-size:19px;line-height:1.45;background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:16px 16px 14px}
+.step.active .card{border-color:var(--ink)}
+.card p{margin:0 0 10px}
+.card > p:last-child{margin-bottom:0}
+.card .k{font:700 12px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:10px}
+.big{font:700 40px/1.1 var(--sans);font-variant-numeric:tabular-nums;color:var(--blue);margin:0 0 6px;display:block}
+.big .from{color:var(--muted);font-weight:400}
+.pair{font:16px/1.4 var(--sans);color:var(--muted);margin:2px 0 0}
+.pair b{color:var(--ink);font-variant-numeric:tabular-nums}
+.guess{display:flex;flex-direction:column;gap:8px;margin:12px 0 4px}
+.guess button{min-height:48px;text-align:left;padding:8px 16px;border:1.5px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink);font:700 17px var(--sans);cursor:pointer}
+.guess button:hover{border-color:var(--accent)}
+.guess button.picked{border-color:var(--accent);background:var(--accent);color:#20222E}
+.guess button.right{border-color:var(--blue)}
+.guess button.right::after{content:"  \2713";color:var(--blue)}
+.guess button.picked.right::after{color:#20222E}
+.guess button[disabled]{cursor:default}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+.btn{min-height:44px;padding:0 18px;border:1.5px solid var(--blue);border-radius:4px;background:var(--blue);color:var(--on-blue);font:700 16px var(--sans);cursor:pointer}
+.btn.ghost{background:var(--paper);color:var(--ink);border-color:var(--line)}
+.btn[disabled]{opacity:.55;cursor:default}
+.reveal{font-size:19px;margin:10px 0 0;padding:10px 14px;background:var(--panel)}
+.reveal[hidden]{display:none}
+.hint{font:15px/1.4 var(--sans);color:var(--muted);margin:8px 0 0}
+details summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font:700 16px var(--sans);color:var(--blue);list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"+";display:inline-block;width:1.1em;font-weight:700;flex:none}
+details[open] > summary::before{content:"\2212"}
+details.diff{margin:6px 0 0;font-size:17px}
+.defs p{margin:0 0 10px;font-size:17px}
+.defs b{font-family:var(--sans)}
+.quiet{font:13px/1.4 var(--sans);color:var(--muted);margin:6px 0 0}
+.card .quiet{margin-top:4px}
+.rows{list-style:none;padding:0;margin:4px 0 8px;font:15px/1.4 var(--sans)}
+.rows li{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding:6px 0}
+.rows li b{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* inline figures inside detail panels */
+.ifig{background:var(--panel);padding:12px 14px 10px;margin:10px 0}
+.ifig .s-title{font-size:16px;line-height:1.25}
+.ifig .s-foot,.detail .ifig .s-foot{font:13px/1.35 var(--sans);color:var(--muted);margin:6px 0 0}
+.ifig-body{position:relative;margin-top:6px}
+.ifig-body svg{display:block;width:100%;overflow:visible}
+
+/* definitions (walk) */
+.defs-h{font:700 20px/1.2 var(--serif);margin:14px 0 8px}
+.def-grid{display:grid;grid-template-columns:1fr;gap:10px}
+.def-card{background:var(--panel);padding:14px 16px 8px;border-top:3px solid var(--blue)}
+.def-card.misd{border-top-color:var(--y2019)}
+.def-card h4{font:700 18px/1.2 var(--serif);margin:0 0 6px}
+.def-card p{font-size:16px;margin:0 0 6px}
+.def-card details{border-top:1px solid var(--line)}
+.def-card summary{font-size:14px}
+.def-card details p{font-size:15px}
+.src-line{font:13px/1.45 var(--sans);color:var(--muted);margin:8px 0 0}
+.card a,.src-line a{padding:13px 0}
+details.aside{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:0 12px;margin:12px 0 4px}
+details.aside[open]{padding-bottom:12px}
+fieldset{border:0;padding:0;margin:0}
+legend{font:16px/1.4 var(--serif);padding:0;margin:0 0 8px}
+.choice{display:flex;gap:10px;align-items:flex-start;min-height:44px;padding:10px 4px;border-top:1px solid var(--line);font:16px/1.35 var(--sans);cursor:pointer}
+.choice input{width:22px;height:22px;flex:none;margin:0;accent-color:var(--blue)}
+.choice .tag{display:block;font-size:14px;color:var(--muted);margin-top:4px}
+.choice.right{color:var(--ink)}
+
+/* crowd */
+.crowd-count{font:700 44px/1 var(--sans);color:var(--blue);font-variant-numeric:tabular-nums}
+.crowd-sub{font:14px/1.35 var(--sans);color:var(--ink);margin:4px 0 0}
+
+/* ---------- check your block ---------- */
+.check{padding-top:40px;padding-bottom:10px;border-top:1px solid var(--line);margin-top:20px}
+.check h2,.end h2,.explore h2{font:700 30px/1.15 var(--serif);margin:0 0 6px}
+.check .lede{margin:0 0 12px}
+.ctl-l{font:700 13px var(--sans);color:var(--ink);margin:0 0 6px;display:block}
+.combo{position:relative;max-width:640px}
+.combo-row{display:flex;gap:8px}
+.combo input{flex:1;min-width:0;min-height:48px;font:17px var(--sans);padding:0 12px;border:1.5px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink)}
+.combo input:focus{border-color:var(--blue);outline:none;box-shadow:none}
+.combo input:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+.combo .btn{flex:none}
+#sugg{position:absolute;left:0;right:0;top:100%;z-index:10;list-style:none;margin:4px 0 0;padding:0;background:var(--paper);border:1.5px solid var(--line);border-radius:4px;max-height:330px;overflow-y:auto}
+#sugg[hidden]{display:none}
+#sugg li{min-height:44px;padding:8px 12px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;border-top:1px solid var(--line);font:16px/1.25 var(--sans)}
+#sugg li:first-child{border-top:0}
+#sugg li small{font-size:13px;color:var(--muted)}
+#sugg li[aria-selected="true"],#sugg li:hover{background:var(--panel)}
+.smsg{font:15px/1.4 var(--sans);margin:8px 0 0;min-height:0}
+.smsg:empty{display:none}
+.smsg.err{color:var(--ink);background:var(--panel);padding:8px 12px;border-left:3px solid var(--accent)}
+.lmrow{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;margin:14px 0 4px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.lmrow button{flex:none;min-height:46px;padding:0 16px;border:1.5px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink);font:700 16px var(--sans);cursor:pointer;white-space:nowrap}
+.lmrow button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:var(--on-blue)}
+.ortap{font:15px var(--sans);color:var(--muted);margin:0 0 12px}
+.check-grid{display:flex;flex-direction:column;gap:14px}
+.result{background:var(--panel);padding:16px 18px}
+.r-where{font:700 18px/1.3 var(--sans);margin:0 0 4px}
+.r-nums{font:700 30px/1.15 var(--sans);font-variant-numeric:tabular-nums;margin:0 0 4px}
+.r-nums .n19{color:var(--ink)} .r-nums .n25{color:var(--blue)}
+.r-nums small{font-size:17px;font-weight:400;color:var(--muted)}
+.r-what{font:15px var(--sans);color:var(--muted);margin:0 0 8px}
+.r-mult{font-size:19px;margin:0 0 8px}
+.r-note{font-size:16px;margin:0 0 8px}
+.r-found{font:14px/1.4 var(--sans);color:var(--muted);margin:0 0 8px}
+details.change{margin-top:8px;border-top:1px solid var(--line)}
+.ctl{margin:8px 0 12px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{min-height:44px;padding:0 14px;border:1.5px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink);font:700 15px var(--sans);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:var(--on-blue)}
+select{min-height:44px;font:16px var(--sans);padding:0 10px;border:1.5px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink);max-width:100%}
+.check-map{position:relative;width:100%}
+.check-map .mapbox{position:relative;inset:auto;cursor:crosshair}
+.check-map .legend{margin-top:6px}
+.bd{list-style:none;padding:0;margin:6px 0 0;font:15px/1.4 var(--sans)}
+.bd li{border-top:1px solid var(--line);padding:8px 0}
+.bd .kk{display:block;font-weight:700;color:var(--ink)}
+.bd .vv{font-variant-numeric:tabular-nums}
+.bd .mm{color:var(--muted);font-size:14px}
+
+/* ---------- explore (level 3) ---------- */
+.explore{padding-top:30px;padding-bottom:10px;border-top:1px solid var(--line);margin-top:24px}
+.explore .lede{margin:0 0 12px}
+.ex-presets{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px}
+.ex-presets button{min-height:44px;padding:0 16px;border:1.5px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink);font:700 15px var(--sans);cursor:pointer}
+.ex-presets button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#20222E}
+.ex-cap{font-size:17px;margin:6px 0 8px;min-height:1.5em}
+.ex-ctls{display:flex;flex-wrap:wrap;gap:4px 22px}
+.ex-sum{font:700 17px var(--sans);font-variant-numeric:tabular-nums;margin:4px 0 0}
+.ex-sum .n19{color:var(--ink)} .ex-sum .n25{color:var(--blue)}
+.ex-grid{display:flex;flex-direction:column;gap:14px;margin-top:12px}
+.ex-clockbox{margin:0}
+#clock{width:100%;max-width:360px;height:auto;display:block;margin:0 auto;touch-action:none}
+.hourpick{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font:15px var(--sans);margin-top:8px}
+.hourpick label{display:inline-flex;gap:6px;align-items:center}
+.wedge{cursor:pointer}
+.wedge .hit{fill:transparent}
+.wedge .bg{fill:transparent}
+.wedge.on .bg{fill:var(--band)}
+.wedge:hover .bg{fill:var(--band)}
+.wedge:focus{outline:none}
+.wedge:focus-visible .bg{stroke:var(--blue);stroke-width:2}
+.wedge .b19{fill:var(--y2019)} .wedge .b25{fill:var(--blue)}
+.wedge.off .b19,.wedge.off .b25{opacity:.28}
+.ring{fill:none;stroke:var(--line);stroke-width:.8}
+.ringlbl{paint-order:stroke;stroke:var(--panel);stroke-width:3px;font-size:calc(12px * var(--k,1));fill:var(--muted);pointer-events:none}
+.hlbl{font-weight:700;font-size:calc(12px * var(--k,1));fill:var(--ink);pointer-events:none}
+.ctr1{font-weight:700;font-size:calc(14px * var(--k,1));fill:var(--ink);pointer-events:none}
+.ctr2{font-size:calc(12px * var(--k,1));fill:var(--muted);pointer-events:none}
+.ex-mapwrap{position:relative}
+.ex-mapwrap .mapbox{position:relative;inset:auto}
+
+/* ---------- end ---------- */
+.end{padding-top:40px;padding-bottom:60px}
+.take{font-size:21px;line-height:1.5;max-width:34em;margin:0 0 20px}
+.cta{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:10px 22px;background:var(--blue);color:var(--on-blue)!important;font:700 18px/1.25 var(--sans);text-decoration:none;border-radius:3px;margin:0 0 10px;max-width:100%;text-align:center}
+.cta:hover{background:var(--blue-dark)}
+details.about{margin-top:28px;border-top:1px solid var(--line);font-size:16px}
+details.about summary{font-size:17px}
+.about h3{font:700 13px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin:16px 0 6px}
+.about ul{padding-left:1.1em;margin:0}
+.about li{margin:0 0 8px;line-height:1.45}
+.about{overflow-wrap:anywhere}
+footer{font:13px var(--sans);color:var(--muted);padding:0 0 calc(40px + env(safe-area-inset-bottom))}
+
+/* ---------- phones ---------- */
+@media (max-width:1023.98px){
+  .logo img{width:140px}
+  .s-title{font-size:16px}
+}
+@media (max-width:599.98px){
+  h1{font-size:28px;margin-bottom:14px}
+  .short{padding:14px 16px 12px}
+  .short li{margin-bottom:8px}
+  .card{font-size:18px}
+  .big{font-size:34px}
+  .check h2,.end h2,.explore h2{font-size:26px}
+  .combo-row .btn{padding:0 14px}
+  .about a,footer a{display:inline-block;min-height:44px;padding-block:12px;line-height:1.3}
+}
+@media (min-width:600px) and (max-width:1023.98px){
+  h1{font-size:36px}
+  .graphic{height:54vh;height:54svh}
+}
+
+/* ---------- desktop: graphic beside the text ---------- */
+@media (min-width:1024px){
+  .scrolly{display:grid;grid-template-columns:minmax(360px,440px) 1fr;grid-template-areas:"intro graphic" "steps graphic";column-gap:48px}
+  .intro{grid-area:intro;padding-bottom:20px}
+  .steps{grid-area:steps}
+  .graphic{grid-area:graphic;align-self:start;height:100vh;padding:24px 0}
+  .step{min-height:85vh;padding-top:24vh}
+  .step.first{min-height:70vh;padding-top:10vh}
+  .step:last-child{min-height:90vh}
+  .card{font-size:19px;padding:20px 20px 16px;transition:opacity .4s, border-color .4s}
+  .step:not(.active) .card{opacity:.55}
+  .step:not(.active) .card:focus-within{opacity:1}
+  h1{font-size:40px}
+  .scene.chart{padding:16px 18px 12px}
+  .s-title{font-size:20px}
+  .check-grid{display:grid;grid-template-columns:1fr 400px;gap:32px;align-items:start}
+  .check-grid .result{order:2;position:sticky;top:20px}
+  .check-grid .check-map{order:1}
+  .ex-grid{display:grid;grid-template-columns:340px 1fr;gap:24px;align-items:start}
+  .def-grid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <div class="top">
+    <p class="logo"><a href="https://thebiggerapple.manhattan.institute/" aria-label="The Bigger Apple from the Manhattan Institute"><img class="on-light" src="mi-logo-blue.svg" alt="Manhattan Institute" width="180" height="33"><img class="on-dark" src="mi-logo-white.svg" alt="Manhattan Institute" width="180" height="33"></a></p>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch to dark mode">Dark</button>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+<div class="scrolly" id="scrolly">
+  <section class="intro xp" aria-labelledby="hed">
+    <p class="kicker">The Bigger Apple · Midtown</p>
+    <h1 id="hed">Felony assaults in Midtown have more than doubled since 2019</h1>
+    <div class="short">
+      <h2>The short version</h2>
+      <ul>
+        <li>Felony assaults in Midtown more than doubled from 2019 to 2025, from <span data-v="h19">375</span> to <span data-v="h25">884</span>, rising about three times as fast as in the city as a whole (<span data-v="hpct">+136%</span> vs. <span data-v="cwpct">+44%</span>).</li>
+        <li>Three in four happen in public, on sidewalks, in subway stations and in stores, mostly from late afternoon into the night.</li>
+        <li>It isn’t just assaults on police, in shelters or in stores: take those out and the count still roughly doubled.</li>
+        <li>Less serious assaults are up too (<span data-v="mispct">+43%</span>), and felony assaults are still rising in 2026 (<span data-v="ytdpct">+6.4%</span> through <span data-v="ytdthru">Oct. 18</span>), even as robbery and overall major crime fall.</li>
+      </ul>
+    </div>
+    <div class="hero-nums" data-level="2" id="heroNums" role="group" aria-label="Felony assaults in Midtown, 2019 to 2025"></div>
+    <p class="intro-links"><a class="cue" href="#story">Scroll to see where ↓</a><a class="storylink" href="#" target="_blank" rel="noopener">Read the full story →</a></p>
+  </section>
+
+  <div class="graphic" id="graphic">
+    <div class="stage">
+      <div class="scene on" data-scene="map" id="sc-map">
+        <div class="s-head"><p class="fig"></p><p class="s-title" id="mapTitle">Felony assaults in Midtown, 2025</p></div>
+        <div class="s-body"><div class="mapbox" id="storyMap" role="img" aria-label="Street map of Midtown with felony assault reports shown as dots."></div></div>
+        <div class="s-foot"><p class="legend" id="mapLegend"></p><p>Map counts come from individual NYPD reports and differ slightly from official totals.</p></div>
+      </div>
+      <div class="scene chart" data-scene="guess" id="sc-guess">
+        <div class="s-head"><p class="fig"></p><p class="s-title">Rise in felony assaults, 2019 to 2025</p></div>
+        <div class="s-body" id="guessBody"></div>
+        <div class="s-foot">NYPD official totals.</div>
+      </div>
+      <div class="scene chart" data-scene="draw" id="sc-draw">
+        <div class="s-head"><p class="fig"></p><p class="s-title">Felony assaults in Midtown, 2000–2025</p></div>
+        <div class="s-body" id="drawBody"></div>
+        <div class="s-foot"><p class="legend"><span><i class="ln" style="background:var(--ink)"></i>Recorded, 2000–2019</span><span><i class="ln" style="background:var(--accent)"></i>Your guess</span><span id="drawLgA" hidden><i class="ln" style="background:var(--blue)"></i>Recorded, 2020–2025</span><span><i class="ln" style="background:var(--band)"></i>2016–19 average</span></p>NYPD official totals.</div>
+      </div>
+      <div class="scene chart" data-scene="when" id="sc-when">
+        <div class="s-head"><p class="fig"></p><p class="s-title">Midtown felony assaults by time of day</p></div>
+        <div class="s-body" id="whenBody"></div>
+        <div class="s-foot"><p class="legend"><span><i style="background:var(--y2019)"></i>2019</span><span><i style="background:var(--blue)"></i>2025</span></p>From individual NYPD reports, by reported start time.</div>
+      </div>
+      <div class="scene chart" data-scene="subway" id="sc-subway">
+        <div class="s-head"><p class="fig"></p><p class="s-title">The whole subway system, 2019 vs. 2025</p></div>
+        <div class="s-body" id="subBody"></div>
+        <div class="s-foot">MTA ridership; NYPD reports. Assaults on riders exclude police and other protected workers.</div>
+      </div>
+      <div class="scene chart" data-scene="excl" id="sc-excl">
+        <div class="s-head"><p class="fig"></p><p class="s-title" id="exclTitle">Midtown felony assaults, leaving out those on police and other public workers, in shelters, and in stores and restaurants</p></div>
+        <div class="s-body" id="exclBody"></div>
+        <div class="s-foot"><p class="legend" id="exclLegend"></p>From individual NYPD reports, which differ slightly from official totals.</div>
+      </div>
+      <div class="scene chart" data-scene="crowd" id="sc-crowd">
+        <div class="s-head"><p class="fig"></p><p class="s-title">One Midtown block, weekday evening rush</p></div>
+        <div class="s-body" id="crowdBody"></div>
+        <div class="s-foot"><div class="crowd-count" id="crowdN">Hundreds</div><p class="crowd-sub" id="crowdSub"></p><p id="crowdRange"></p><span>NYC DOT pedestrian counts; NYPD 911 call times. An illustration.</span></div>
+      </div>
+      <div class="scene chart" data-scene="ytd" id="sc-ytd">
+        <div class="s-head"><p class="fig"></p><p class="s-title" id="ytdTitle">Midtown, 2026 so far vs. the same period of 2025</p></div>
+        <div class="s-body" id="ytdBody"></div>
+        <div class="s-foot" id="ytdFoot">NYPD CompStat.</div>
+      </div>
+      <div class="scene chart" data-scene="feels" id="sc-feels">
+        <div class="s-head"><p class="fig"></p><p class="s-title" id="feelsTitle">New Yorkers who feel safe on the subway at night</p></div>
+        <div class="s-body" id="feelsBody"></div>
+        <div class="s-foot"><p class="legend" id="feelsLegend"></p>Citizens Budget Commission survey.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="steps" id="story">
+    <section class="step first xp" data-step="intro"><div class="card">
+      <p>Each blue dot is a felony assault reported in Midtown in 2025, placed at its approximate location.</p>
+    </div></section>
+
+    <section class="step xp" data-step="a"><div class="card">
+      <p>In 2019, NYPD recorded <b data-v="h19">375</b> felony assaults in Midtown.</p>
+      <p data-level="2">The gray dots are those 2019 reports, in the two NYPD precincts that cover Midtown.</p>
+    </div></section>
+
+    <section class="step xp" data-step="b"><div class="card">
+      <span class="big" aria-hidden="true"><span class="from" data-v="h19">375</span> → <span id="counter">884</span></span>
+      <p>In 2025: <b data-v="h25">884</b>, the most since records begin in 2000.</p>
+      <p data-level="2">Blue dots are 2025; gray dots are 2019.</p>
+      <div class="detail" data-level="3"><p class="dl">More detail</p>
+        <p>Both precincts rose. Midtown South: <b><span data-v="s19">213</span> → <span data-v="s25">548</span></b>. Midtown North: <b><span data-v="n19">162</span> → <span data-v="n25">336</span></b>.</p>
+        <p class="quiet">NYPD official totals.</p>
+      </div>
+    </div></section>
+
+    <section class="step xp" data-step="c"><div class="card">
+      <p>Citywide, felony assaults rose <span data-v="cwpct2">44%</span>. How much did they rise in Midtown?</p>
+      <div class="guess" role="group" aria-label="Your guess" data-upto="2">
+        <button type="button" data-g="1">About the same</button>
+        <button type="button" data-g="2">About twice as fast</button>
+        <button type="button" data-g="3">About three times as fast</button>
+      </div>
+      <p class="hint" id="guessHint" data-upto="2">Tap a guess, or keep scrolling.</p>
+      <div data-only="3" id="drawCtl">
+        <p class="hint">Midtown had <span data-v="h19">375</span> in 2019. Draw what you think happened through 2025: drag across the shaded part of the chart, or focus the chart and use the arrow keys.</p>
+        <div class="btnrow"><button class="btn" type="button" id="drawLock" disabled>Show me the real line</button><button class="btn ghost" type="button" id="drawClear">Clear</button></div>
+        <p class="hint" id="drawStat" aria-live="polite"></p>
+      </div>
+      <p class="reveal" id="reveal" hidden aria-live="polite"></p>
+      <div class="detail" data-level="3"><p class="dl">More detail</p>
+        <p>From 2016 to 2019, Midtown averaged <b data-v="avg">383</b> felony assaults a year, so 2019 was a normal year.</p>
+        <div class="ifig" data-fig="line" data-upto="2" id="if-line">
+          <p class="fig"></p><p class="s-title">Felony assaults in Midtown, 2000–2025</p>
+          <div class="ifig-body"></div>
+          <p class="s-foot">NYPD official totals. Shaded: 2016–19, with the average.</p>
+        </div>
+      </div>
+    </div></section>
+
+    <section class="step xp" data-step="d"><div class="card">
+      <p>Three in four happen in public: on sidewalks, in subway stations, in stores. Citywide, fewer than half do.</p>
+      <p class="pair">In public places: <b data-v="pub">76%</b> in Midtown, <b data-v="cwpub">42.5%</b> citywide</p>
+      <div class="ifig" data-fig="pub" data-level="2" id="if-pub">
+        <p class="fig"></p><p class="s-title">Felony assaults in public places, Midtown</p>
+        <div class="ifig-body"></div>
+        <p class="s-foot">From individual NYPD reports, which differ slightly from official totals.</p>
+      </div>
+      <div class="detail" data-level="3"><p class="dl">More detail</p>
+        <div class="ifig" data-fig="bytype" id="if-bytype">
+          <p class="fig"></p><p class="s-title">Midtown felony assaults by type of place</p>
+          <div class="ifig-body"></div>
+          <p class="s-foot"><span class="legend"><span><i style="background:var(--y2019)"></i>2019</span><span><i style="background:var(--blue)"></i>2025</span></span>From individual NYPD reports.</p>
+        </div>
+      </div>
+    </div></section>
+
+    <section class="step xp" data-step="e"><div class="card">
+      <p>The rise is concentrated from late afternoon into the night.</p>
+      <p data-level="2">Reports rose in every three-hour stretch of the day, and most of all from late afternoon into the evening.</p>
+      <div class="detail" data-level="3"><p class="dl">More detail</p>
+        <p>To look at any hour, use the 24-hour clock in <a href="#explore" id="toExplore">Explore the map</a>, below.</p>
+      </div>
+    </div></section>
+
+    <section class="step xp" data-step="f"><div class="card">
+      <p>On the subway, riders were assaulted more often even as ridership fell: per ride, the risk nearly doubled.</p>
+      <p data-level="2">Yearly rides fell from <b data-v="ride19">1.7 billion</b> to <b data-v="ride25">1.3 billion</b>, while felony assaults on riders rose from <b data-v="sub19">276</b> to <b data-v="sub25">389</b>.</p>
+      <div class="detail" data-level="3"><p class="dl">More detail</p>
+        <p>For every 100 million rides, assaults on riders went from <b data-v="per19">16.3</b> to <b data-v="per25">30.3</b>.</p>
+        <p>In Midtown’s own subway stations, all felony assaults rose from <b data-v="mts19">40</b> to <b data-v="mts25">65</b>.</p>
+      </div>
+    </div></section>
+
+    <section class="step xp" data-step="g"><div class="card">
+      <span class="k">Isn’t it just…</span>
+      <p>Take out assaults on police and other public workers, in shelters, and in stores: it still roughly doubled.</p>
+      <p data-level="2">The chart takes each group out in turn.</p>
+      <div class="detail" data-level="3"><p class="dl">More detail</p>
+        <ul class="rows" id="exclRows"></ul>
+        <p class="quiet">Counts from individual NYPD reports, which differ slightly from official totals.</p>
+      </div>
+    </div></section>
+
+    <section class="step xp" data-step="h"><div class="card">
+      <p>Less serious assaults rose too: <b><span data-v="mis19">1,314</span> → <span data-v="mis25">1,879</span></b> (<span data-v="mispct2">+43%</span>), against <span data-v="miscw">+7.9%</span> citywide.</p>
+      <details class="diff" data-upto="1"><summary>What’s the difference between felony and misdemeanor assault?</summary>
+        <div class="defs"><p><b>Felony assault:</b> <span class="defF"></span></p><p><b>Misdemeanor assault:</b> <span class="defM"></span></p></div>
+      </details>
+      <div data-level="2">
+        <h3 class="defs-h">What counts as an assault?</h3>
+        <div class="def-grid" id="defGrid"></div>
+        <p class="src-line">Source: <a class="penal" href="#" rel="noopener"></a>.</p>
+        <details class="aside" id="scn"><summary>Try it: felony or misdemeanor?</summary>
+          <fieldset><legend>Which of these would usually be a felony assault in New York? Pick all that apply.</legend><div id="scnList"></div></fieldset>
+          <div class="btnrow"><button class="btn" type="button" id="scnCheck">Check my answers</button></div>
+          <p class="hint" id="scnOut" aria-live="polite"></p>
+        </details>
+      </div>
+      <div class="detail" data-level="3"><p class="dl">More detail</p>
+        <p>Both precincts rose. Midtown South: <b><span data-v="ms19">661</span> → <span data-v="ms25">1,146</span></b>. Midtown North: <b><span data-v="mn19">653</span> → <span data-v="mn25">733</span></b>. The 2025 total is the most since records begin in 2000.</p>
+        <div class="ifig" data-fig="misd" id="if-misd">
+          <p class="fig"></p><p class="s-title">Misdemeanor assaults in Midtown, 2000–2025</p>
+          <div class="ifig-body"></div>
+          <p class="s-foot">NYPD official totals.</p>
+        </div>
+      </div>
+    </div></section>
+
+    <section class="step xp" data-step="i"><div class="card">
+      <p>At evening rush, hundreds of people can walk past a typical Midtown block in the roughly 5 minutes before police typically arrive.</p>
+      <p data-level="2">Midtown’s counted blocks see <b><span data-v="pmlo">45</span>–<span data-v="pmhi">118</span></b> people a minute on weekday evenings.</p>
+      <div class="detail" data-level="3"><p class="dl">More detail</p>
+        <p>Police typically wrap up the call about <span data-v="close">50</span> minutes after it comes in. By then, thousands of people can pass.</p>
+        <p class="quiet">An illustration: foot counts are for weekdays from 4 to 7 p.m., and police times are typical for 2025 outdoor assault 911 calls in the two precincts, including misdemeanor assaults.</p>
+      </div>
+    </div></section>
+
+    <section class="step xp" data-step="j"><div class="card">
+      <p>Still rising this year: <b><span data-v="ytdpct2">+6.4%</span></b> through <span data-v="ytdthru2">Oct. 18</span>.</p>
+      <p data-level="2">Misdemeanor assaults are up <span data-v="mypct">3.4%</span>. Robbery and overall major crime are down.</p>
+      <div class="detail" data-level="3"><p class="dl">More detail</p>
+        <ul class="rows" id="ytdRows"></ul>
+        <p class="quiet">NYPD CompStat, 2026 through <span data-v="ytdthru3">Oct. 18</span> vs. the same period of 2025.</p>
+      </div>
+    </div></section>
+
+    <section class="step xp" data-step="k"><div class="card">
+      <p>In 2017, <b data-v="safe17">46%</b> of New Yorkers felt safe on the subway at night. In 2025, <b data-v="safe25">22%</b>.</p>
+      <div class="detail" data-level="3"><p class="dl">More detail</p>
+        <p>During the day, the share fell from <b data-v="day17">82%</b> to <b data-v="day25">51%</b>. The night figure was also <b data-v="safe23">22%</b> in 2023.</p>
+      </div>
+    </div></section>
+  </div>
+</div>
+</div>
+
+<section class="check wrap xp" id="check" aria-labelledby="checkH">
+  <h2 id="checkH">Check your block</h2>
+  <p class="lede">Search for an address or cross streets, pick a place, or tap the map.</p>
+  <form class="combo" id="sform" role="search" autocomplete="off">
+    <label class="ctl-l" for="q">Address, cross streets or place</label>
+    <div class="combo-row">
+      <input id="q" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="sugg" aria-describedby="qnote" placeholder="e.g. 1501 Broadway, 8th Ave and 44th St" spellcheck="false" autocapitalize="off" enterkeyhint="search">
+      <button class="btn" type="submit">Search</button>
+    </div>
+    <ul id="sugg" role="listbox" aria-label="Suggestions" hidden></ul>
+  </form>
+  <p class="quiet" id="qnote">Search runs on your device; nothing you type is sent anywhere.</p>
+  <p class="smsg" id="smsg" role="status"></p>
+  <div class="lmrow" id="lmRow" role="group" aria-label="Choose a place"></div>
+  <p class="ortap">or tap the map</p>
+  <div class="check-grid">
+    <div class="result" id="result">
+      <div id="resultBody" aria-live="polite"></div>
+      <p class="quiet">Map counts come from individual NYPD reports and differ slightly from official totals.</p>
+      <button class="more-btn" type="button" data-max="3" aria-expanded="false">More detail</button>
+      <details class="change" id="change" data-level="2"><summary id="changeSum">Change</summary>
+        <div class="ctl"><span class="ctl-l" id="typeL">Type of assault</span><div class="seg" role="group" aria-labelledby="typeL" id="segType">
+          <button type="button" data-v="fel" aria-pressed="true">Felony</button><button type="button" data-v="mis" aria-pressed="false">Misdemeanor</button><button type="button" data-v="both" aria-pressed="false">Both</button></div></div>
+        <div class="ctl"><label class="ctl-l" for="timeSel">Time of day</label><select id="timeSel"></select></div>
+        <div class="ctl"><span class="ctl-l" id="radL">Distance</span><div class="seg" role="group" aria-labelledby="radL" id="segRad">
+          <button type="button" data-v="500" aria-pressed="true">500 ft</button><button type="button" data-v="1000" aria-pressed="false">1,000 ft</button></div></div>
+      </details>
+      <div class="ifig" data-fig="spot" data-level="2" id="if-spot">
+        <p class="fig"></p><p class="s-title" id="spotTitle">By time of day at this spot</p>
+        <div class="ifig-body"></div>
+        <p class="s-foot"><span class="legend"><span><i style="background:var(--y2019)"></i>2019</span><span><i style="background:var(--blue)"></i>2025</span></span><span id="spotSrc">From individual NYPD reports.</span></p>
+      </div>
+      <div class="detail" data-level="3"><p class="dl">Full breakdown</p>
+        <ul class="bd" id="breakdown"></ul>
+      </div>
+    </div>
+    <div class="check-map">
+      <div class="mapbox" id="checkMap" tabindex="0" role="application" aria-label="Map of Midtown. Tap or click to choose a spot; arrow keys move it."></div>
+      <p class="legend" id="checkLegend"></p>
+    </div>
+  </div>
+</section>
+
+<section class="explore wrap xp" id="explore" aria-labelledby="exH">
+  <button class="more-btn" type="button" data-max="3" aria-expanded="false">More detail: explore the map by hour</button>
+  <div data-level="3" id="exPanel">
+    <h2 id="exH">Explore the map</h2>
+    <p class="lede">Pick a story, or set the year, type, days, places and hours yourself.</p>
+    <div class="ex-presets" id="exPresets" role="group" aria-label="Stories"></div>
+    <p class="ex-cap" id="exCap" aria-live="polite"></p>
+    <div class="ex-ctls">
+      <div class="ctl"><span class="ctl-l" id="exTypeL">Type</span><div class="seg" role="group" aria-labelledby="exTypeL" id="exType">
+        <button type="button" data-v="fel" aria-pressed="true">Felony</button><button type="button" data-v="mis" aria-pressed="false">Misdemeanor</button></div></div>
+      <div class="ctl"><span class="ctl-l" id="exYearL">Year on the map</span><div class="seg" role="group" aria-labelledby="exYearL" id="exYear">
+        <button type="button" data-v="both" aria-pressed="true">Both</button><button type="button" data-v="2019" aria-pressed="false">2019</button><button type="button" data-v="2025" aria-pressed="false">2025</button></div></div>
+      <div class="ctl"><span class="ctl-l" id="exDayL">Days</span><div class="seg" role="group" aria-labelledby="exDayL" id="exDay">
+        <button type="button" data-v="all" aria-pressed="true">All</button><button type="button" data-v="wk" aria-pressed="false">Weekdays</button><button type="button" data-v="we" aria-pressed="false">Weekends</button></div></div>
+      <div class="ctl"><span class="ctl-l" id="exPlL">Places</span><div class="seg" role="group" aria-labelledby="exPlL" id="exPlace">
+        <button type="button" data-v="all" aria-pressed="true">All</button><button type="button" data-v="pub" aria-pressed="false">Public</button><button type="button" data-v="priv" aria-pressed="false">Private</button></div></div>
+    </div>
+    <p class="ex-sum" id="exSum" aria-live="polite"></p>
+    <p class="quiet">Map counts come from individual NYPD reports and differ slightly from official totals.</p>
+    <div class="ex-grid">
+      <div class="ifig ex-clockbox" id="ex-clock">
+        <p class="fig"></p><p class="s-title">Reports by hour of the day</p>
+        <svg id="clock" viewBox="0 0 400 400" role="group" aria-label="24-hour clock of assault reports by hour. Each wedge is a button that selects that hour."></svg>
+        <div class="hourpick"><button class="btn ghost" type="button" id="allHours">All hours</button><label>From <select id="hFrom" aria-label="Start hour"></select></label><label>to <select id="hTo" aria-label="End hour"></select></label></div>
+        <p class="s-foot"><span class="legend"><span><i style="background:var(--y2019)"></i>2019</span><span><i style="background:var(--blue)"></i>2025</span></span>Tap a wedge to pick an hour; drag around the clock for a range.</p>
+      </div>
+      <div class="ex-mapwrap" id="ex-map">
+        <p class="fig"></p><p class="s-title" id="exMapTitle">Where they were reported</p>
+        <div class="mapbox" id="exMap" role="img" aria-label="Map of Midtown assault reports for the chosen filters."></div>
+        <p class="legend" id="exLegend"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="end wrap" aria-labelledby="endH">
+  <h2 id="endH">The takeaway</h2>
+  <p class="take">Felony assaults in Midtown more than doubled between 2019 and 2025, rising about three times as fast as in the city as a whole. Most happen in public, from late afternoon into the night, and the count is still rising in 2026.</p>
+  <a class="cta storylink" href="#" target="_blank" rel="noopener">Read the full story on The Bigger Apple</a>
+  <div class="share" id="shareEnd" data-share-title="Midtown, Block by Block" data-share-text="Felony assaults in Midtown have more than doubled since 2019: 375 → 884. Explore the data."></div>
+  <details class="about"><summary>About the data and sources</summary>
+    <h3>How we counted</h3><ul id="method"></ul>
+    <h3>Definitions</h3><ul id="aboutDefs"></ul>
+    <h3>Sources</h3><ul id="srcList"></ul>
+  </details>
+</section>
+</main>
+<footer class="wrap">The Bigger Apple · Manhattan Institute</footer>
+
+<script src="data.js"></script>
+<script src="basemap.js"></script>
+<script src="addresses.js"></script>
+<script>
+(function(){
+"use strict";
+var M = window.MIDTOWN, B = window.MIDTOWN_MAP, AD = window.MIDTOWN_ADDR;
+var HL = M.headline, MD = M.misdemeanor, L = M.location2025, T = M.timeOfDay, SUB = M.subway, Y = M.ytd2026, W = M.witness, A = M.annual, PER = M.perception;
+var $ = function(s, r){ return (r||document).querySelector(s); };
+var $$ = function(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+function reduced(){ return reduceMQ.matches; }
+function fmt(n){ return Number(n).toLocaleString("en-US"); }
+function pct(v){ return (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v) + "%"; }
+function cssVar(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]; }); }
+var SVGNS = "http://www.w3.org/2000/svg";
+function S(tag, attrs, parent, text){
+  var e = document.createElementNS(SVGNS, tag);
+  if (tag === "text" && attrs && attrs["font-size"] != null && attrs["font-size"] < 12) attrs["font-size"] = 12; // labels never below 12px
+  if (attrs) for (var k in attrs) if (attrs[k] != null) e.setAttribute(k, attrs[k]);
+  if (text != null) e.textContent = text;
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function HT(tag, attrs, parent, text){
+  var e = document.createElement(tag);
+  if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+  if (text != null) e.textContent = text;
+  if (parent) parent.appendChild(e);
+  return e;
+}
+var mctx = document.createElement("canvas").getContext("2d");
+function textW(t, fs, bold){ mctx.font = (bold ? "700 " : "") + fs + "px Arial, Helvetica, sans-serif"; return mctx.measureText(t).width; }
+
+/* ---------- screen level: 1 phone, 2 tablet, 3 desktop ---------- */
+var mq2 = window.matchMedia("(min-width:600px)"), mq3 = window.matchMedia("(min-width:1024px)");
+function screenLevel(){ return mq3.matches ? 3 : (mq2.matches ? 2 : 1); }
+function isWide(){ return mq3.matches; }
+function lvlOf(el){ return Math.max(screenLevel(), el && el.classList.contains("x-open") ? 3 : 0); }
+
+/* ---------- numbers from data.js ---------- */
+var i19 = A.years.indexOf(2019), i25 = A.years.indexOf(2025), MA = MD.annual;
+var thru = Y.through.replace(/, \d{4}$/, "");
+function perc(arr, yr){ for (var i=0;i<arr.length;i++) if (arr[i][0] === yr) return arr[i][1]; return null; }
+var V = {
+  h19: fmt(HL.y2019), h25: fmt(HL.y2025), hpct: pct(HL.midtownPct), cwpct: pct(HL.citywidePct), cwpct2: HL.citywidePct + "%",
+  avg: fmt(HL.avg2016_2019),
+  s19: fmt(A.south[i19]), s25: fmt(A.south[i25]), n19: fmt(A.north[i19]), n25: fmt(A.north[i25]),
+  mispct: pct(MD.headline.midtownPct), mispct2: pct(MD.headline.midtownPct), mis19: fmt(MD.headline.y2019), mis25: fmt(MD.headline.y2025), miscw: pct(MD.headline.citywidePct),
+  ms19: fmt(MD.headline.south[0]), ms25: fmt(MD.headline.south[1]), mn19: fmt(MD.headline.north[0]), mn25: fmt(MD.headline.north[1]),
+  ytdpct: pct(Y.pct), ytdpct2: pct(Y.pct), ytdthru: thru, ytdthru2: thru, ytdthru3: thru, mypct: Math.abs(MD.ytd2026.pct) + "%",
+  pub: L.publicShare + "%", cwpub: L.citywidePublicShare + "%",
+  ride19: (SUB.ridesMillions[0]/1000).toFixed(1) + " billion", ride25: (SUB.ridesMillions[1]/1000).toFixed(1) + " billion",
+  sub19: fmt(SUB.y2019), sub25: fmt(SUB.y2025), per19: SUB.per100M[0].toFixed(1), per25: SUB.per100M[1].toFixed(1),
+  mts19: fmt(SUB.midtownAll[0]), mts25: fmt(SUB.midtownAll[1]),
+  pmlo: W.perMinRange[0], pmhi: W.perMinRange[1], close: Math.round(W.jobClosedMin),
+  safe17: perc(PER.subwayNightSafe, 2017) + "%", safe23: perc(PER.subwayNightSafe, 2023) + "%", safe25: perc(PER.subwayNightSafe, 2025) + "%",
+  day17: perc(PER.subwayDaySafe, 2017) + "%", day25: perc(PER.subwayDaySafe, 2025) + "%"
+};
+$$("[data-v]").forEach(function(el){ var k = el.getAttribute("data-v"); if (V[k] != null && !el.closest(".seg")) el.textContent = V[k]; });
+$$(".storylink").forEach(function(a){ a.href = M.sources.article.url; });
+$$(".defF").forEach(function(e){ e.textContent = M.definitions.felony.plain; });
+$$(".defM").forEach(function(e){ e.textContent = M.definitions.misdemeanor.plain; });
+$$("a.penal").forEach(function(a){ a.href = M.sources.penal.url; a.textContent = M.sources.penal.name; });
+$("#shareEnd").setAttribute("data-share-text", "Felony assaults in Midtown have more than doubled since 2019: " + V.h19 + " → " + V.h25 + ". Explore the data.");
+$("#heroNums").innerHTML =
+  '<div class="hn"><b>' + V.h19 + ' <span class="arrow" aria-hidden="true">→</span> <span class="c25">' + V.h25 + '</span></b><span class="lab">2019 → 2025</span></div>' +
+  '<div class="hn"><b class="c25">' + pct(HL.midtownPct) + '</b><span class="lab">Midtown</span></div>' +
+  '<div class="hn"><b>' + pct(HL.citywidePct) + '</b><span class="lab">Citywide</span></div>';
+// the worded figures must still match the data
+console.assert(Math.round(L.publicShare/25) === 3 && L.citywidePublicShare < 50, "public share wording");
+console.assert(Math.round(HL.midtownPct/HL.citywidePct) === 3, "three times as fast");
+console.assert(M.exclusions[2][2]/M.exclusions[2][1] > 1.8 && M.exclusions[2][2]/M.exclusions[2][1] < 2.2, "roughly doubled");
+console.assert(SUB.per100M[1]/SUB.per100M[0] > 1.75 && SUB.per100M[1]/SUB.per100M[0] < 2, "nearly doubled");
+console.assert(Y.robberyPct < 0 && Y.allMajorPct < 0, "robbery, major crime down");
+console.assert(Math.max.apply(null, A.midtown) === HL.y2025 && Math.max.apply(null, MA.midtown) === MD.headline.y2025, "records");
+console.assert(T.y2025.every(function(v, i){ return v > T.y2019[i]; }), "rose at every time of day");
+console.assert(W.perMinMedian*W.policeArrivalMin > 100 && W.perMinRange[0]*W.jobClosedMin > 1000, "hundreds / thousands");
+
+/* detail rows (exclusions, 2026) */
+M.exclusions.forEach(function(e){ var li = HT("li", null, $("#exclRows")); HT("span", null, li, e[0].replace(" (complaint records)", "")); HT("b", null, li, fmt(e[1]) + " → " + fmt(e[2])); });
+[["Felony assault, Midtown", Y.pct], ["Midtown South", Y.southPct], ["Midtown North", Y.northPct], ["Citywide", Y.citywidePct],
+ ["Misdemeanor assault, Midtown", MD.ytd2026.pct], ["Midtown South", MD.ytd2026.southPct], ["Midtown North", MD.ytd2026.northPct], ["Citywide", MD.ytd2026.citywidePct],
+ ["Robbery, Midtown", Y.robberyPct], ["All major crime, Midtown", Y.allMajorPct]].forEach(function(r){
+  var li = HT("li", null, $("#ytdRows")); HT("span", null, li, r[0]); HT("b", null, li, pct(r[1]));
+});
+
+/* definitions cards (text exactly as in data.js) and the felony-or-misdemeanor aside (from the quiz) */
+[["felony",""],["misdemeanor","misd"]].forEach(function(d){
+  var D = M.definitions[d[0]], art = HT("article", { "class":"def-card " + d[1] }, $("#defGrid"));
+  HT("h4", null, art, D.term); HT("p", null, art, D.plain);
+  var det = HT("details", null, art); HT("summary", null, det, "Read more"); HT("p", null, det, D.detail);
+});
+var SCN = [
+  { text:"A punch that leaves a bruise", felony:false, why:"Usually a misdemeanor: an injury the law doesn't count as “serious,” like a punch that leaves bruises." },
+  { text:"Slashing someone with a box cutter", felony:true, why:"Usually a felony: any injury caused with a weapon." },
+  { text:"Intentionally injuring a subway conductor on the job", felony:true, why:"Usually a felony: an injury to a transit worker or other protected worker on the job." }
+];
+SCN.forEach(function(o, k){
+  var lab = HT("label", { "class":"choice", id:"scn" + k }, $("#scnList"));
+  var inp = HT("input", { type:"checkbox", value:String(k) }, lab);
+  var sp = HT("span", null, lab, o.text); HT("span", { "class":"tag", hidden:"" }, sp);
+  inp.addEventListener("change", function(){});
+});
+$("#scnCheck").addEventListener("click", function(){
+  var right = 0;
+  SCN.forEach(function(o, k){
+    var lab = $("#scn" + k), inp = $("input", lab), tag = $(".tag", lab);
+    inp.disabled = true;
+    if (inp.checked === o.felony) right++;
+    tag.hidden = false; tag.textContent = (inp.checked === o.felony ? "✓ " : "✗ ") + o.why;
+  });
+  $("#scnCheck").disabled = true;
+  $("#scnOut").textContent = right === SCN.length ? "All three right." : "You got " + right + " of " + SCN.length + " right.";
+});
+
+/* ---------- projection (same as the prototypes) ---------- */
+var LAT0 = 40.758, LON0 = -73.985, TH = 29*Math.PI/180, CT = Math.cos(TH), ST = Math.sin(TH), CL = Math.cos(LAT0*Math.PI/180);
+var KX = CL*111320, KY = 110540;
+function proj(lat, lon){ var e = (lon-LON0)*KX, n = (lat-LAT0)*KY; return [e*CT - n*ST, -(e*ST + n*CT)]; }
+function unproj(X, Y2){ var e = X*CT - Y2*ST, n = -X*ST - Y2*CT; return [LAT0 + n/KY, LON0 + e/KX]; }
+function haversine(lat1, lon1, lat2, lon2){
+  var R = 6371008.8, r = Math.PI/180, dLat = (lat2-lat1)*r, dLon = (lon2-lon1)*r;
+  var a = Math.sin(dLat/2)*Math.sin(dLat/2) + Math.cos(lat1*r)*Math.cos(lat2*r)*Math.sin(dLon/2)*Math.sin(dLon/2);
+  return 2*R*Math.asin(Math.min(1, Math.sqrt(a)));
+}
+var FT = 0.3048;
+var FRAME = { x0:-1460, x1:1085, y0:-1215, y1:1365 };
+var FW = FRAME.x1 - FRAME.x0, FH = FRAME.y1 - FRAME.y0;
+var TOPM = 36; // px strip above the map for avenue labels
+
+var PUBLIC = { street:1, transit:1, store:1, public_bldg:1 }, PRIVATE = { home:1, hotel:1, shelter:1 };
+function prepRows(rows, fel){
+  var out = { 2019: [], 2025: [] };
+  rows.forEach(function(r){ var p = proj(r[1], r[2]); out[r[0]].push({ x:p[0], y:p[1], lat:r[1], lon:r[2], h:r[3], wd:r[4], loc:r[5], bin:Math.floor(r[3]/3), pub:!!PUBLIC[r[5]], priv:!!PRIVATE[r[5]] }); });
+  return out;
+}
+var FEL = prepRows(M.points.rows, true), MIS = prepRows(MD.points.rows, false);
+var LAYERS = [
+  { key:"f19", pts:FEL[2019], y:2019, type:"fel", a:.75 },
+  { key:"m19", pts:MIS[2019], y:2019, type:"mis", a:.6 },
+  { key:"f25", pts:FEL[2025], y:2025, type:"fel", a:.6 },
+  { key:"m25", pts:MIS[2025], y:2025, type:"mis", a:.5 }
+];
+var STREETS = B.streets.map(function(s){
+  return { name:s.name, major:s.major, hwy:s.hwy, lines:s.lines.map(function(l){ return l.map(function(c){ return proj(c[1], c[0]); }); }) };
+});
+var PRECS = ["14","18"].map(function(k){ return { id:k, rings:B.precincts[k].map(function(r){ return r.map(function(c){ return proj(c[1], c[0]); }); }) }; });
+
+var LANDMARKS = [
+  {id:"times", name:"Times Square", lat:40.7580, lon:-73.9855, map:1, alias:["TIMES SQUARE"]},
+  {id:"gct", name:"Grand Central", lat:40.7527, lon:-73.9772, map:1, alias:["GRAND CENTRAL","GRAND CENTRAL TERMINAL","GRAND CENTRAL STATION"]},
+  {id:"penn", name:"Penn Station", lat:40.7506, lon:-73.9935, map:1, alias:["PENN STATION"]},
+  {id:"pa", name:"Port Authority", lat:40.7570, lon:-73.9903, map:1, alias:["PORT AUTHORITY","PORT AUTHORITY BUS TERMINAL","BUS TERMINAL"]},
+  {id:"bryant", name:"Bryant Park", lat:40.7536, lon:-73.9832, map:1, alias:["BRYANT PARK"]},
+  {id:"herald", name:"Herald Square", lat:40.7500, lon:-73.9878, alias:["HERALD SQUARE"]},
+  {id:"rock", name:"Rockefeller Center", lat:40.7587, lon:-73.9787, alias:["ROCKEFELLER CENTER","ROCKEFELLER PLAZA","ROCK CENTER"]},
+  {id:"carnegie", name:"Carnegie Hall", lat:40.7651, lon:-73.9799, map:1, alias:["CARNEGIE HALL"]},
+  {id:"53rd", name:"7th Ave & 53rd St subway", lat:40.7627, lon:-73.9817, alias:["7 AVENUE 53 STREET SUBWAY","53 STREET SUBWAY"]}
+];
+var AVES = [["8th Ave","8th Ave","8th"],["7th Ave","7th Ave","7th"],["6th Ave","6th Ave","6th"],["5th Ave","5th Ave","5th"],["Park Ave","Park","Park"],["Lexington Ave","Lexington","Lex"],["Madison Ave","Madison","Mad"],["9th Ave","9th Ave","9th"],["10th Ave","10th Ave","10th"],["11th Ave","11th Ave","11th"],["3rd Ave","3rd Ave","3rd"]];
+var XSTREETS = [["West 34th St","34th St"],["West 42nd St","42nd St"],["West 57th St","57th St"]];
+
+/* ---------- map view: SVG base + canvas dots + SVG labels (from the index draft) ---------- */
+function MapView(box, opts){
+  this.box = box; this.opts = opts || {};
+  this.base = S("svg", { "aria-hidden":"true" }, box);
+  this.canvas = document.createElement("canvas"); this.canvas.setAttribute("aria-hidden","true"); box.appendChild(this.canvas);
+  this.top = S("svg", { "class":"top-layer", "aria-hidden":"true" }, box);
+  this.cur = { f19:0, f25:0, m19:0, m25:0, dim:0 };
+  this.tgt = { f19:0, f25:0, m19:0, m25:0, dim:0 };
+  this.filter = null; this.spot = null; this.raf = 0; this.level = 3;
+}
+MapView.prototype.layout = function(){
+  var W = this.box.clientWidth, H;
+  if (this.opts.aspect){ if (W < 10) return false; H = Math.round(TOPM + W*FH/FW); if (this.opts.maxH) H = Math.min(H, this.opts.maxH()); this.box.style.height = H + "px"; }
+  else H = this.box.clientHeight;
+  if (W < 10 || H < 10) return false;
+  var k = Math.min(W/FW, (H - TOPM)/FH);
+  this.W = W; this.H = H; this.k = k;
+  this.ox = (W - FW*k)/2; this.oy = TOPM + Math.max(0, (H - TOPM - FH*k)/2);
+  return true;
+};
+MapView.prototype.px = function(x, y){ return [this.ox + (x - FRAME.x0)*this.k, this.oy + (y - FRAME.y0)*this.k]; };
+MapView.prototype.render = function(){
+  if (!this.layout()) return;
+  var me = this, W = this.W, H = this.H, k = this.k, labels = this.opts.labels || this.level >= 2;
+  var fx = this.ox, fy = this.oy, fw = FW*k, fh = FH*k;
+  this.fb = { x0:fx, y0:fy, x1:fx+fw, y1:fy+fh };
+  [this.base, this.top].forEach(function(s){ s.setAttribute("width", W); s.setAttribute("height", H); s.setAttribute("viewBox", "0 0 " + W + " " + H); while (s.firstChild) s.removeChild(s.firstChild); });
+  var dpr = Math.min(2, window.devicePixelRatio || 1);
+  this.canvas.width = Math.round(W*dpr); this.canvas.height = Math.round(H*dpr);
+  this.canvas.style.width = W + "px"; this.canvas.style.height = H + "px"; this.dpr = dpr;
+
+  var cid = "clip" + (this.opts.id || "m");
+  var defs = S("defs", null, this.base), cp = S("clipPath", { id:cid }, defs);
+  S("rect", { x:fx, y:fy, width:fw, height:fh }, cp);
+  S("rect", { "class":"m-frame", x:fx, y:fy, width:fw, height:fh }, this.base);
+  var g = S("g", { "clip-path":"url(#" + cid + ")" }, this.base);
+  function ringPath(r){ return "M" + r.map(function(p){ var q = me.px(p[0], p[1]); return q[0].toFixed(1) + " " + q[1].toFixed(1); }).join("L") + "Z"; }
+  PRECS.forEach(function(P){ S("path", { "class":"m-prec", d:P.rings.map(ringPath).join("") }, g); });
+  var dMin = "", dMaj = "", dHwy = "";
+  STREETS.forEach(function(s){
+    s.lines.forEach(function(l){
+      var d = "M" + l.map(function(p){ var q = me.px(p[0], p[1]); return q[0].toFixed(1) + " " + q[1].toFixed(1); }).join("L");
+      if (s.hwy) dHwy += d; else if (s.major) dMaj += d; else dMin += d;
+    });
+  });
+  S("path", { "class":"m-street", d:dMin }, g);
+  S("path", { "class":"m-hwy", d:dHwy }, g);
+  S("path", { "class":"m-major", d:dMaj }, g);
+  S("rect", { "class":"m-edge", x:fx, y:fy, width:fw, height:fh }, this.base);
+
+  var tg = S("g", { "clip-path":"url(#" + cid + "t)" }, this.top);
+  var tdefs = S("defs", null, this.top), tcp = S("clipPath", { id:cid + "t" }, tdefs);
+  S("rect", { x:fx, y:fy, width:fw, height:fh }, tcp);
+  PRECS.forEach(function(P){ S("path", { "class":"m-prec-line", d:P.rings.map(ringPath).join("") }, tg); });
+  this.pinLayer = S("g", null, this.top);
+  var lg = S("g", null, this.top);
+  var narrow = W < 560, fs = narrow ? 12 : 13, placed = [];
+  function hit(a){ for (var i=0;i<placed.length;i++){ var b = placed[i]; if (a.x0 < b.x1 && a.x1 > b.x0 && a.y0 < b.y1 && a.y1 > b.y0) return true; } return false; }
+  function inFrame(b){ return b.x0 >= fx+2 && b.x1 <= fx+fw-2 && b.y0 >= fy+2 && b.y1 <= fy+fh-2; }
+
+  // uptown + scale bar (every level)
+  var ut = "↑ Uptown", uw = textW(ut, fs);
+  S("text", { "class":"lbl st", x:fx + fw - 6, y:fy + fs + 6, "text-anchor":"end", "font-size":fs }, lg, ut);
+  placed.push({ x0:fx+fw-10-uw, y0:fy+2, x1:fx+fw, y1:fy+fs+10 });
+  var sb = 1000*FT*k, sbx = fx + 8, sby = fy + fh - 10;
+  S("path", { d:"M" + sbx + " " + (sby-5) + "V" + sby + "H" + (sbx+sb) + "V" + (sby-5), fill:"none", stroke:"var(--ink)", "stroke-width":1.5 }, lg);
+  S("text", { "class":"lbl", x:sbx, y:sby - 8, "font-size":fs }, lg, "1,000 ft");
+  placed.push({ x0:sbx-2, y0:sby-8-fs, x1:sbx + Math.max(sb, textW("1,000 ft", fs)) + 4, y1:sby + 2 });
+
+  if (labels){
+    // avenue labels above the frame (two rows, greedy, priority order)
+    var rows = [[], []];
+    AVES.forEach(function(a){
+      var s = STREETS.filter(function(x){ return x.name === a[0]; })[0]; if (!s) return;
+      var xs = [];
+      s.lines.forEach(function(l){ l.forEach(function(p){ if (p[1] > FRAME.y0 && p[1] < FRAME.y0 + FH*0.12 && p[0] > FRAME.x0 && p[0] < FRAME.x1) xs.push(p[0]); }); });
+      if (!xs.length) return;
+      var x = me.px(xs.reduce(function(u,v){return u+v;},0)/xs.length, 0)[0];
+      var t = narrow ? a[2] : a[1], w = textW(t, fs) + 6;
+      var bx = { x0:x - w/2, x1:x + w/2 };
+      if (bx.x0 < 0 || bx.x1 > W) return;
+      for (var r=0; r<2; r++){
+        var ok = rows[r].every(function(o){ return bx.x1 <= o.x0 || bx.x0 >= o.x1; });
+        if (ok){ rows[r].push(bx);
+          var ty = fy - 6 - r*(fs + 4);
+          S("text", { "class":"lbl av", x:x, y:ty, "text-anchor":"middle", "font-size":fs }, lg, t);
+          if (r === 1) S("line", { x1:x, x2:x, y1:ty + 3, y2:fy, stroke:"var(--line)", "stroke-width":1 }, lg);
+          return; }
+      }
+    });
+    // cross streets on the left edge
+    XSTREETS.forEach(function(xs){
+      var s = STREETS.filter(function(x){ return x.name === xs[0]; })[0]; if (!s) return;
+      var ys = [];
+      s.lines.forEach(function(l){ l.forEach(function(p){ if (p[0] > FRAME.x0 && p[0] < FRAME.x0 + FW*0.2) ys.push(p[1]); }); });
+      if (!ys.length) return;
+      var y = me.px(0, ys.reduce(function(u,v){return u+v;},0)/ys.length)[1];
+      var t = xs[1], w = textW(t, fs, true), bx = { x0:fx+4, y0:y - fs - 3, x1:fx+6+w, y1:y - 1 };
+      S("text", { "class":"lbl st", x:fx + 5, y:y - 4, "font-size":fs, "font-weight":700 }, lg, t);
+      placed.push(bx);
+    });
+    // precinct area labels
+    [["Midtown North", 40.7668, -73.9905], ["Midtown South", 40.7478, -73.9905]].forEach(function(a){
+      var p = proj(a[1], a[2]), q = me.px(p[0], p[1]), t = a[0].toUpperCase(), w = textW(t, fs, true) + fs*0.08*t.length;
+      var bx = { x0:q[0] - w/2, y0:q[1] - fs, x1:q[0] + w/2, y1:q[1] + 3 };
+      if (!inFrame(bx)) return;
+      S("text", { "class":"lbl area", x:q[0], y:q[1], "text-anchor":"middle", "font-size":fs - 1 }, lg, t);
+      placed.push(bx);
+    });
+    // Broadway, along the street
+    (function(){
+      var s = STREETS.filter(function(x){ return x.name === "Broadway"; })[0]; if (!s) return;
+      var tp = proj(40.7522, -73.9876), best = null, bd = Infinity;
+      s.lines.forEach(function(l){ for (var i=1;i<l.length;i++){ var a = l[i-1], b = l[i], mx = (a[0]+b[0])/2, my = (a[1]+b[1])/2, d = Math.hypot(mx-tp[0], my-tp[1]); if (d < bd && Math.hypot(b[0]-a[0], b[1]-a[1]) > 20){ bd = d; best = [a, b]; } } });
+      if (!best) return;
+      var a = me.px(best[0][0], best[0][1]), b = me.px(best[1][0], best[1][1]);
+      if (a[0] > b[0]){ var t0 = a; a = b; b = t0; }
+      var ang = Math.atan2(b[1]-a[1], b[0]-a[0]), cx = (a[0]+b[0])/2, cy = (a[1]+b[1])/2;
+      var w = textW("Broadway", fs), c = Math.abs(Math.cos(ang)), sn = Math.abs(Math.sin(ang));
+      var hw = (w*c + fs*sn)/2, hh = (w*sn + fs*c)/2;
+      cx += -Math.sin(ang)*-(fs*0.6); cy += Math.cos(ang)*-(fs*0.6);
+      S("text", { "class":"lbl st", x:cx, y:cy, "text-anchor":"middle", "dominant-baseline":"middle", "font-size":fs, "font-style":"italic", transform:"rotate(" + (ang*180/Math.PI).toFixed(1) + " " + cx.toFixed(1) + " " + cy.toFixed(1) + ")" }, lg, "Broadway");
+      placed.push({ x0:cx-hw, y0:cy-hh, x1:cx+hw, y1:cy+hh });
+    })();
+    // landmarks (collision avoidance from the walk)
+    var marks = LANDMARKS.filter(function(l){ return l.map; }).map(function(l){ var p = proj(l.lat, l.lon), q = me.px(p[0], p[1]); return { name:l.name, x:q[0], y:q[1] }; });
+    marks.forEach(function(m){ placed.push({ x0:m.x-5, y0:m.y-5, x1:m.x+5, y1:m.y+5 }); });
+    marks.forEach(function(m){ S("rect", { "class":"lm-mark", x:m.x-4, y:m.y-4, width:8, height:8, transform:"rotate(45 " + m.x.toFixed(1) + " " + m.y.toFixed(1) + ")" }, lg); });
+    marks.forEach(function(m){
+      var tw = textW(m.name, fs, true) + 4, th = fs + 2, best = null, cands = [];
+      [0,-1,1,-2,2,-3,3].forEach(function(dy){ cands.push({ ax:"start", dx:8, dy:dy*(th+2) }); cands.push({ ax:"end", dx:-8, dy:dy*(th+2) }); });
+      cands.push({ ax:"middle", dx:0, dy:-(th+4) }); cands.push({ ax:"middle", dx:0, dy:th+6 });
+      for (var i=0;i<cands.length;i++){
+        var c = cands[i], tx = m.x + c.dx, ty = m.y + c.dy;
+        var bx0 = c.ax === "start" ? tx : (c.ax === "end" ? tx - tw : tx - tw/2);
+        var box = { x0:bx0, y0:ty - th/2 - 1, x1:bx0 + tw, y1:ty + th/2 + 1 };
+        if (!inFrame(box)) continue;
+        if (!hit(box)){ best = { c:c, tx:tx, ty:ty, box:box }; break; }
+      }
+      if (!best){ var c0 = cands[0]; best = { c:c0, tx:m.x+8, ty:m.y, box:{ x0:m.x+8, y0:m.y-th/2, x1:m.x+8+tw, y1:m.y+th/2 } }; }
+      placed.push(best.box);
+      if (Math.abs(best.c.dy) > th){
+        var lx = best.c.ax === "start" ? best.box.x0 - 1 : (best.c.ax === "end" ? best.box.x1 + 1 : best.tx);
+        S("line", { x1:m.x, y1:m.y, x2:lx, y2:best.ty, stroke:"var(--ink)", "stroke-width":0.8 }, lg);
+      }
+      S("text", { "class":"lbl lm", x:best.tx, y:best.ty + fs*0.36, "text-anchor":best.c.ax, "font-size":fs }, lg, m.name);
+    });
+  }
+  this.drawPin();
+  this.draw();
+};
+MapView.prototype.drawPin = function(){
+  var g = this.pinLayer; if (!g) return;
+  while (g.firstChild) g.removeChild(g.firstChild);
+  if (!this.spot) return;
+  var p = proj(this.spot.lat, this.spot.lon), q = this.px(p[0], p[1]), r = this.spot.radius*this.k;
+  S("circle", { "class":"pin-ring", cx:q[0], cy:q[1], r:r }, g);
+  S("circle", { "class":"pin-dot", cx:q[0], cy:q[1], r:5 }, g);
+};
+MapView.prototype.draw = function(){
+  if (!this.W) return;
+  var ctx = this.canvas.getContext("2d"), cur = this.cur, me = this, fb = this.fb;
+  ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+  ctx.clearRect(0, 0, this.W, this.H);
+  ctx.save(); ctx.beginPath(); ctx.rect(fb.x0, fb.y0, fb.x1 - fb.x0, fb.y1 - fb.y0); ctx.clip();
+  var c19 = cssVar("--y2019") || "#AEB0B7", c25 = cssVar("--blue") || "#2C48DC";
+  var r = Math.max(1.5, Math.min(2.6, this.k*11));
+  var spot = this.spot;
+  LAYERS.forEach(function(Lr){
+    var a = cur[Lr.key]; if (a < 0.01) return;
+    ctx.fillStyle = Lr.y === 2019 ? c19 : c25;
+    var last = -1;
+    for (var i=0;i<Lr.pts.length;i++){
+      var p = Lr.pts[i];
+      if (me.filter && !me.filter(p)) continue;
+      var al = a*Lr.a;
+      if (!p.pub) al *= (1 - 0.85*cur.dim);
+      if (spot){ al = p.near ? Math.min(1, al + .25) : al*0.22; }
+      if (al !== last){ ctx.globalAlpha = al; last = al; }
+      var x = me.ox + (p.x - FRAME.x0)*me.k, y = me.oy + (p.y - FRAME.y0)*me.k;
+      ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
+    }
+  });
+  ctx.restore();
+};
+MapView.prototype.set = function(t, instant){
+  var me = this, keys = ["f19","f25","m19","m25","dim"];
+  keys.forEach(function(k){ me.tgt[k] = t[k] || 0; });
+  if (instant || reduced() || !this.W){ keys.forEach(function(k){ me.cur[k] = me.tgt[k]; }); this.draw(); return; }
+  var from = {}; for (var k in this.cur) from[k] = this.cur[k];
+  var t0 = performance.now(), D = 450;
+  cancelAnimationFrame(this.raf); clearTimeout(this.snap);
+  function tick(now){
+    var f = Math.min(1, (now - t0)/D), e = f*(2-f);
+    for (var k in me.tgt) me.cur[k] = from[k] + (me.tgt[k] - from[k])*e;
+    me.draw();
+    if (f < 1) me.raf = requestAnimationFrame(tick);
+  }
+  this.raf = requestAnimationFrame(tick);
+  // never leave dots half-drawn if frames stop (background tab, etc.)
+  this.snap = setTimeout(function(){ for (var k in me.tgt) me.cur[k] = me.tgt[k]; me.draw(); }, D + 150);
+};
+
+/* ---------- story map ---------- */
+var story = new MapView($("#storyMap"), { id:"s" });
+var MAPSTATES = {
+  intro: { t:{ f25:1 }, title:"Felony assaults in Midtown, 2025", leg:[["--blue","2025"]] },
+  a: { t:{ f19:1 }, title:"Felony assaults in Midtown, 2019", leg:[["--y2019","2019"]] },
+  b: { t:{ f19:1, f25:1 }, title:"Felony assaults in Midtown, 2019 and 2025", leg:[["--y2019","2019"],["--blue","2025"]] },
+  d: { t:{ f25:1, dim:1 }, title:"Felony assaults in 2025: public places stand out", leg:[["--blue","In public"],["--y2019","Private places (faded)", "faded"]] },
+  h: { t:{ m19:1, m25:1 }, title:"Misdemeanor assaults in Midtown, 2019 and 2025", leg:[["--y2019","2019"],["--blue","2025"]] }
+};
+function setMapState(key, lvl){
+  var st = MAPSTATES[key]; if (!st) return;
+  story.set(st.t);
+  $("#mapTitle").textContent = st.title;
+  var h = st.leg.map(function(l){ return '<span><i style="background:var(' + l[0] + ')' + (l[2] ? ';opacity:.35' : '') + '"></i>' + l[1] + '</span>'; }).join("");
+  if (lvl >= 2) h += '<span class="q">One dot per NYPD report, at an approximate location</span>';
+  $("#mapLegend").innerHTML = h;
+  $("#storyMap").setAttribute("aria-label", st.title + ". Street map of Midtown, avenues running up and down, with the two NYPD precincts that cover Midtown outlined.");
+}
+
+/* ---------- chart scenes ---------- */
+function prep(body, hFixed){
+  while (body.firstChild) body.removeChild(body.firstChild);
+  var w = Math.max(240, body.clientWidth), h = hFixed || body.clientHeight;
+  if (hFixed) body.style.height = h + "px";
+  var svg = S("svg", { viewBox:"0 0 " + w + " " + h, role:"img", width:w, height:h }, body);
+  if (!hFixed){ svg.removeAttribute("width"); svg.removeAttribute("height"); }
+  return { svg:svg, w:w, h:h };
+}
+var guessState = { pick:0, revealed:false };
+function renderGuess(lvl, anim){
+  var P = prep($("#guessBody")), svg = P.svg, w = P.w, h = P.h;
+  var max = 150, bx = 0, bw = w - 70;
+  var rowH = Math.min(56, (h - 40)/2.6), y1 = Math.max(26, (h - (2*rowH + 36 + 44))/2 + 10), y2 = y1 + rowH + 36;
+  function X(v){ return bx + bw*v/max; }
+  S("text", { "class":"c-lbl b", x:0, y:y1 - 8 }, svg, "Citywide");
+  S("rect", { "class":"barInk" + (anim ? " growx" : ""), x:bx, y:y1, width:X(HL.citywidePct) - bx, height:rowH }, svg);
+  S("text", { "class":"c-lbl big", x:X(HL.citywidePct) + 8, y:y1 + rowH/2 + 8 }, svg, pct(HL.citywidePct));
+  S("text", { "class":"c-lbl b", x:0, y:y2 - 8 }, svg, "Midtown");
+  if (guessState.revealed){
+    S("rect", { "class":"bar25" + (anim ? " growx" : ""), x:bx, y:y2, width:X(HL.midtownPct) - bx, height:rowH }, svg);
+    S("text", { "class":"c-lbl big c-blue", x:Math.min(X(HL.midtownPct) + 8, w - 64), y:y2 + rowH/2 + 8 }, svg, pct(HL.midtownPct));
+  } else {
+    S("rect", { x:bx + .5, y:y2 + .5, width:bw - 1, height:rowH - 1, fill:"none", stroke:"var(--line)", "stroke-dasharray":"4 4" }, svg);
+    S("text", { "class":"c-lbl big", x:bx + bw/2, y:y2 + rowH/2 + 8, "text-anchor":"middle" }, svg, "?");
+  }
+  [1,2,3].forEach(function(m){
+    var x = X(HL.citywidePct*m), on = guessState.pick === m;
+    S("line", { x1:x, x2:x, y1:y2 - 4, y2:y2 + rowH + 4, stroke:on ? "var(--accent)" : "var(--muted)", "stroke-width":on ? 3 : 1 }, svg);
+    S("text", { "class":"c-lbl" + (on ? " b" : " m"), x:x, y:y2 + rowH + 20, "text-anchor":"middle" }, svg, m === 1 ? "same" : m + "×");
+  });
+  if (guessState.pick) S("text", { "class":"c-lbl b", x:X(HL.citywidePct*guessState.pick), y:y2 + rowH + 38, "text-anchor":"middle", style:"fill:var(--ink)" }, svg, "your guess");
+  svg.setAttribute("aria-label", "Citywide, felony assaults rose " + HL.citywidePct + "% from 2019 to 2025." + (guessState.revealed ? " In Midtown they rose " + HL.midtownPct + "%." : " Midtown is hidden until you guess."));
+}
+
+/* shared 2000–2025 line chart (walk), used by the draw-your-guess scene and the inline figures */
+function lineChart(svg, w, h, o){
+  var narrow = w < 420, m = { l:44, r:narrow ? 44 : 58, t:18, b:26 };
+  var years = o.years, x0 = years[0], x1 = years[years.length-1];
+  function X(y){ return m.l + (y - x0)/(x1 - x0)*(w - m.l - m.r); }
+  function Yv(v){ return m.t + (1 - v/o.yMax)*(h - m.t - m.b); }
+  o.ticks.forEach(function(v){
+    S("line", { "class":v ? "c-grid" : "c-axis", x1:m.l, x2:w - m.r, y1:Yv(v), y2:Yv(v) }, svg);
+    S("text", { "class":"c-lbl m", x:m.l - 6, y:Yv(v) + 4, "text-anchor":"end", "font-size":12 }, svg, fmt(v));
+  });
+  (narrow ? [2000,2010,2020,2025] : [2000,2005,2010,2015,2020,2025]).forEach(function(yr){ S("text", { "class":"c-lbl m", x:X(yr), y:h - 6, "text-anchor":"middle", "font-size":12 }, svg, yr); });
+  if (o.band){
+    S("rect", { "class":"hl-band", x:X(2016) - 4, y:m.t, width:X(2019) - X(2016) + 8, height:h - m.t - m.b }, svg);
+    S("line", { x1:X(2016), x2:X(2019), y1:Yv(HL.avg2016_2019), y2:Yv(HL.avg2016_2019), stroke:"var(--ink)", "stroke-width":2, "stroke-dasharray":"5 4" }, svg);
+    var bx = X(2019) + 4;
+    S("text", { "class":"c-lbl b halo", x:bx, y:Yv(HL.avg2016_2019) - 44, "text-anchor":"end", "font-size":12 }, svg, "2016–19 avg.");
+    S("text", { "class":"c-lbl b halo", x:bx, y:Yv(HL.avg2016_2019) - 30, "text-anchor":"end", "font-size":12 }, svg, fmt(HL.avg2016_2019) + " a year");
+  }
+  var upTo = o.upTo || x1, vals = o.vals;
+  var d = years.filter(function(y){ return y <= upTo; }).map(function(yr, k){ return (k ? "L" : "M") + X(yr).toFixed(1) + "," + Yv(vals[years.indexOf(yr)]).toFixed(1); }).join("");
+  S("path", { d:d, fill:"none", stroke:"var(--ink)", "stroke-width":2.5, "stroke-linejoin":"round" }, svg);
+  var v19 = vals[years.indexOf(2019)];
+  S("circle", { cx:X(2019), cy:Yv(v19), r:5.5, fill:"var(--y2019)", stroke:"var(--ink)", "stroke-width":1 }, svg);
+  S("text", { "class":"c-lbl b halo", x:X(2019), y:Yv(v19) + 22, "text-anchor":"middle" }, svg, fmt(v19));
+  S("text", { "class":"c-lbl m halo", x:X(x0) + 4, y:Yv(vals[0]) - 9, "font-size":12 }, svg, fmt(vals[0]) + " in " + x0);
+  if (upTo >= x1){
+    var vl = vals[vals.length-1];
+    S("circle", { cx:X(x1), cy:Yv(vl), r:6, fill:"var(--blue)" }, svg);
+    S("text", { "class":"c-lbl b c-blue halo", x:X(x1) + 9, y:Yv(vl) + 4 }, svg, fmt(vl));
+  }
+  return { X:X, Y:Yv, m:m };
+}
+
+/* draw-your-guess (quiz), desktop only */
+var DR = { guess:{}, revealed:false, kb:2020, focused:false, drawing:false, last:null };
+var DYEARS = [2020,2021,2022,2023,2024,2025];
+function mid(y){ return A.midtown[A.years.indexOf(y)]; }
+function renderDraw(lvl, anim){
+  var body = $("#drawBody"), P = prep(body), svg = P.svg, w = P.w, h = P.h;
+  svg.setAttribute("role", DR.revealed ? "img" : "application");
+  svg.setAttribute("tabindex", DR.revealed ? "-1" : "0");
+  svg.style.touchAction = "none";
+  var C = lineChart(svg, w, h, { years:A.years, vals:A.midtown, yMax:1000, ticks:[0,250,500,750,1000], band:true, upTo:2019 });
+  var X = C.X, Yv = C.Y, m = C.m;
+  var zone = S("rect", { x:X(2019) + 2, y:m.t, width:X(2025) - X(2019) + 10, height:h - m.t - m.b, fill:"var(--blue)", opacity:DR.revealed ? 0 : .07 }, svg);
+  var zt = S("text", { "class":"c-lbl b", x:(X(2019) + X(2025))/2, y:m.t + 20, "text-anchor":"middle" }, svg, DR.revealed ? "" : "Draw here →");
+  var kb = S("line", { y1:m.t, y2:h - m.b, stroke:"var(--blue)", "stroke-width":1, "stroke-dasharray":"3 3", style:"display:none" }, svg);
+  var act = S("path", { fill:"none", stroke:"var(--blue)", "stroke-width":3.5, "stroke-linejoin":"round" }, svg);
+  var adots = S("g", null, svg);
+  var user = S("path", { fill:"none", stroke:"var(--accent)", "stroke-width":3, "stroke-dasharray":"7 5", "stroke-linejoin":"round" }, svg);
+  var udots = S("g", null, svg);
+  var ulbl = S("text", { "class":"c-lbl b halo" }, svg);
+  var albl = S("text", { "class":"c-lbl b c-blue halo" }, svg);
+  function base(y){ return y === 2019 ? HL.y2019 : DR.guess[y]; }
+  function update(){
+    var pts = [[2019, HL.y2019]];
+    DYEARS.forEach(function(y){ if (DR.guess[y] != null) pts.push([y, DR.guess[y]]); });
+    user.setAttribute("d", pts.length > 1 ? pts.map(function(p, k){ return (k ? "L" : "M") + X(p[0]).toFixed(1) + "," + Yv(p[1]).toFixed(1); }).join("") : "");
+    while (udots.firstChild) udots.removeChild(udots.firstChild);
+    pts.slice(1).forEach(function(p){ S("circle", { cx:X(p[0]), cy:Yv(p[1]), r:(DR.focused && p[0] === DR.kb && !DR.revealed) ? 6 : 3.5, fill:"var(--accent)" }, udots); });
+    if (DR.guess[2025] != null){ ulbl.setAttribute("x", X(2025) + 8); ulbl.setAttribute("y", Yv(DR.guess[2025]) + 4); ulbl.textContent = fmt(DR.guess[2025]); } else ulbl.textContent = "";
+    if (DR.focused && !DR.revealed){ kb.style.display = ""; kb.setAttribute("x1", X(DR.kb)); kb.setAttribute("x2", X(DR.kb)); } else kb.style.display = "none";
+    if (pts.length > 1) zt.textContent = "";
+    var complete = DYEARS.every(function(y){ return DR.guess[y] != null; });
+    $("#drawLock").disabled = !complete || DR.revealed;
+    $("#drawClear").disabled = DR.revealed;
+    if (DR.revealed){
+      act.setAttribute("d", [2019].concat(DYEARS).map(function(y, k){ return (k ? "L" : "M") + X(y).toFixed(1) + "," + Yv(mid(y)).toFixed(1); }).join(""));
+      while (adots.firstChild) adots.removeChild(adots.firstChild);
+      DYEARS.forEach(function(y){ S("circle", { cx:X(y), cy:Yv(mid(y)), r:4, fill:"var(--blue)" }, adots); });
+      var ay = Yv(HL.y2025) + 4;
+      if (DR.guess[2025] != null){ var uy = Yv(DR.guess[2025]) + 4; if (Math.abs(ay - uy) < 16) ay = uy + (ay <= uy ? -16 : 16); }
+      albl.setAttribute("x", X(2025) + 8); albl.setAttribute("y", ay); albl.textContent = fmt(HL.y2025);
+      $("#drawLgA").hidden = false;
+      svg.setAttribute("aria-label", "Line chart of Midtown felony assaults, 2000 to 2025. Recorded: " + DYEARS.map(function(y){ return y + " " + fmt(mid(y)); }).join(", ") + "." + (DR.guess[2025] != null ? " Your guess for 2025: " + fmt(DR.guess[2025]) + "." : "") + " The 2016–2019 average was " + HL.avg2016_2019 + ".");
+    } else {
+      svg.setAttribute("aria-label", "Line chart of Midtown felony assaults, 2000 to 2019, with the 2016–2019 average of " + HL.avg2016_2019 + " shaded. Draw your guess for 2020 to 2025: left and right arrows pick a year, up and down set it.");
+    }
+  }
+  DR.update = update; DR.act = act;
+  function set(yr, v){
+    v = Math.max(0, Math.min(1000, Math.round(v)));
+    DR.guess[yr] = v;
+    if (DR.last != null && Math.abs(yr - DR.last) > 1){
+      var a = DR.last, av = DR.guess[a], dir = yr > a ? 1 : -1;
+      for (var y = a + dir; y !== yr; y += dir) DR.guess[y] = Math.round(av + (v - av)*(y - a)/(yr - a));
+    }
+    var p = yr - 1; while (p > 2019 && DR.guess[p] == null) p--;
+    var pv = base(p);
+    for (var y2 = p + 1; y2 < yr; y2++) DR.guess[y2] = Math.round(pv + (DR.guess[yr] - pv)*(y2 - p)/(yr - p));
+  }
+  function pt(e){
+    var r = svg.getBoundingClientRect();
+    var px = (e.clientX - r.left)/r.width*w, py = (e.clientY - r.top)/r.height*h;
+    return { year: 2000 + (px - m.l)/(w - m.l - m.r)*25, val:(1 - (py - m.t)/(h - m.t - m.b))*1000 };
+  }
+  function handle(e){
+    var p = pt(e); if (p.year < 2018.5) return;
+    var yr = Math.max(2020, Math.min(2025, Math.round(p.year)));
+    set(yr, p.val); DR.last = yr; DR.kb = yr; update();
+  }
+  svg.addEventListener("pointerdown", function(e){
+    if (DR.revealed) return; DR.drawing = true; DR.last = null;
+    try { svg.setPointerCapture(e.pointerId); } catch(err){}
+    handle(e); e.preventDefault();
+  });
+  svg.addEventListener("pointermove", function(e){ if (DR.drawing && !DR.revealed){ handle(e); e.preventDefault(); } });
+  function end(){ if (DR.drawing){ DR.drawing = false; DR.last = null; if (DR.guess[2025] != null) $("#drawStat").textContent = "Your 2025 guess: " + fmt(DR.guess[2025]) + "."; } }
+  svg.addEventListener("pointerup", end); svg.addEventListener("pointercancel", end); svg.addEventListener("lostpointercapture", end);
+  svg.addEventListener("focus", function(){ DR.focused = true; update(); });
+  svg.addEventListener("blur", function(){ DR.focused = false; update(); });
+  svg.addEventListener("keydown", function(e){
+    if (DR.revealed) return;
+    var k = e.key, step = e.shiftKey ? 50 : 10, handled = true;
+    if (k === "ArrowLeft") DR.kb = Math.max(2020, DR.kb - 1);
+    else if (k === "ArrowRight") DR.kb = Math.min(2025, DR.kb + 1);
+    else if (k === "ArrowUp" || k === "ArrowDown" || k === "PageUp" || k === "PageDown"){
+      if (k.indexOf("Page") === 0) step = 50;
+      var cur = DR.guess[DR.kb];
+      if (cur == null){ var p = DR.kb - 1; while (p > 2019 && DR.guess[p] == null) p--; cur = base(p); }
+      DR.last = null;
+      set(DR.kb, cur + ((k === "ArrowUp" || k === "PageUp") ? step : -step));
+    } else handled = false;
+    if (handled){ e.preventDefault(); update(); $("#drawStat").textContent = DR.kb + ": " + (DR.guess[DR.kb] != null ? fmt(DR.guess[DR.kb]) : "not set"); }
+  });
+  update();
+  if (DR.revealed && anim && !reduced() && act.getTotalLength){
+    var len = act.getTotalLength();
+    act.style.strokeDasharray = len; act.style.strokeDashoffset = len;
+    act.getBoundingClientRect();
+    act.style.transition = "stroke-dashoffset 1.1s ease-out";
+    act.style.strokeDashoffset = "0";
+    setTimeout(function(){ act.style.strokeDasharray = ""; act.style.strokeDashoffset = ""; act.style.transition = ""; }, 1300); // never left hidden
+  }
+}
+$("#drawClear").addEventListener("click", function(){ if (DR.revealed) return; DR.guess = {}; $("#drawStat").textContent = ""; if (DR.update) DR.update(); });
+$("#drawLock").addEventListener("click", function(){ revealGuess(0, false, true); });
+
+function renderWhen(lvl, anim){
+  var P = prep($("#whenBody")), svg = P.svg, w = P.w, h = P.h;
+  var a19 = T.y2019, a25 = T.y2025, max = lvl >= 2 ? 150 : Math.max.apply(null, a19.concat(a25));
+  var ml = lvl >= 2 ? 30 : 0, top = lvl >= 3 ? 24 : 18, bottom = h - (lvl >= 2 ? 40 : 24), gw = (w - ml)/8, bwid = Math.min(20, gw*0.36);
+  function Yv(v){ return bottom - (bottom - top)*v/max; }
+  S("rect", { "class":"hl-band", x:ml + gw*5, y:0, width:gw*2, height:bottom + 4 }, svg);
+  S("text", { "class":"c-lbl b", x:ml + gw*6, y:13, "text-anchor":"middle" }, svg, "3–9pm");
+  if (lvl >= 2) [50,100,150].forEach(function(v){
+    S("line", { "class":"c-grid", x1:ml, x2:w, y1:Yv(v), y2:Yv(v) }, svg);
+    S("text", { "class":"c-lbl m", x:ml - 5, y:Yv(v) + 4, "text-anchor":"end", "font-size":12 }, svg, v);
+  });
+  var labels = ["12–3","3–6","6–9","9–12","12–3","3–6","6–9","9–12"];
+  for (var i=0;i<8;i++){
+    var cx = ml + gw*i + gw/2;
+    [[a19[i],"bar19",-1],[a25[i],"bar25",1]].forEach(function(b){
+      var hh = bottom - Yv(b[0]);
+      S("rect", { "class":b[1] + (anim ? " grow" : ""), x:cx + (b[2] < 0 ? -bwid - 1 : 1), y:bottom - hh, width:bwid, height:hh }, svg);
+    });
+    if (lvl >= 3) S("text", { "class":"c-lbl b c-blue halo", x:cx + 1 + bwid/2, y:Yv(a25[i]) - 4, "text-anchor":"middle", "font-size":12 }, svg, a25[i]);
+    if (lvl >= 2) S("text", { "class":"c-lbl" + (i===5||i===6 ? " b" : " m"), x:cx, y:bottom + 17, "text-anchor":"middle", "font-size":12 }, svg, labels[i]);
+  }
+  S("line", { "class":"c-axis", x1:ml, x2:w, y1:bottom, y2:bottom }, svg);
+  var ly = lvl >= 2 ? bottom + 34 : bottom + 17;
+  S("text", { "class":"c-lbl m", x:ml + gw*2, y:ly, "text-anchor":"middle", "font-size":12 }, svg, lvl >= 2 ? "a.m." : "midnight to noon");
+  S("text", { "class":"c-lbl m", x:ml + gw*6, y:ly, "text-anchor":"middle", "font-size":12 }, svg, lvl >= 2 ? "p.m." : "noon to midnight");
+  svg.setAttribute("aria-label", "Bar chart of Midtown felony assault reports by three-hour window, 2019 vs 2025: " + T.bins.map(function(b, i){ return b + " " + a19[i] + " and " + a25[i]; }).join("; ") + ". The 3–9pm windows are highlighted.");
+}
+function pairBars(svg, x, y, w, rowH, v19, v25, l19, l25, max, anim, showV){
+  [[v19, "bar19", l19, "2019"], [v25, "bar25", l25, "2025"]].forEach(function(b, i){
+    var yy = y + i*(rowH + 6), bw = Math.max(2, (w - 120)*b[0]/max);
+    S("text", { "class":"c-lbl m", x:x, y:yy + rowH/2 + 5 }, svg, b[3]);
+    S("rect", { "class":b[1] + (anim ? " growx" : ""), x:x + 42, y:yy, width:bw, height:rowH }, svg);
+    if (showV) S("text", { "class":"c-lbl b" + (i ? " c-blue" : ""), x:x + 48 + bw, y:yy + rowH/2 + 5 }, svg, b[2]);
+  });
+}
+function renderSub(lvl, anim){
+  var P = prep($("#subBody")), svg = P.svg, w = P.w, h = P.h;
+  var rides = SUB.ridesMillions.map(function(v){ return (v/1000).toFixed(1); });
+  var groups = [["Subway rides", SUB.ridesMillions[0], SUB.ridesMillions[1], rides[0] + " billion", rides[1] + " billion", SUB.ridesMillions[0]],
+    ["Felony assaults on riders", SUB.y2019, SUB.y2025, fmt(SUB.y2019), fmt(SUB.y2025), SUB.y2025]];
+  if (lvl >= 3) groups.push(["Assaults on riders per 100 million rides", SUB.per100M[0], SUB.per100M[1], SUB.per100M[0].toFixed(1), SUB.per100M[1].toFixed(1), SUB.per100M[1]]);
+  var gh = (h - 6)/groups.length, rowH = Math.max(14, Math.min(30, (gh - 34)/2.2));
+  groups.forEach(function(g, k){
+    var y0 = k*gh;
+    S("text", { "class":"c-lbl b", x:0, y:y0 + 14 }, svg, g[0]);
+    pairBars(svg, 0, y0 + 22, w, rowH, g[1], g[2], g[3], g[4], g[5], anim, lvl >= 2);
+  });
+  svg.setAttribute("aria-label", "Subway rides fell from " + rides[0] + " billion in 2019 to " + rides[1] + " billion in 2025, while felony assaults on riders rose from " + SUB.y2019 + " to " + SUB.y2025 + "." + (lvl >= 3 ? " Per 100 million rides: " + SUB.per100M[0] + " to " + SUB.per100M[1] + "." : ""));
+}
+function renderExcl(lvl, anim){
+  var P = prep($("#exclBody")), svg = P.svg, w = P.w, h = P.h;
+  if (lvl < 2){
+    $("#exclTitle").textContent = "Midtown felony assaults, leaving out those on police and other public workers, in shelters, and in stores and restaurants";
+    $("#exclLegend").innerHTML = "";
+    var E = M.exclusions[2], max = E[2], bottom = h - 26, top = 30, bw = Math.min(110, w*0.26);
+    [[E[1], "bar19", "2019", w*0.3], [E[2], "bar25", "2025", w*0.7]].forEach(function(b, i){
+      var hh = (bottom - top)*b[0]/max;
+      S("rect", { "class":b[1] + (anim ? " grow" : ""), x:b[3] - bw/2, y:bottom - hh, width:bw, height:hh }, svg);
+      S("text", { "class":"c-lbl big" + (i ? " c-blue" : ""), x:b[3], y:bottom - hh - 8, "text-anchor":"middle" }, svg, fmt(b[0]));
+      S("text", { "class":"c-lbl m", x:b[3], y:bottom + 18, "text-anchor":"middle" }, svg, b[2]);
+    });
+    S("line", { "class":"c-axis", x1:0, x2:w, y1:bottom, y2:bottom }, svg);
+    svg.setAttribute("aria-label", "Leaving out assaults on police and other public workers, in shelters, and in stores and restaurants: " + E[1] + " in 2019 and " + E[2] + " in 2025.");
+    return;
+  }
+  $("#exclTitle").textContent = "Still roughly double, however you count";
+  $("#exclLegend").innerHTML = '<span><i style="background:var(--y2019)"></i>2019</span><span><i style="background:var(--blue)"></i>2025</span><span class="q">× = 2025 count ÷ 2019 count</span>';
+  // dot plot (walk)
+  var n = M.exclusions.length, maxV = 900, rr = w < 420 ? 50 : 60, LH = 15, fs = 13;
+  function X(v){ return 8 + v/maxV*(w - 8 - rr); }
+  function wrap(t){ var words = t.split(" "), out = [], cur = ""; words.forEach(function(wd){ var tt = cur ? cur + " " + wd : wd; if (textW(tt, fs, true) > w - 6 && cur){ out.push(cur); cur = wd; } else cur = tt; }); if (cur) out.push(cur); return out; }
+  var lines = M.exclusions.map(function(e){ return wrap(e[0].replace(" (complaint records)", "")); });
+  var need = lines.reduce(function(a, l){ return a + l.length*LH + (lvl >= 3 ? 38 : 26); }, 0);
+  var extra = Math.max(0, Math.min(70, (h - 22 - need)/n)), acc = 2, tops = [];
+  lines.forEach(function(l){ tops.push(acc); acc += l.length*LH + (lvl >= 3 ? 38 : 26) + extra; });
+  [0,300,600,900].forEach(function(v){ S("line", { "class":"c-grid", x1:X(v), x2:X(v), y1:0, y2:acc - extra }, svg); S("text", { "class":"c-lbl m", x:X(v), y:Math.min(h - 2, acc - extra + 14), "text-anchor":"middle", "font-size":12 }, svg, v); });
+  M.exclusions.forEach(function(e, i){
+    var yy = tops[i] + 12;
+    lines[i].forEach(function(ln, j){ S("text", { "class":"c-lbl b halo", x:0, y:yy + j*LH, "font-size":fs }, svg, ln); });
+    var ly = yy + (lines[i].length - 1)*LH + 15;
+    S("line", { x1:X(e[1]), x2:X(e[2]), y1:ly, y2:ly, stroke:"var(--line)", "stroke-width":6, "stroke-linecap":"round" }, svg);
+    S("circle", { cx:X(e[1]), cy:ly, r:7, fill:"var(--y2019)", "class":anim ? "grow" : null }, svg);
+    S("circle", { cx:X(e[2]), cy:ly, r:7, fill:"var(--blue)" }, svg);
+    if (lvl >= 3){
+      S("text", { "class":"c-lbl b", x:X(e[1]), y:ly + 21, "text-anchor":"middle" }, svg, fmt(e[1]));
+      S("text", { "class":"c-lbl b c-blue", x:X(e[2]), y:ly + 21, "text-anchor":"middle" }, svg, fmt(e[2]));
+    }
+    S("text", { "class":"c-lbl b", x:w, y:ly + 5, "text-anchor":"end", "font-size":14 }, svg, "×" + (e[2]/e[1]).toFixed(1));
+  });
+  svg.setAttribute("aria-label", "Dot plot of Midtown felony assault reports, 2019 vs 2025, as groups are left out: " + M.exclusions.map(function(e){ return e[0].replace(" (complaint records)", "") + ": " + e[1] + " to " + e[2]; }).join("; ") + ".");
+}
+
+/* crowd: walkers on a sidewalk plus a counter */
+var CROWD_N = Math.round(W.perMinMedian*W.policeArrivalMin);
+var crowd = { raf:0, t:0, walkers:[], layer:null, w:0, sy:0, sh:0, last:0, count:false };
+function renderCrowd(lvl){
+  var P = prep($("#crowdBody")), svg = P.svg, w = P.w, h = P.h;
+  var sh = Math.min(110, h*0.75), sy = (h - sh)/2;
+  crowd.w = w; crowd.sy = sy; crowd.sh = sh; crowd.walkers = []; crowd.count = lvl >= 2;
+  S("rect", { x:0, y:sy, width:w, height:sh, fill:"var(--paper)" }, svg);
+  S("line", { x1:0, x2:w, y1:sy + sh, y2:sy + sh, stroke:"var(--muted)", "stroke-width":3 }, svg);
+  S("text", { "class":"c-lbl m", x:4, y:sy + sh + 16, "font-size":12 }, svg, "curb");
+  crowd.layer = S("g", null, svg);
+  if (reduced()) for (var i=0;i<40;i++) S("circle", { cx:(i*37.3) % w, cy:sy + 8 + ((i*53.7) % (sh - 16)), r:3.6, fill:"var(--ink)", opacity:.55 }, crowd.layer);
+  svg.setAttribute("aria-label", "Illustration of people walking along a Midtown sidewalk.");
+  if (lvl >= 2){
+    $("#crowdN").textContent = fmt(CROWD_N);
+    $("#crowdSub").textContent = "people walk by, at a typical " + W.perMinMedian + " a minute, in the roughly " + Math.round(W.policeArrivalMin) + " minutes before police typically arrive";
+    $("#crowdRange").textContent = "Midtown’s counted blocks: " + W.perMinRange[0] + "–" + W.perMinRange[1] + " people a minute, weekdays 4–7pm.";
+  } else {
+    $("#crowdN").textContent = "Hundreds";
+    $("#crowdSub").textContent = "of people walk by in the roughly " + Math.round(W.policeArrivalMin) + " minutes before police typically arrive";
+    $("#crowdRange").textContent = "";
+  }
+}
+function crowdStart(){
+  cancelAnimationFrame(crowd.raf); clearTimeout(crowd.snap);
+  if (reduced()){ if (crowd.count) $("#crowdN").textContent = fmt(CROWD_N); return; }
+  crowd.t = 0; if (crowd.count) $("#crowdN").textContent = "0";
+  crowd.last = performance.now();
+  crowd.raf = requestAnimationFrame(crowdTick);
+  crowd.snap = setTimeout(function(){ if (crowd.count) $("#crowdN").textContent = fmt(CROWD_N); }, 5500);
+}
+function crowdStop(){ cancelAnimationFrame(crowd.raf); crowd.raf = 0; if (crowd.count) $("#crowdN").textContent = fmt(CROWD_N); }
+function crowdTick(now){
+  var dt = Math.min(0.05, (now - crowd.last)/1000); crowd.last = now;
+  if (crowd.t < 1){ crowd.t = Math.min(1, crowd.t + dt/4); if (crowd.count) $("#crowdN").textContent = fmt(Math.round(CROWD_N*crowd.t)); }
+  if (crowd.layer && Math.random() < dt*14){
+    var dir = Math.random() < .5 ? 1 : -1;
+    var c = S("circle", { r:3.6, fill:"var(--ink)", opacity:.6 }, crowd.layer);
+    crowd.walkers.push({ el:c, x:dir > 0 ? -6 : crowd.w + 6, y:crowd.sy + 8 + Math.random()*(crowd.sh - 16), v:dir*(50 + Math.random()*40) });
+  }
+  crowd.walkers = crowd.walkers.filter(function(p){
+    p.x += p.v*dt;
+    if (p.x < -10 || p.x > crowd.w + 10){ p.el.remove(); return false; }
+    p.el.setAttribute("cx", p.x.toFixed(1)); p.el.setAttribute("cy", p.y.toFixed(1));
+    return true;
+  });
+  crowd.raf = requestAnimationFrame(crowdTick);
+}
+
+function renderYtd(lvl, anim){
+  var P = prep($("#ytdBody")), svg = P.svg, w = P.w, h = P.h;
+  $("#ytdFoot").textContent = "NYPD CompStat, through " + thru + ".";
+  if (lvl < 2){
+    $("#ytdTitle").textContent = "Midtown felony assaults, 2026 so far vs. the same period of 2025";
+    var max = Math.max(Y.midtown[0], Y.midtown[1]), bottom = h - 26, top = 34, bw = Math.min(110, w*0.26);
+    [[Y.midtown[0], "bar19", "2025", w*0.3], [Y.midtown[1], "bar25", "2026", w*0.7]].forEach(function(b, i){
+      var hh = (bottom - top)*b[0]/max;
+      S("rect", { "class":b[1] + (anim ? " grow" : ""), x:b[3] - bw/2, y:bottom - hh, width:bw, height:hh }, svg);
+      S("text", { "class":"c-lbl big" + (i ? " c-blue" : ""), x:b[3], y:bottom - hh - 8, "text-anchor":"middle" }, svg, i ? fmt(b[0]) + " (" + pct(Y.pct) + ")" : fmt(b[0]));
+      S("text", { "class":"c-lbl m", x:b[3], y:bottom + 18, "text-anchor":"middle" }, svg, b[2]);
+    });
+    S("line", { "class":"c-axis", x1:0, x2:w, y1:bottom, y2:bottom }, svg);
+    svg.setAttribute("aria-label", "Midtown felony assaults through " + thru + ": " + Y.midtown[0] + " in 2025 and " + Y.midtown[1] + " in 2026, " + pct(Y.pct) + ".");
+    return;
+  }
+  $("#ytdTitle").textContent = "Midtown, 2026 so far vs. the same period of 2025";
+  var rows = lvl >= 3 ? [
+    ["h","Felony assault"], ["Midtown", Y.pct, 1], ["Midtown South", Y.southPct], ["Midtown North", Y.northPct], ["Citywide", Y.citywidePct],
+    ["h","Misdemeanor assault"], ["Midtown", MD.ytd2026.pct, 1], ["Midtown South", MD.ytd2026.southPct], ["Midtown North", MD.ytd2026.northPct], ["Citywide", MD.ytd2026.citywidePct],
+    ["h","Other crime, Midtown"], ["Robbery", Y.robberyPct], ["All major crime", Y.allMajorPct]
+  ] : [["Felony assault", Y.pct, 1], ["Misdemeanor assault", MD.ytd2026.pct, 1], ["Robbery", Y.robberyPct], ["All major crime", Y.allMajorPct]];
+  var vmax = Math.max.apply(null, rows.filter(function(r){ return r[0] !== "h"; }).map(function(r){ return Math.abs(r[1]); }));
+  var lw = Math.min(lvl >= 3 ? 130 : 160, w*0.38), half = (w - lw - 50)/2, zx = lw + half + 10;
+  var n = rows.length, nh = rows.filter(function(r){ return r[0] === "h"; }).length;
+  var rowH = Math.min(lvl >= 3 ? 30 : 46, (h - 8 - nh*4)/n), bh = Math.max(10, rowH*0.58);
+  var y = 4;
+  rows.forEach(function(r){
+    if (r[0] === "h"){ S("text", { "class":"c-lbl m b", x:0, y:y + rowH*0.72, "font-size":12, "letter-spacing":".08em" }, svg, r[1].toUpperCase()); y += rowH + 4; return; }
+    var v = r[1], bw = half*Math.abs(v)/vmax, up = v > 0;
+    S("text", { "class":"c-lbl" + (r[2] ? " b" : ""), x:lvl >= 3 ? 8 : 0, y:y + rowH/2 + 5 }, svg, r[0]);
+    S("rect", { "class":(up ? "bar25" : "bar19") + (anim ? " growx" : ""), x:up ? zx : zx - bw, y:y + (rowH - bh)/2, width:Math.max(1.5, bw), height:bh, style:up ? null : "transform-origin:100% 50%" }, svg);
+    S("text", { "class":"c-lbl b" + (up ? " c-blue" : ""), x:up ? zx + bw + 6 : zx - bw - 6, y:y + rowH/2 + 5, "text-anchor":up ? "start" : "end" }, svg, pct(v));
+    y += rowH;
+  });
+  S("line", { "class":"c-axis", x1:zx, x2:zx, y1:0, y2:y, "stroke-width":1.5 }, svg);
+  svg.setAttribute("aria-label", "2026 through " + thru + " vs the same period of 2025: " + rows.filter(function(r){ return r[0] !== "h"; }).map(function(r){ return r[0] + " " + pct(r[1]); }).join(", ") + ".");
+}
+function renderFeels(lvl, anim){
+  var P = prep($("#feelsBody")), svg = P.svg, w = P.w, h = P.h;
+  var night = PER.subwayNightSafe, day = PER.subwayDaySafe;
+  if (lvl < 2){
+    $("#feelsTitle").textContent = "New Yorkers who feel safe on the subway at night";
+    $("#feelsLegend").innerHTML = "";
+    var d = [night[0], night[night.length-1]], bottom = h - 26, top = 30, gw = w/d.length, bw = Math.min(90, gw*0.5);
+    d.forEach(function(p, i){
+      var cx = gw*i + gw/2, hh = (bottom - top)*p[1]/50;
+      S("rect", { "class":(i === 0 ? "bar19" : "bar25") + (anim ? " grow" : ""), x:cx - bw/2, y:bottom - hh, width:bw, height:hh }, svg);
+      S("text", { "class":"c-lbl big" + (i ? " c-blue" : ""), x:cx, y:bottom - hh - 8, "text-anchor":"middle" }, svg, p[1] + "%");
+      S("text", { "class":"c-lbl m", x:cx, y:bottom + 18, "text-anchor":"middle" }, svg, p[0]);
+    });
+    S("line", { "class":"c-axis", x1:0, x2:w, y1:bottom, y2:bottom }, svg);
+    svg.setAttribute("aria-label", "Share of New Yorkers who feel safe on the subway at night: " + d.map(function(p){ return p[1] + "% in " + p[0]; }).join(", ") + ".");
+    return;
+  }
+  // CBC chart (walk): night and day
+  $("#feelsTitle").textContent = "New Yorkers who feel safe on the subway";
+  $("#feelsLegend").innerHTML = '<span><i style="background:var(--blue)"></i>At night</span><span><i style="background:var(--y2019)"></i>During the day</span>';
+  var m = { l:40, r:44, t:18, b:26 };
+  function X(yr){ return m.l + (yr - 2017)/8*(w - m.l - m.r); }
+  function Yv(v){ return m.t + (1 - v/100)*(h - m.t - m.b); }
+  [0,25,50,75,100].forEach(function(v){ S("line", { "class":v ? "c-grid" : "c-axis", x1:m.l, x2:w - m.r, y1:Yv(v), y2:Yv(v) }, svg); S("text", { "class":"c-lbl m", x:m.l - 6, y:Yv(v) + 4, "text-anchor":"end", "font-size":12 }, svg, v + "%"); });
+  [2017,2019,2021,2023,2025].forEach(function(yr){ S("text", { "class":"c-lbl m", x:X(yr), y:h - 6, "text-anchor":"middle", "font-size":12 }, svg, yr); });
+  [[day, "var(--y2019)"], [night, "var(--blue)"]].forEach(function(s){
+    S("path", { d:s[0].map(function(p, k){ return (k ? "L" : "M") + X(p[0]).toFixed(1) + "," + Yv(p[1]).toFixed(1); }).join(""), fill:"none", stroke:s[1], "stroke-width":3 }, svg);
+    s[0].forEach(function(p){
+      S("circle", { cx:X(p[0]), cy:Yv(p[1]), r:6, fill:s[1] }, svg);
+      S("text", { "class":"c-lbl b halo", x:X(p[0]) + (p[0] === 2025 ? 10 : 8), y:Yv(p[1]) - 9, "text-anchor":p[0] === 2025 ? "start" : "start" }, svg, p[1] + "%");
+    });
+  });
+  svg.setAttribute("aria-label", "Share of New Yorkers who feel safe on the subway at night: " + night.map(function(p){ return p[1] + "% in " + p[0]; }).join(", ") + ". During the day: " + day.map(function(p){ return p[1] + "% in " + p[0]; }).join(", ") + ".");
+}
+
+var RENDER = { guess:renderGuess, draw:renderDraw, when:renderWhen, subway:renderSub, excl:renderExcl, ytd:renderYtd, feels:renderFeels, crowd:renderCrowd };
+
+/* ---------- inline figures (detail panels) ---------- */
+function visible(el){ return !!(el && el.offsetParent !== null && el.clientWidth > 20); }
+function renderIfig(fig){
+  var body = $(".ifig-body", fig); if (!visible(body)) return;
+  var kind = fig.getAttribute("data-fig"), w = body.clientWidth, P, svg, h;
+  if (kind === "line"){
+    P = prep(body, Math.round(Math.min(260, Math.max(200, w*0.6)))); svg = P.svg;
+    lineChart(svg, P.w, P.h, { years:A.years, vals:A.midtown, yMax:1000, ticks:[0,250,500,750,1000], band:true });
+    svg.setAttribute("aria-label", "Line chart of Midtown felony assaults, 2000 to 2025, official NYPD totals: " + fmt(A.midtown[0]) + " in 2000, " + fmt(HL.y2019) + " in 2019 and " + fmt(HL.y2025) + " in 2025. The 2016–2019 average was " + HL.avg2016_2019 + ".");
+  } else if (kind === "misd"){
+    P = prep(body, Math.round(Math.min(260, Math.max(200, w*0.6)))); svg = P.svg;
+    lineChart(svg, P.w, P.h, { years:MA.years, vals:MA.midtown, yMax:2000, ticks:[0,500,1000,1500,2000] });
+    svg.setAttribute("aria-label", "Line chart of Midtown misdemeanor assaults, 2000 to 2025, official NYPD totals: " + fmt(MA.midtown[0]) + " in 2000, " + fmt(MD.headline.y2019) + " in 2019, " + fmt(MA.midtown[MA.years.indexOf(2020)]) + " in 2020 and " + fmt(MD.headline.y2025) + " in 2025, the highest since 2000.");
+  } else if (kind === "pub"){
+    P = prep(body, 84); svg = P.svg;
+    pairBars(svg, 0, 4, P.w, 30, L.publicCount[0], L.publicCount[1], fmt(L.publicCount[0]), fmt(L.publicCount[1]), L.publicCount[1], false, true);
+    svg.setAttribute("aria-label", "Felony assault reports in public places in Midtown: " + L.publicCount[0] + " in 2019 and " + L.publicCount[1] + " in 2025.");
+  } else if (kind === "bytype"){
+    var n = L.byType.length, rowH = 40; P = prep(body, n*rowH + 4); svg = P.svg;
+    var maxV = 0; L.byType.forEach(function(t){ maxV = Math.max(maxV, t[1], t[2]); });
+    var barW = P.w - 44, thick = 9;
+    L.byType.forEach(function(t, i){
+      var yy = i*rowH;
+      S("text", { "class":"c-lbl b", x:0, y:yy + 12, "font-size":12 }, svg, t[0]);
+      var b1y = yy + 17, b2y = b1y + thick + 2;
+      S("rect", { x:0, y:b1y, width:Math.max(1, barW*t[1]/maxV), height:thick, fill:"var(--y2019)" }, svg);
+      S("rect", { x:0, y:b2y, width:Math.max(1, barW*t[2]/maxV), height:thick, fill:"var(--blue)" }, svg);
+      S("text", { "class":"c-lbl b", x:barW*t[1]/maxV + 5, y:b1y + thick, "font-size":12 }, svg, fmt(t[1]));
+      S("text", { "class":"c-lbl b c-blue", x:barW*t[2]/maxV + 5, y:b2y + thick + 1, "font-size":12 }, svg, fmt(t[2]));
+    });
+    svg.setAttribute("aria-label", "Midtown felony assault reports by type of place, 2019 vs 2025: " + L.byType.map(function(t){ return t[0] + " " + t[1] + " to " + t[2]; }).join("; ") + ".");
+  } else if (kind === "spot"){
+    spotChart(body);
+  }
+}
+function renderInline(scope){ $$(".ifig[data-fig]", scope || document).forEach(renderIfig); }
+
+/* ---------- figure numbers, in reading order, for what is showing ---------- */
+var FIGS = ["sc-map","sc-guess","sc-draw","if-line","if-pub","if-bytype","sc-when","sc-subway","sc-excl","if-misd","sc-crowd","sc-ytd","sc-feels","if-spot","ex-clock","ex-map"];
+function numberFigs(){
+  var n = 0, lv = screenLevel();
+  FIGS.forEach(function(id){
+    var el = document.getElementById(id); if (!el) return;
+    var on = id.indexOf("sc-") === 0 ? (id === "sc-guess" ? lv < 3 : id === "sc-draw" ? lv === 3 : true) : el.offsetParent !== null;
+    var f = $(".fig", el); if (!f) return;
+    if (on){ n++; f.textContent = "Figure " + n; } else f.textContent = "Figure";
+  });
+}
+
+/* ---------- steps ---------- */
+function sceneFor(key){
+  if (key === "c") return screenLevel() === 3 ? "draw" : "guess";
+  return { intro:"map", a:"map", b:"map", d:"map", e:"when", f:"subway", g:"excl", h:"map", i:"crowd", j:"ytd", k:"feels" }[key];
+}
+var current = null, curScene = "map", curLvl = 0;
+function stepEl(key){ return $('.step[data-step="' + key + '"]'); }
+function showScene(name, lvl, force){
+  $$(".scene").forEach(function(s){ s.classList.toggle("on", s.getAttribute("data-scene") === name); });
+  var changed = name !== curScene || lvl !== curLvl || force;
+  if (name === "map"){ story.level = lvl; if (changed) story.render(); }
+  else if (changed && RENDER[name]) RENDER[name](lvl, !reduced() && name !== curScene);
+  curScene = name; curLvl = lvl;
+}
+function counter(){
+  var el = $("#counter"), a = HL.y2019, b = HL.y2025;
+  if (reduced()){ el.textContent = fmt(b); return; }
+  var t0 = performance.now(), D = 1200;
+  cancelAnimationFrame(counter.raf);
+  function tick(now){ var f = Math.min(1, (now - t0)/D), e = 1 - Math.pow(1 - f, 3); el.textContent = fmt(Math.round(a + (b - a)*e)); if (f < 1) counter.raf = requestAnimationFrame(tick); }
+  counter.raf = requestAnimationFrame(tick);
+  setTimeout(function(){ el.textContent = fmt(b); }, D + 200);
+}
+function activate(key, force){
+  if (key === current && !force) return;
+  var prev = current; current = key;
+  $$(".step").forEach(function(s){ s.classList.toggle("active", s.getAttribute("data-step") === key); });
+  if (["d","e","f","g","h","i","j","k"].indexOf(key) >= 0 && !guessState.revealed) revealGuess(0, true);
+  var lvl = lvlOf(stepEl(key));
+  showScene(sceneFor(key), lvl, force);
+  if (MAPSTATES[key]) setMapState(key, lvl);
+  if (key === "b" && prev !== "b" && !force) counter();
+  if (key === "i"){ if (prev !== "i" || force) crowdStart(); } else if (prev === "i") crowdStop();
+}
+
+/* guess (tap buttons on phones and tablets, drawing on desktops) */
+function revealGuess(pick, quiet, fromDraw){
+  if (guessState.revealed && !fromDraw) return;
+  guessState.pick = pick; guessState.revealed = true; DR.revealed = true;
+  var right = Math.round(HL.midtownPct/HL.citywidePct);
+  $$(".guess button").forEach(function(b){
+    var g = +b.getAttribute("data-g");
+    b.disabled = true;
+    b.classList.toggle("picked", g === pick);
+    b.classList.toggle("right", g === right);
+  });
+  var lead = pick ? (pick === right ? "You got it. " : "Not quite. ") : "";
+  if (fromDraw && DR.guess[2025] != null) lead = "Your 2025 point: " + fmt(DR.guess[2025]) + ". Recorded: " + fmt(HL.y2025) + ". ";
+  var r = $("#reveal");
+  r.textContent = lead + "Midtown: " + pct(HL.midtownPct) + ", about three times as fast as the city’s " + pct(HL.citywidePct) + ".";
+  r.hidden = false; $("#guessHint").hidden = true; $("#drawCtl .btnrow").style.display = "none";
+  if (curScene === "guess") renderGuess(curLvl, !quiet && !reduced());
+  if (curScene === "draw") renderDraw(curLvl, !quiet);
+  else if (DR.update) { $("#drawLock").disabled = true; $("#drawClear").disabled = true; }
+}
+$$(".guess button").forEach(function(b){ b.addEventListener("click", function(){ revealGuess(+b.getAttribute("data-g")); }); });
+
+var io = null;
+function setupIO(){
+  if (io) io.disconnect();
+  var margin = isWide() ? "-50% 0px -49% 0px" : "-78% 0px -21% 0px";
+  io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting) activate(en.target.getAttribute("data-step"));
+      else if (en.target.getAttribute("data-step") === "intro" && en.boundingClientRect.top > 0) activate("intro");
+    });
+  }, { rootMargin:margin, threshold:0 });
+  $$(".step").forEach(function(s){ io.observe(s); });
+}
+
+/* ---------- "More detail" toggles ---------- */
+function setupToggles(){
+  $$(".step.xp").forEach(function(st){
+    var card = $(".card", st), first = $("[data-level]", card);
+    if (!first) return;
+    var max = $('[data-level="3"]', card) ? 3 : 2;
+    var b = HT("button", { type:"button", "class":"more-btn step-more", "data-max":String(max), "aria-expanded":"false" }, null, "More detail");
+    card.insertBefore(b, first);
+  });
+  placeMoreBtns();
+  $$(".xp .more-btn").forEach(function(b){
+    var xp = b.closest(".xp"), label = b.textContent;
+    b.addEventListener("click", function(){
+      var open = !xp.classList.contains("x-open");
+      xp.classList.toggle("x-open", open);
+      b.setAttribute("aria-expanded", open ? "true" : "false");
+      b.textContent = open ? (label === "More detail" ? "Less detail" : "Hide the explorer") : label;
+      afterToggle(xp);
+    });
+  });
+}
+// put each step's button just above the first content this screen hides
+function placeMoreBtns(){
+  var lv = screenLevel();
+  $$(".step-more").forEach(function(b){
+    var card = b.parentNode, tgt = $$("[data-level]", card).filter(function(e){ return +e.getAttribute("data-level") > lv && e.parentNode === card; })[0];
+    if (tgt && b.nextSibling !== tgt) card.insertBefore(b, tgt);
+  });
+}
+function afterToggle(xp){
+  renderInline(xp);
+  if (xp.classList.contains("step") && xp.getAttribute("data-step") === current) activate(current, true);
+  if (xp.id === "check"){ updateCheck(); }
+  if (xp.id === "explore"){ exRender(true); }
+  numberFigs();
+}
+$("#toExplore").addEventListener("click", function(){
+  var ex = $("#explore");
+  if (!ex.classList.contains("x-open") && screenLevel() < 3){ $(".more-btn", ex).click(); }
+});
+
+/* ---------- check your block ---------- */
+var check = new MapView($("#checkMap"), { id:"c", aspect:true, labels:true, maxH:function(){ return Math.max(360, Math.round(window.innerHeight*0.85)); } });
+var CS = { lat:LANDMARKS[0].lat, lon:LANDMARKS[0].lon, name:"Times Square", id:"times", ft:500, type:"fel", bin:"all", found:"" };
+var BINS = T.bins;
+(function(){
+  var sel = $("#timeSel"), o = document.createElement("option"); o.value = "all"; o.textContent = "All day"; sel.appendChild(o);
+  BINS.forEach(function(b, i){ var o2 = document.createElement("option"); o2.value = i; o2.textContent = b; sel.appendChild(o2); });
+  sel.addEventListener("change", function(){ CS.bin = sel.value === "all" ? "all" : +sel.value; updateCheck(); });
+  var row = $("#lmRow");
+  LANDMARKS.forEach(function(l){
+    var b = HT("button", { type:"button", "data-id":l.id, "aria-pressed":l.id === CS.id ? "true" : "false" }, row, l.name);
+    b.addEventListener("click", function(){ pickPlace({ lat:l.lat, lon:l.lon, label:l.name, id:l.id }); });
+  });
+  function seg(id, key, conv){
+    $$("#" + id + " button").forEach(function(b){ b.addEventListener("click", function(){
+      CS[key] = conv(b.getAttribute("data-v"));
+      $$("#" + id + " button").forEach(function(x){ x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      updateCheck();
+    }); });
+  }
+  seg("segType", "type", String); seg("segRad", "ft", Number);
+})();
+var SETS = { fel:[{ rows:M.points.rows, fel:true }], mis:[{ rows:MD.points.rows, fel:false }], both:[{ rows:M.points.rows, fel:true }, { rows:MD.points.rows, fel:false }] };
+function E0(){ return { n:0, pub:0, civ:0, police:0, other:0, bins:[0,0,0,0,0,0,0,0] }; }
+function spotStats(lat, lon, radiusM, type, bin){
+  var out = { spot:{ 2019:E0(), 2025:E0() }, mid:{ 2019:E0(), 2025:E0() } };
+  SETS[type].forEach(function(set){
+    var rows = set.rows;
+    for (var i=0;i<rows.length;i++){
+      var r = rows[i], y = r[0], b = Math.floor(r[3]/3), near = haversine(lat, lon, r[1], r[2]) <= radiusM;
+      out.mid[y].bins[b]++; if (near) out.spot[y].bins[b]++;
+      if (bin !== "all" && b !== bin) continue;
+      var tg = near ? [out.mid[y], out.spot[y]] : [out.mid[y]];
+      tg.forEach(function(o){ o.n++; if (PUBLIC[r[5]]) o.pub++; if (set.fel){ if (r[6] === "civilian") o.civ++; else if (r[6] === "police") o.police++; else o.other++; } });
+    }
+  });
+  return out;
+}
+function countNear(lat, lon, radiusM, type, bin){ var s = spotStats(lat, lon, radiusM, type || "fel", bin == null ? "all" : bin).spot; return { 2019:s[2019].n, 2025:s[2025].n }; }
+function plainLine(a, b){
+  if (a === 0 && b === 0) return "None reported here in either year.";
+  if (a === 0) return "None reported here in 2019; " + b + " in 2025.";
+  var r = b/a;
+  if (r >= 2.5) return "About " + Math.round(r) + " times as many in 2025 as in 2019.";
+  if (r >= 2) return "More than twice as many in 2025 as in 2019.";
+  if (r >= 1.75) return "Nearly twice as many in 2025 as in 2019.";
+  if (r > 1.1) return (b - a) + " more in 2025 than in 2019.";
+  if (r >= 0.9) return "About the same in both years.";
+  if (b === 0) return a + " in 2019; none reported here in 2025.";
+  return (a - b) + " fewer in 2025 than in 2019.";
+}
+function share(a, b){ return b ? Math.round(100*a/b) + "%" : "—"; }
+function nearestPed(lat, lon){ var best = null, bd = Infinity; M.pedSites.forEach(function(s){ var d = haversine(lat, lon, s.lat, s.lon); if (d < bd){ bd = d; best = s; } }); return { site:best, dist:bd }; }
+function ftStr(m){ var f = m/FT; f = f > 1000 ? Math.round(f/50)*50 : Math.round(f/10)*10; return fmt(f) + " ft"; }
+var TYPE_TXT = { fel:"Felony assaults", mis:"Misdemeanor assaults", both:"All assaults (felony + misdemeanor)" };
+var TYPE_SHORT = { fel:"Felony", mis:"Misdemeanor", both:"Both types" };
+var lastStats = null;
+function updateCheck(){
+  var radius = CS.ft*FT;
+  var R = spotStats(CS.lat, CS.lon, radius, CS.type, CS.bin), s19 = R.spot[2019], s25 = R.spot[2025], m19 = R.mid[2019], m25 = R.mid[2025];
+  lastStats = R;
+  var timeTxt = CS.bin === "all" ? "all day" : BINS[CS.bin];
+  var h = '<p class="r-where">Within ' + fmt(CS.ft) + ' ft of ' + esc(CS.name) + '</p>' +
+    '<p class="r-nums"><span class="n19">' + fmt(s19.n) + '</span> <small>in 2019</small> → <span class="n25">' + fmt(s25.n) + '</span> <small>in 2025</small></p>' +
+    '<p class="r-what">' + TYPE_TXT[CS.type] + ' reported, ' + timeTxt + '</p>' +
+    '<p class="r-mult">' + plainLine(s19.n, s25.n) + '</p>';
+  if (s19.n < 10 || s25.n < 10) h += '<p class="r-note">Small numbers: with fewer than 10 reports in a year, a few cases can swing the comparison a lot. A low number doesn’t mean a spot is safe.</p>';
+  if (CS.found) h += '<p class="r-found">' + esc(CS.found) + '</p>';
+  $("#resultBody").innerHTML = h;
+  $("#changeSum").textContent = "Change: " + TYPE_SHORT[CS.type] + " · " + (CS.bin === "all" ? "All day" : BINS[CS.bin]) + " · " + fmt(CS.ft) + " ft";
+  $$("#lmRow button").forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-id") === CS.id ? "true" : "false"); });
+  // full breakdown (level 3)
+  var np = nearestPed(CS.lat, CS.lon), site = np.site;
+  var bd = '<li><span class="kk">Share of Midtown’s reports inside this circle</span><span class="vv">2019: ' + share(s19.n, m19.n) + ' · 2025: ' + share(s25.n, m25.n) + '</span></li>' +
+    '<li><span class="kk">All of Midtown, same type and time</span><span class="vv">2019: ' + fmt(m19.n) + ' · 2025: ' + fmt(m25.n) + '</span> <span class="mm">(×' + (m19.n ? (m25.n/m19.n).toFixed(1) : "—") + ')</span></li>' +
+    '<li><span class="kk">In public places (street, transit, stores and restaurants, public buildings)</span><span class="vv">2019: ' + s19.pub + ' of ' + s19.n + ' · 2025: ' + s25.pub + ' of ' + s25.n + '</span></li>';
+  if (CS.type === "fel") bd += '<li><span class="kk">Who the victim was, 2025, inside the circle</span><span class="vv">Civilian: ' + s25.civ + ' · Police officer: ' + s25.police + ' · Other public worker: ' + s25.other + '</span></li>';
+  else bd += '<li><span class="kk">Who the victim was</span><span class="mm">Not available: the misdemeanor reports don’t say who the victim was. Choose Felony to see this.</span></li>';
+  bd += '<li><span class="kk">Foot traffic and police</span>At evening rush, about <span class="vv">' + Math.round(site.perMin) + '</span> people a minute pass the nearest counted block (' + esc(site.name) + ', ' + ftStr(np.dist) + ' away). Police typically arrive about ' + Math.round(W.policeArrivalMin) + ' minutes after an outdoor assault call and wrap up the call about ' + Math.round(W.jobClosedMin) + ' minutes after it comes in.' +
+    (np.dist > 1300*FT ? ' <span class="mm">This counted block is more than 1,300 ft away, so it may not reflect foot traffic at your spot.</span>' : '') +
+    ' <span class="mm">Foot counts are weekday 4–7pm only; police times are for Midtown as a whole.</span></li>';
+  $("#breakdown").innerHTML = bd;
+  $("#spotTitle").textContent = TYPE_TXT[CS.type] + " at this spot, by time of day";
+  $("#spotSrc").textContent = CS.type === "both" ? "From individual NYPD reports (felony and misdemeanor assault)." : "From individual NYPD reports.";
+  renderIfig($("#if-spot"));
+  // map
+  LAYERS.forEach(function(Lr){ Lr.pts.forEach(function(p){ p.near = haversine(CS.lat, CS.lon, p.lat, p.lon) <= radius; }); });
+  check.filter = CS.bin === "all" ? null : function(p){ return p.bin === CS.bin; };
+  check.spot = { lat:CS.lat, lon:CS.lon, radius:radius };
+  var t = CS.type === "fel" ? { f19:1, f25:1 } : CS.type === "mis" ? { m19:1, m25:1 } : { f19:1, f25:1, m19:1, m25:1 };
+  check.set(t, true);
+  check.drawPin();
+  $("#checkLegend").innerHTML = '<span><i style="background:var(--y2019)"></i>2019</span><span><i style="background:var(--blue)"></i>2025</span><span><i style="background:transparent;border:2px solid var(--accent)"></i>' + fmt(CS.ft) + ' ft around your spot</span>';
+  $("#checkMap").setAttribute("aria-label", "Map of Midtown. Pin at " + CS.name + ", with a " + fmt(CS.ft) + "-foot circle: " + s19.n + " reports in 2019 and " + s25.n + " in 2025. Tap or click to choose a spot; arrow keys move it.");
+  window.__lastCount = { 2019:s19.n, 2025:s25.n };
+}
+function spotChart(body){
+  if (!lastStats) return;
+  var b19 = lastStats.spot[2019].bins, b25 = lastStats.spot[2025].bins;
+  var P = prep(body, 170), svg = P.svg, w = P.w, h = P.h, l = 2, r = 2, top = 20, bot = 36, n = 8, gw = (w - l - r)/n, bw = Math.min(20, (gw - 8)/2);
+  var SHORT = ["12–3a","3–6a","6–9a","9–12p","12–3p","3–6p","6–9p","9–12a"];
+  var mx = Math.max(1, Math.max.apply(null, b19.concat(b25)));
+  function Yv(v){ return top + (h - top - bot)*(1 - v/mx); }
+  for (var i=0;i<n;i++){
+    var gx = l + i*gw, cx = gx + gw/2, sel = CS.bin === i;
+    if (sel) S("rect", { x:gx + 1, y:2, width:gw - 2, height:h - bot + 2, fill:"var(--paper)" }, svg);
+    [[b19[i], "bar19", cx - bw - 1, ""], [b25[i], "bar25", cx + 1, " c-blue"]].forEach(function(a){
+      var yy = Yv(a[0]);
+      S("rect", { "class":a[1], x:a[2], y:yy, width:bw, height:Math.max(0, (h - bot) - yy) }, svg);
+      S("text", { "class":"c-lbl b" + a[3], x:a[2] + bw/2, y:yy - 4, "text-anchor":"middle", "font-size":12 }, svg, a[0]);
+    });
+    S("text", { "class":"c-lbl" + (sel ? " b c-blue" : " m"), x:cx, y:h - bot + 17, "text-anchor":"middle", "font-size":12 }, svg, gw < 62 ? SHORT[i] : BINS[i].replace("Midnight","12am").replace("–midnight","–12am").replace("noon","12pm").replace("Noon","12pm"));
+  }
+  S("line", { "class":"c-axis", x1:l, x2:w - r, y1:h - bot, y2:h - bot }, svg);
+  svg.setAttribute("aria-label", TYPE_TXT[CS.type] + " at this spot by three-hour window: " + BINS.map(function(b, i){ return b + ": 2019 " + b19[i] + ", 2025 " + b25[i]; }).join("; ") + ".");
+}
+function pickPlace(p){
+  CS.lat = p.lat; CS.lon = p.lon; CS.name = p.label; CS.id = p.id || null; CS.found = p.note || "";
+  $("#smsg").textContent = ""; $("#smsg").classList.remove("err");
+  updateCheck();
+}
+function tapAt(clientX, clientY){
+  var r = $("#checkMap").getBoundingClientRect(), x = clientX - r.left, y = clientY - r.top;
+  var fb = check.fb; if (!fb || x < fb.x0 || x > fb.x1 || y < fb.y0 || y > fb.y1) return;
+  var mx = FRAME.x0 + (x - check.ox)/check.k, my = FRAME.y0 + (y - check.oy)/check.k;
+  var ll = unproj(mx, my);
+  setSpot(ll[0], ll[1]);
+}
+function setSpot(lat, lon){
+  var nd = Infinity, nl = null;
+  LANDMARKS.forEach(function(l){ var d = haversine(lat, lon, l.lat, l.lon); if (d < nd){ nd = d; nl = l; } });
+  pickPlace({ lat:lat, lon:lon, label:nd < 250 ? "the spot you tapped (near " + nl.name + ")" : "the spot you tapped" });
+}
+$("#checkMap").addEventListener("click", function(e){ tapAt(e.clientX, e.clientY); });
+$("#checkMap").addEventListener("keydown", function(e){
+  var d = { ArrowUp:[0,-50], ArrowDown:[0,50], ArrowLeft:[-50,0], ArrowRight:[50,0] }[e.key]; if (!d) return;
+  e.preventDefault();
+  var p = proj(CS.lat, CS.lon), ll = unproj(p[0] + d[0], p[1] + d[1]); setSpot(ll[0], ll[1]);
+});
+
+/* ---------- offline address search (addresses.js; never a remote geocoder) ---------- */
+var SYN = { W:"WEST", E:"EAST", ST:"STREET", STR:"STREET", STS:"STREET", AVE:"AVENUE", AV:"AVENUE", AVES:"AVENUE", AVN:"AVENUE",
+  BWAY:"BROADWAY", BDWY:"BROADWAY", BRDWY:"BROADWAY", SQ:"SQUARE", PL:"PLACE", PLZ:"PLAZA", CIR:"CIRCLE", LEX:"LEXINGTON", S:"SOUTH", N:"NORTH",
+  CTR:"CENTER", CNTR:"CENTER", CENTRE:"CENTER", STA:"STATION", STN:"STATION", TERM:"TERMINAL",
+  FIRST:"1", SECOND:"2", THIRD:"3", FOURTH:"4", FIFTH:"5", SIXTH:"6", SEVENTH:"7", EIGHTH:"8", NINTH:"9", TENTH:"10", ELEVENTH:"11", TWELFTH:"12" };
+var GENERIC = { STREET:1, AVENUE:1 };
+function normTokens(s){
+  s = String(s).toUpperCase().replace(/[’'`.]/g, "").replace(/[&@\/,;+]/g, " AND ").replace(/[^A-Z0-9 ]+/g, " ");
+  var t = s.split(/\s+/).filter(Boolean).map(function(wd){ var m = wd.match(/^(\d+)(ST|ND|RD|TH)$/); if (m) return m[1]; return SYN[wd] || wd; });
+  var j = " " + t.join(" ") + " ";
+  j = j.replace(/ AVENUE OF (THE )?AMERICAS /g, " 6 AVENUE ").replace(/ AVENUE AMERICAS /g, " 6 AVENUE ");
+  return j.trim().split(" ").filter(Boolean);
+}
+function ord(n){ n = +n; var s = n % 100 >= 11 && n % 100 <= 13 ? "th" : ({ 1:"st", 2:"nd", 3:"rd" }[n % 10] || "th"); return n + s; }
+function prettyStreet(toks){
+  return toks.map(function(t, i){
+    if (/^\d+$/.test(t) && (toks[i+1] === "STREET" || toks[i+1] === "AVENUE")) return ord(t);
+    if (t === "OF" || t === "THE" || t === "AND") return t.toLowerCase();
+    return t.charAt(0) + t.slice(1).toLowerCase();
+  }).join(" ").replace(/^6th Avenue$/, "6th Avenue (Avenue of the Americas)");
+}
+var STIDX = {}, INTS = [];
+(function(){
+  Object.keys(AD.addresses).forEach(function(k){
+    var m = k.match(/^(\d+)([A-Z])?(?:-\d+)?\s+(.+)$/); if (!m) return;
+    var toks = normTokens(m[3]); if (!toks.length || toks.every(function(t){ return GENERIC[t]; })) return;
+    var key = toks.join(" "), v = AD.addresses[k];
+    var e = STIDX[key] || (STIDX[key] = { key:key, toks:toks, nums:[] });
+    e.nums.push({ n:+m[1], suf:m[2] || "", lon:v[0], lat:v[1], prec:v[2] });
+  });
+  Object.keys(STIDX).forEach(function(k){ STIDX[k].nums.sort(function(a, b){ return a.n - b.n; }); });
+  AD.intersections.forEach(function(r){ INTS.push({ a:r[0], b:r[1], ta:normTokens(r[0]), tb:normTokens(r[1]), lon:r[2], lat:r[3], prec:r[4] }); });
+})();
+var PREC = { 14:"Midtown South", 18:"Midtown North" };
+// every query token must be in the name; the last one may be a prefix while typing
+function tokMatch(q, name, partial){
+  if (!q.length) return false;
+  for (var i=0;i<q.length;i++){
+    var t = q[i], last = partial && i === q.length - 1, ok = false;
+    for (var j=0;j<name.length;j++){ if (name[j] === t || (last && name[j].indexOf(t) === 0)){ ok = true; break; } }
+    if (!ok) return false;
+  }
+  return true;
+}
+function exactness(q, name){ return q.filter(function(t){ return name.indexOf(t) >= 0; }).length - name.length*0.01; }
+function searchPlaces(raw, partial){
+  var toks = normTokens(raw); if (!toks.length) return [];
+  var out = [];
+  var ai = toks.indexOf("AND"); if (ai < 0) ai = toks.indexOf("AT");
+  if (ai > 0 && ai < toks.length - 1){
+    // cross streets, in either order
+    var p1 = toks.slice(0, ai), p2 = toks.slice(ai + 1).filter(function(t){ return t !== "AND" && t !== "AT"; });
+    INTS.forEach(function(x){
+      var ok = (tokMatch(p1, x.ta, false) && tokMatch(p2, x.tb, partial)) || (tokMatch(p1, x.tb, false) && tokMatch(p2, x.ta, partial));
+      if (ok) out.push({ label:x.a + " & " + x.b, sub:"Intersection · " + PREC[x.prec], lat:x.lat, lon:x.lon, score:exactness(p1.concat(p2), x.ta.concat(x.tb)) });
+    });
+    out.sort(function(a, b){ return b.score - a.score; });
+    return out.slice(0, 6);
+  }
+  if (/^\d+[A-Z]?$/.test(toks[0]) && toks.length > 1 && !toks.slice(1).every(function(t){ return GENERIC[t]; })){
+    // house number + street
+    var num = parseInt(toks[0], 10), rest = toks.slice(1);
+    Object.keys(STIDX).forEach(function(k){
+      var st = STIDX[k]; if (!tokMatch(rest, st.toks, partial)) return;
+      var exact = null, best = null, bd = Infinity;
+      st.nums.forEach(function(a){
+        if (a.n === num && !exact) exact = a;
+        if (a.n % 2 === num % 2){ var d = Math.abs(a.n - num); if (d < bd){ bd = d; best = a; } }
+      });
+      var street = prettyStreet(st.toks);
+      if (exact) out.push({ label:num + exact.suf.toLowerCase() + " " + street, sub:"Address · " + PREC[exact.prec], lat:exact.lat, lon:exact.lon, score:10 + exactness(rest, st.toks) });
+      else if (best && bd <= 100) out.push({ label:num + " " + street, sub:"Nearest listed: " + best.n + " " + street, lat:best.lat, lon:best.lon, score:exactness(rest, st.toks) - bd/1000,
+        note:"We don’t have " + num + " " + street + " in our address list, so this uses the nearest listed address on the same side of the street, " + best.n + " " + street + "." });
+    });
+    out.sort(function(a, b){ return b.score - a.score; });
+    return out.slice(0, 6);
+  }
+  // landmarks first, then intersections on a matching street
+  LANDMARKS.forEach(function(l){
+    var hitL = l.alias.some(function(al){ return tokMatch(toks, normTokens(al), partial); });
+    if (hitL) out.push({ label:l.name, sub:"Place", lat:l.lat, lon:l.lon, id:l.id, score:100 });
+  });
+  var ints = [];
+  INTS.forEach(function(x){
+    if (tokMatch(toks, x.ta, partial) || tokMatch(toks, x.tb, partial)) ints.push({ label:x.a + " & " + x.b, sub:"Intersection · " + PREC[x.prec], lat:x.lat, lon:x.lon, score:exactness(toks, x.ta.concat(x.tb)) });
+  });
+  ints.sort(function(a, b){ return b.score - a.score || (a.label < b.label ? -1 : 1); });
+  return out.concat(ints).slice(0, 6);
+}
+var NOTFOUND = "We couldn't find that in Midtown South or Midtown North. Try cross streets, or tap the map.";
+var sugg = [], active = -1, qEl = $("#q"), list = $("#sugg");
+function closeList(){ list.hidden = true; qEl.setAttribute("aria-expanded", "false"); qEl.removeAttribute("aria-activedescendant"); active = -1; }
+function showList(){
+  list.innerHTML = "";
+  if (!sugg.length){ closeList(); return; }
+  sugg.forEach(function(s, i){
+    var li = HT("li", { role:"option", id:"opt" + i, "aria-selected":i === active ? "true" : "false" }, list);
+    HT("span", null, li, s.label); HT("small", null, li, s.sub);
+    li.addEventListener("mousedown", function(e){ e.preventDefault(); });
+    li.addEventListener("click", function(){ choose(i); });
+  });
+  list.hidden = false; qEl.setAttribute("aria-expanded", "true");
+  if (active >= 0) qEl.setAttribute("aria-activedescendant", "opt" + active); else qEl.removeAttribute("aria-activedescendant");
+}
+function choose(i){
+  var s = sugg[i]; if (!s) return;
+  qEl.value = s.label; closeList();
+  pickPlace({ lat:s.lat, lon:s.lon, label:s.label, id:s.id, note:s.note });
+}
+qEl.addEventListener("input", function(){
+  var v = qEl.value.trim();
+  active = -1;
+  if (v.length < 2){ sugg = []; closeList(); return; }
+  sugg = searchPlaces(v, true); showList();
+});
+qEl.addEventListener("keydown", function(e){
+  if (e.key === "ArrowDown"){ if (!sugg.length) return; e.preventDefault(); active = (active + 1) % sugg.length; showList(); }
+  else if (e.key === "ArrowUp"){ if (!sugg.length) return; e.preventDefault(); active = (active - 1 + sugg.length) % sugg.length; showList(); }
+  else if (e.key === "Escape"){ closeList(); }
+  else if (e.key === "Enter" && active >= 0 && !list.hidden){ e.preventDefault(); choose(active); }
+});
+qEl.addEventListener("blur", function(){ setTimeout(closeList, 150); });
+$("#sform").addEventListener("submit", function(e){
+  e.preventDefault();
+  var v = qEl.value.trim(); if (!v) return;
+  var res = searchPlaces(v, false); if (!res.length) res = searchPlaces(v, true);
+  closeList();
+  if (!res.length){ var m = $("#smsg"); m.textContent = NOTFOUND; m.classList.add("err"); return; }
+  sugg = res; choose(0);
+});
+
+/* ---------- Explore the map (level 3): 24-hour clock + map + presets (explorer) ---------- */
+var exMap = new MapView($("#exMap"), { id:"x", aspect:true, labels:true, maxH:function(){ return Math.max(360, Math.round(window.innerHeight*0.85)); } });
+var EXD = { type:"fel", year:"both", day:"all", place:"all" };
+var EX = Object.assign({}, EXD), EH = null, exStory = null;
+function inHours(h){ if (!EH) return true; return ((h - EH.start + 24) % 24) < EH.len; }
+function exBase(p){ return (EX.day === "all" || (EX.day === "wk" ? p.wd === 1 : p.wd === 0)) && (EX.place === "all" || (EX.place === "pub" ? p.pub : p.priv)); }
+function exHourly(){
+  var out = { 2019:new Array(24).fill(0), 2025:new Array(24).fill(0) }, src = EX.type === "fel" ? FEL : MIS;
+  [2019, 2025].forEach(function(y){ src[y].forEach(function(p){ if (exBase(p)) out[y][p.h]++; }); });
+  return out;
+}
+function exCounts(HR){ var c = { 2019:0, 2025:0 }; for (var h=0;h<24;h++) if (inHours(h)){ c[2019] += HR[2019][h]; c[2025] += HR[2025][h]; } return c; }
+function hLabel(h){ h = ((h % 24) + 24) % 24; if (h === 0) return "midnight"; if (h === 12) return "noon"; return (h % 12) + (h < 12 ? "am" : "pm"); }
+function rangeLabel(){ if (!EH) return "All hours"; return hLabel(EH.start) + "–" + hLabel(EH.start + EH.len); }
+function ratio(a, b){ if (!a) return null; return (Math.round(b/a*10)/10).toFixed(1); }
+var EXSTORIES = [
+  { id:"rush", label:"Evening rush", set:function(){ EX = Object.assign({}, EXD, { day:"wk" }); EH = { start:16, len:3 }; } ,
+    cap:function(c){ return "On weekdays from 4 to 7 p.m., the map shows " + fmt(c[2019]) + " felony assault reports in 2019 and " + fmt(c[2025]) + " in 2025: " + ratio(c[2019], c[2025]) + " times as many."; } },
+  { id:"late", label:"Late night", set:function(){ EX = Object.assign({}, EXD); EH = { start:0, len:3 }; },
+    cap:function(c){ return "Between midnight and 3 a.m., the map shows " + fmt(c[2019]) + " felony assault reports in 2019 and " + fmt(c[2025]) + " in 2025: " + ratio(c[2019], c[2025]) + " times as many."; } },
+  { id:"public", label:"Public places", set:function(){ EX = Object.assign({}, EXD, { place:"pub" }); EH = null; },
+    cap:function(c){ return "On streets and sidewalks, in transit, in stores and restaurants, and in public buildings, the map shows " + fmt(c[2019]) + " felony assault reports in 2019 and " + fmt(c[2025]) + " in 2025: " + ratio(c[2019], c[2025]) + " times as many."; } }
+];
+(function(){
+  var box = $("#exPresets");
+  EXSTORIES.forEach(function(st){
+    var b = HT("button", { type:"button", "data-id":st.id, "aria-pressed":"false" }, box, st.label);
+    b.addEventListener("click", function(){
+      if (exStory === st.id){ exStory = null; EX = Object.assign({}, EXD); EH = null; }
+      else { st.set(); exStory = st.id; }
+      exRender();
+    });
+  });
+  var rb = HT("button", { type:"button" }, box, "Reset");
+  rb.addEventListener("click", function(){ EX = Object.assign({}, EXD); EH = null; exStory = null; exRender(); });
+  [["exType","type"],["exYear","year"],["exDay","day"],["exPlace","place"]].forEach(function(s){
+    $$("#" + s[0] + " button").forEach(function(b){ b.addEventListener("click", function(){ EX[s[1]] = b.getAttribute("data-v"); exStory = null; exRender(); }); });
+  });
+  var hf = $("#hFrom"), ht = $("#hTo");
+  for (var hh=0; hh<24; hh++){ HT("option", { value:hh }, hf, hLabel(hh)); HT("option", { value:hh }, ht, hLabel(hh)); }
+  function onPick(){ var f = +hf.value, t = +ht.value, len = (t - f + 24) % 24; EH = len === 0 ? null : { start:f, len:len }; exStory = null; exRender(); }
+  hf.addEventListener("change", onPick); ht.addEventListener("change", onPick);
+  $("#allHours").addEventListener("click", function(){ EH = null; exStory = null; exRender(); });
+})();
+// clock
+var clock = $("#clock"), CX = 200, CY = 200, R0 = 62, R1 = 166, STEP = Math.PI*2/24, wedges = [];
+function pol(r, a){ return [CX + r*Math.sin(a), CY - r*Math.cos(a)]; }
+function sector(r0, r1, a0, a1){
+  var p0 = pol(r0,a0), p1 = pol(r1,a0), p2 = pol(r1,a1), p3 = pol(r0,a1), lg = (a1-a0) > Math.PI ? 1 : 0;
+  return "M"+p0[0].toFixed(2)+","+p0[1].toFixed(2)+"L"+p1[0].toFixed(2)+","+p1[1].toFixed(2)+"A"+r1+","+r1+" 0 "+lg+" 1 "+p2[0].toFixed(2)+","+p2[1].toFixed(2)+"L"+p3[0].toFixed(2)+","+p3[1].toFixed(2)+"A"+r0+","+r0+" 0 "+lg+" 0 "+p0[0].toFixed(2)+","+p0[1].toFixed(2)+"Z";
+}
+var gRings = S("g", null, clock);
+for (var hh0=0; hh0<24; hh0++){
+  var g0 = S("g", { "class":"wedge", tabindex:"0", role:"button", "data-h":hh0 }, clock);
+  S("path", { "class":"hit", d:sector(R0-14, 199, hh0*STEP, (hh0+1)*STEP) }, g0);
+  S("path", { "class":"bg", d:sector(R0-6, R1+4, hh0*STEP, (hh0+1)*STEP) }, g0);
+  wedges.push({ g:g0, b19:S("path", { "class":"b19" }, g0), b25:S("path", { "class":"b25" }, g0) });
+}
+[0,3,6,9,12,15,18,21].forEach(function(h){ var p = pol(R1+18, h*STEP); S("text", { "class":"hlbl", x:p[0], y:p[1]+4, "text-anchor":"middle" }, clock, h === 0 ? "12am" : h === 12 ? "12pm" : (h % 12) + (h < 12 ? "am" : "pm")); });
+var gRingLbl = S("g", null, clock), ctr1 = S("text", { "class":"ctr1", x:CX, y:CY-4, "text-anchor":"middle" }, clock), ctr2 = S("text", { "class":"ctr2", x:CX, y:CY+14, "text-anchor":"middle" }, clock);
+function niceStep(max){ var raw = max/3, p = Math.pow(10, Math.floor(Math.log10(raw || 1))), m = raw/p; return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 5 ? 5 : 10)*p; }
+var HR = null;
+function yearOn(y){ return EX.year === "both" || EX.year === String(y); }
+function drawClock(){
+  HR = exHourly();
+  var max = 1; for (var i=0;i<24;i++){ if (yearOn(2019)) max = Math.max(max, HR[2019][i]); if (yearOn(2025)) max = Math.max(max, HR[2025][i]); }
+  var step = niceStep(max), top = Math.max(max, step);
+  function sc(n){ return R0 + (R1 - R0)*n/top; }
+  while (gRings.firstChild) gRings.removeChild(gRings.firstChild);
+  while (gRingLbl.firstChild) gRingLbl.removeChild(gRingLbl.firstChild);
+  for (var v = step; v <= top + 1e-9; v += step){ S("circle", { "class":"ring", cx:CX, cy:CY, r:sc(v) }, gRings); S("text", { "class":"ringlbl", x:CX + 3, y:CY - sc(v) - 2 }, gRingLbl, v); }
+  S("circle", { "class":"ring", cx:CX, cy:CY, r:R0 }, gRings);
+  var pad = 0.018, md = 0.004;
+  wedges.forEach(function(wd, h){
+    var a0 = h*STEP + pad, a1 = (h+1)*STEP - pad, am = (h+0.5)*STEP, n19 = HR[2019][h], n25 = HR[2025][h];
+    wd.b19.setAttribute("d", n19 && yearOn(2019) ? sector(R0, sc(n19), a0, am - md) : "");
+    wd.b25.setAttribute("d", n25 && yearOn(2025) ? sector(R0, sc(n25), am + md, a1) : "");
+    var sel = !!EH && inHours(h);
+    wd.g.classList.toggle("on", sel); wd.g.classList.toggle("off", !!EH && !sel);
+    wd.g.setAttribute("aria-pressed", sel ? "true" : "false");
+    wd.g.setAttribute("aria-label", hLabel(h) + " to " + hLabel(h+1) + ": " + n19 + " in 2019, " + n25 + " in 2025");
+  });
+  var c = exCounts(HR);
+  clock.style.setProperty("--k", Math.max(1, 400/(clock.clientWidth || 400)).toFixed(3));
+  ctr1.textContent = rangeLabel();
+  ctr2.textContent = (yearOn(2019) ? fmt(c[2019]) : "") + (EX.year === "both" ? " → " : "") + (yearOn(2025) ? fmt(c[2025]) : "");
+  return c;
+}
+function hourAt(evt){
+  var pt = clock.createSVGPoint(); pt.x = evt.clientX; pt.y = evt.clientY;
+  var p = pt.matrixTransform(clock.getScreenCTM().inverse()), dx = p.x - CX, dy = p.y - CY;
+  var a = Math.atan2(dx, -dy); if (a < 0) a += Math.PI*2;
+  return { h:Math.floor(a/STEP) % 24, r:Math.sqrt(dx*dx + dy*dy) };
+}
+var drag = null;
+clock.addEventListener("pointerdown", function(e){
+  var o = hourAt(e); if (o.r < R0 - 14 || o.r > 200) return;
+  drag = { start:o.h, last:o.h, delta:0, moved:false, prev:EH };
+  try { clock.setPointerCapture(e.pointerId); } catch(_){}
+  e.preventDefault();
+});
+clock.addEventListener("pointermove", function(e){
+  if (!drag) return;
+  var o = hourAt(e);
+  if (o.h !== drag.last){
+    var st = ((o.h - drag.last + 36) % 24) - 12; drag.delta += st; drag.last = o.h; drag.moved = true;
+    var d = Math.max(-23, Math.min(23, drag.delta));
+    EH = d >= 0 ? { start:drag.start, len:d+1 } : { start:(drag.start + d + 24) % 24, len:-d+1 };
+    exStory = null; exRender();
+  }
+});
+clock.addEventListener("pointerup", function(){
+  if (!drag) return; var d = drag; drag = null;
+  if (!d.moved){ var single = d.prev && d.prev.len === 1 && d.prev.start === d.start; EH = single ? null : { start:d.start, len:1 }; exStory = null; exRender(); }
+});
+clock.addEventListener("pointercancel", function(){ drag = null; });
+wedges.forEach(function(wd, h){
+  wd.g.addEventListener("keydown", function(e){
+    if (e.key === "Enter" || e.key === " "){ e.preventDefault(); EH = (EH && EH.len === 1 && EH.start === h) ? null : { start:h, len:1 }; exStory = null; exRender(); }
+    else if (e.key === "ArrowRight" || e.key === "ArrowDown"){ e.preventDefault(); wedges[(h+1) % 24].g.focus(); }
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp"){ e.preventDefault(); wedges[(h+23) % 24].g.focus(); }
+    else if (e.key === "Escape"){ EH = null; exStory = null; exRender(); }
+  });
+});
+function exRender(full){
+  var panel = $("#exPanel"); if (panel.offsetParent === null) return;
+  [["exType","type"],["exYear","year"],["exDay","day"],["exPlace","place"]].forEach(function(s){ $$("#" + s[0] + " button").forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-v") === EX[s[1]] ? "true" : "false"); }); });
+  $$("#exPresets button[data-id]").forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-id") === exStory ? "true" : "false"); });
+  if (EH){ $("#hFrom").value = EH.start; $("#hTo").value = (EH.start + EH.len) % 24; }
+  var c = drawClock();
+  var st = EXSTORIES.filter(function(s){ return s.id === exStory; })[0];
+  $("#exCap").textContent = st ? st.cap(c) : "";
+  var kind = EX.type === "fel" ? "Felony assault" : "Misdemeanor assault", r = ratio(c[2019], c[2025]);
+  $("#exSum").innerHTML = kind + ' reports shown · 2019: <span class="n19">' + fmt(c[2019]) + '</span> · 2025: <span class="n25">' + fmt(c[2025]) + '</span>' + (r ? ' · ×' + r : '') +
+    (c[2019] < 20 && c[2025] < 20 ? ' <span class="quiet" style="font-weight:400">Small numbers: a few reports change the picture a lot.</span>' : '');
+  var bits = [EX.type === "fel" ? "Felony assaults" : "Misdemeanor assaults", rangeLabel()];
+  if (EX.day !== "all") bits.push(EX.day === "wk" ? "weekdays" : "weekends");
+  if (EX.place !== "all") bits.push(EX.place === "pub" ? "public places" : "private places");
+  $("#exMapTitle").textContent = bits.join(" · ");
+  $("#exLegend").innerHTML = (yearOn(2019) ? '<span><i style="background:var(--y2019)"></i>2019</span>' : '') + (yearOn(2025) ? '<span><i style="background:var(--blue)"></i>2025</span>' : '') + '<span class="q">One dot per NYPD report, at an approximate location</span>';
+  var pre = EX.type === "fel" ? "f" : "m", t = {};
+  if (yearOn(2019)) t[pre + "19"] = 1; if (yearOn(2025)) t[pre + "25"] = 1;
+  exMap.filter = function(p){ return exBase(p) && inHours(p.h); };
+  if (full || !exMap.W) exMap.render();
+  exMap.set(t, true);
+  $("#exMap").setAttribute("aria-label", "Map of Midtown: " + bits.join(", ") + ". " + fmt(c[2019]) + " reports in 2019 and " + fmt(c[2025]) + " in 2025.");
+}
+
+/* ---------- about ---------- */
+(function(){
+  var src = M.sources, ul = $("#srcList");
+  Object.keys(src).forEach(function(k){ var li = HT("li", null, ul), a = HT("a", { href:src[k].url, rel:"noopener" }, li, src[k].name); });
+  [["Street centerlines: NYC Open Data, Centerline (CSCL)", B.sources.streets], ["Precinct outlines: NYC Open Data, Police Precincts", B.sources.precincts], ["Address search: NYC MapPLUTO tax lots", AD.sources.pluto], ["Intersection search: NYC street centerlines", AD.sources.centerline]].forEach(function(s){
+    var li = HT("li", null, ul); HT("a", { href:s[1], rel:"noopener" }, li, s[0]);
+  });
+  var EX2 = M.exclusions, nF19 = FEL[2019].length, nF25 = FEL[2025].length;
+  var notes = [
+    "“Midtown” means the two NYPD precincts that cover it: Midtown South (the 14th Precinct) and Midtown North (the 18th Precinct). " + M._about,
+    "Felony assault, official NYPD totals: Midtown " + fmt(HL.y2019) + " in 2019 and " + fmt(HL.y2025) + " in 2025 (" + pct(HL.midtownPct) + "); citywide " + fmt(A.citywide[i19]) + " and " + fmt(A.citywide[i25]) + " (" + pct(HL.citywidePct) + "). Midtown South " + A.south[i19] + " → " + A.south[i25] + "; Midtown North " + A.north[i19] + " → " + A.north[i25] + ". " + HL.note + ". The 2016–2019 average was " + HL.avg2016_2019 + ".",
+    "Misdemeanor assault, official NYPD totals: Midtown " + fmt(MD.headline.y2019) + " → " + fmt(MD.headline.y2025) + " (" + pct(MD.headline.midtownPct) + "); citywide " + fmt(MA.citywide[i19]) + " → " + fmt(MA.citywide[i25]) + " (" + pct(MD.headline.citywidePct) + "). Midtown South " + fmt(MD.headline.south[0]) + " → " + fmt(MD.headline.south[1]) + "; Midtown North " + fmt(MD.headline.north[0]) + " → " + fmt(MD.headline.north[1]) + ". " + MD.headline.note + ". " + MD._note,
+    "Official totals vs. individual reports: the headline numbers are NYPD’s official totals. The maps, the time-of-day charts, the public-places figures, the “still roughly doubled” chart, Explore the map and Check your block use individual NYPD reports (NYPD Complaint Data Historic), which total " + fmt(nF19) + " and " + fmt(nF25) + " felony assaults (vs. the official " + fmt(HL.y2019) + " and " + fmt(HL.y2025) + ") and " + fmt(MD.complaintTotals.y2019) + " and " + fmt(MD.complaintTotals.y2025) + " misdemeanor assaults (vs. the official " + fmt(MD.headline.y2019) + " and " + fmt(MD.headline.y2025) + "). No percent changes on this page are computed from the individual reports; where reports are compared, the page gives the two counts or a multiple (×).",
+    "Maps: each dot is one NYPD report at its approximate location; many reports share a point, so dots overlap. The maps are rotated about 29° so the avenues run up and down, with uptown at the top. Streets are NYC street centerlines; the outlines are the two Midtown precincts. Felony and misdemeanor assaults are never added together except where labeled “all assaults (felony + misdemeanor)” in Check your block.",
+    "Check your block counts reports within 500 or 1,000 feet (straight-line distance) of the chosen spot. Near the precinct edges, the circle can reach into neighboring precincts, whose assaults are not counted. Places with few reports can swing a lot from year to year, and a low number doesn’t mean a spot is safe. These are counts of reported incidents, not a measure of anyone’s chance of being assaulted.",
+    "Address search runs entirely on your device, using a list of " + fmt(Object.keys(AD.addresses).length) + " Midtown addresses (one primary address per tax lot) and " + fmt(AD.intersections.length) + " intersections. If a house number isn’t in the list, the search uses the nearest listed number on the same side of the street and says so.",
+    "Public places: " + L.note + ". Public = street, sidewalk and park; subway, bus terminal and other transit; stores, restaurants, bars and offices; hospitals, schools and public buildings. Private = apartments, hotels and homeless shelters. Midtown share in public places, 2025: " + L.publicShare + "%; citywide: " + L.citywidePublicShare + "%. Felony assault reports in public places: " + fmt(L.publicCount[0]) + " in 2019 and " + fmt(L.publicCount[1]) + " in 2025. By place, 2019 → 2025: " + L.byType.map(function(t){ return t[0] + " " + t[1] + " → " + t[2]; }).join("; ") + ". Misdemeanor assaults in public places: " + MD.publicSharePct["2019"] + "% in 2019, " + MD.publicSharePct["2025"] + "% in 2025.",
+    "Time of day: by the reported start time, in three-hour windows (Explore the map uses single hours). " + T.note + " Weekdays are Monday through Friday.",
+    "Subway: " + SUB.note + " Rides: " + (SUB.ridesMillions[0]/1000).toFixed(3) + " billion in 2019 and " + (SUB.ridesMillions[1]/1000).toFixed(3) + " billion in 2025. Felony assaults on riders per 100 million rides: " + SUB.per100M[0] + " in 2019 and " + SUB.per100M[1] + " in 2025. All felony assaults in Midtown subway stations: " + SUB.midtownAll[0] + " in 2019 and " + SUB.midtownAll[1] + " in 2025.",
+    "“Still roughly doubled”: individual reports, 2019 → 2025. " + EX2.map(function(e){ return e[0] + ": " + fmt(e[1]) + " → " + fmt(e[2]); }).join("; ") + ". The simple chart shows the third row; “×” is the 2025 count divided by the 2019 count.",
+    "The crowd: an illustration. NYC DOT counts at Midtown’s " + M.pedSites.length + " counted blocks show " + W.perMinRange[0] + "–" + W.perMinRange[1] + " people a minute pass on weekdays 4–7pm, typically " + W.perMinMedian + ". Police typically arrive " + W.policeArrivalMin + " minutes after a 911 call (" + W.perMinMedian + " × " + W.policeArrivalMin + " ≈ " + CROWD_N + " people) and wrap up the call about " + W.jobClosedMin + " minutes after it comes in, by which time " + fmt(Math.round(W.perMinRange[0]*W.jobClosedMin)) + "–" + fmt(Math.round(W.perMinRange[1]*W.jobClosedMin)) + " people pass at those rates. Caveat: " + W.note,
+    "2026 so far, NYPD CompStat through " + Y.through + ": Midtown felony assault " + fmt(Y.midtown[1]) + " vs. " + fmt(Y.midtown[0]) + " (" + pct(Y.pct) + "); Midtown South " + fmt(Y.south[1]) + " vs. " + fmt(Y.south[0]) + " (" + pct(Y.southPct) + "), Midtown North " + fmt(Y.north[1]) + " vs. " + fmt(Y.north[0]) + " (" + pct(Y.northPct) + "); citywide " + pct(Y.citywidePct) + ". Midtown robbery " + pct(Y.robberyPct) + "; all major crime " + pct(Y.allMajorPct) + ". Misdemeanor assault " + fmt(MD.ytd2026.midtown[1]) + " vs. " + fmt(MD.ytd2026.midtown[0]) + " (" + pct(MD.ytd2026.pct) + "); Midtown South " + pct(MD.ytd2026.southPct) + ", Midtown North " + pct(MD.ytd2026.northPct) + "; citywide " + fmt(MD.ytd2026.citywide[1]) + " vs. " + fmt(MD.ytd2026.citywide[0]) + " (" + pct(MD.ytd2026.citywidePct) + ").",
+    "How it feels: Citizens Budget Commission survey. Felt safe on the subway at night: " + PER.subwayNightSafe.map(function(p){ return p[1] + "% in " + p[0]; }).join(", ") + ". During the day: " + PER.subwayDaySafe.map(function(p){ return p[1] + "% in " + p[0]; }).join(", ") + "."
+  ];
+  notes.forEach(function(t){ HT("li", null, $("#method"), t); });
+  ["felony","misdemeanor"].forEach(function(k){ var D = M.definitions[k]; HT("li", null, $("#aboutDefs"), D.term + ": " + D.plain + " " + D.detail); });
+  var li = HT("li", null, $("#aboutDefs"), "Legal definitions: "); HT("a", { href:M.sources.penal.url, rel:"noopener" }, li, M.sources.penal.name);
+})();
+
+/* ---------- theme ---------- */
+var root = document.documentElement, darkMQ = window.matchMedia("(prefers-color-scheme: dark)");
+try { var saved = localStorage.getItem("midtownBlendTheme"); if (saved === "dark" || saved === "light") root.setAttribute("data-theme", saved); } catch(e){}
+function isDark(){ var a = root.getAttribute("data-theme"); return a ? a === "dark" : darkMQ.matches; }
+function syncThemeBtn(){ var d = isDark(), b = $("#themeBtn"); b.textContent = d ? "Light" : "Dark"; b.setAttribute("aria-label", d ? "Switch to light mode" : "Switch to dark mode"); }
+function redrawDots(){ story.draw(); check.draw(); exMap.draw(); }
+$("#themeBtn").addEventListener("click", function(){
+  var next = isDark() ? "light" : "dark"; root.setAttribute("data-theme", next);
+  try { localStorage.setItem("midtownBlendTheme", next); } catch(e){}
+  syncThemeBtn(); redrawDots();
+});
+if (darkMQ.addEventListener) darkMQ.addEventListener("change", function(){ syncThemeBtn(); redrawDots(); });
+syncThemeBtn();
+
+/* ---------- boot ---------- */
+function renderAll(){
+  check.render();
+  if (current) activate(current, true);
+  renderInline();
+  exRender(true);
+  numberFigs();
+}
+setupToggles();
+setMapState("intro", screenLevel()); story.level = screenLevel(); story.set(MAPSTATES.intro.t, true);
+current = "intro"; curLvl = screenLevel();
+story.render();
+updateCheck();
+renderAll();
+setupIO();
+// keep the sticky graphic in step with its box (legends and notes change its height)
+if (window.ResizeObserver){
+  var ro = new ResizeObserver(function(entries){
+    entries.forEach(function(en){
+      var el = en.target, w = el.clientWidth, h = el.clientHeight;
+      if (el.id === "storyMap"){ if (curScene === "map" && (Math.abs(w - (story.W || 0)) > 1 || Math.abs(h - (story.H || 0)) > 1)) story.render(); return; }
+      var sc = el.closest(".scene"), name = sc && sc.getAttribute("data-scene");
+      if (name && name === curScene && RENDER[name] && (Math.abs(w - (el._w || 0)) > 1 || Math.abs(h - (el._h || 0)) > 1)){ el._w = w; el._h = h; RENDER[name](curLvl, false); }
+      else { el._w = w; el._h = h; }
+    });
+  });
+  ro.observe($("#storyMap"));
+  $$(".scene.chart .s-body").forEach(function(b){ b._w = b.clientWidth; b._h = b.clientHeight; ro.observe(b); });
+}
+function onLevel(){ placeMoreBtns(); setupIO(); if (current === "c") curScene = ""; renderAll(); }
+[mq2, mq3].forEach(function(q){ if (q.addEventListener) q.addEventListener("change", onLevel); else if (q.addListener) q.addListener(onLevel); });
+var rt = 0, lastW = window.innerWidth, lastH = window.innerHeight;
+window.addEventListener("resize", function(){
+  clearTimeout(rt);
+  rt = setTimeout(function(){
+    // phones fire resize when the URL bar moves; only re-render on real size changes
+    if (window.innerWidth === lastW && (!isWide() || window.innerHeight === lastH)) return;
+    lastW = window.innerWidth; lastH = window.innerHeight;
+    renderAll();
+  }, 150);
+});
+
+window.__mid = { proj:proj, unproj:unproj, haversine:haversine, countNear:countNear, searchPlaces:searchPlaces, pickPlace:pickPlace, CS:CS, LANDMARKS:LANDMARKS, story:story, check:check, exMap:exMap, screenLevel:screenLevel };
+})();
+</script>
+<script src="share.js"></script>
+</body>
+</html>
