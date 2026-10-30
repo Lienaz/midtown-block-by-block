@@ -108,6 +108,8 @@ h1{font-family:var(--serif);font-weight:700;font-size:40px;line-height:1.12;marg
 .s-title{font:700 17px/1.25 var(--serif);margin:2px 0 0}
 .s-body{flex:1;position:relative;min-height:0}
 .s-body > svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
+#crowdBody{min-height:120px}
+.card .crowd-note{font:14px/1.4 var(--sans);color:var(--muted);margin:10px 0 0}
 .s-foot{flex:none;font:13px/1.35 var(--sans);color:var(--muted);margin-top:6px}
 .s-foot p{margin:0}
 .legend{display:flex;flex-wrap:wrap;gap:2px 14px;font:13px var(--sans);color:var(--ink);margin:0}
@@ -440,13 +442,12 @@ footer{font:13px var(--sans);color:var(--muted);padding:0 0 calc(40px + env(safe
         <div class="s-foot"><p class="legend" id="exclLegend"></p>From individual NYPD reports, which differ slightly from official totals.</div>
       </div>
       <div class="scene chart" data-scene="crowd" id="sc-crowd">
-        <div class="s-head"><p class="fig"></p><p class="s-title">One Midtown block, weekday evening rush</p></div>
+        <div class="s-head"><p class="fig"></p><p class="s-title">A busy Midtown block: 8th Ave at 44th St, weekday evening rush</p></div>
         <div class="s-body" id="crowdBody"></div>
         <div class="s-foot">
           <div class="crowd-row"><div class="crowd-count" id="crowdN">0</div><div class="crowd-clock"><span>Since the 911 call</span><b id="crowdClock">0:00</b></div><button class="btn ghost crowd-replay" type="button" id="crowdReplay">Replay</button></div>
           <p class="crowd-sub" id="crowdSub"></p><p id="crowdRange"></p>
           <p class="legend crowd-legend"><span><i style="background:var(--accent)"></i>Assault</span><span><i style="background:var(--ink);opacity:.6"></i>Passerby</span><span><i class="ring"></i>Stops to watch or help</span><span><i style="background:var(--blue)"></i>Police</span></p>
-          <p class="crowd-note" id="crowdNote"></p>
         </div>
       </div>
       <div class="scene chart" data-scene="ytd" id="sc-ytd">
@@ -576,7 +577,8 @@ footer{font:13px var(--sans);color:var(--muted);padding:0 0 calc(40px + env(safe
     </div></section>
 
     <section class="step xp" data-step="i"><div class="card">
-      <p>At evening rush, hundreds of people can walk past a typical Midtown block in the roughly 5 minutes before police typically arrive.</p>
+      <p>On a busy Midtown block at evening rush, like 8th Avenue near Times Square, hundreds of people can walk past in the roughly 5 minutes before police typically arrive.</p>
+      <p class="crowd-note" id="crowdNote"></p>
       <p data-level="2">Midtown’s counted blocks see <b><span data-v="pmlo">45</span>–<span data-v="pmhi">118</span></b> people a minute on weekday evenings.</p>
       <div class="detail" data-level="3"><p class="dl">More detail</p>
         <p>Police typically wrap up the call about <span data-v="close">50</span> minutes after it comes in. By then, thousands of people can pass.</p>
@@ -1348,8 +1350,11 @@ function renderExcl(lvl, anim){
 }
 
 /* crowd: one sidewalk at evening rush, an assault, the minutes until police arrive and until they wrap up the call */
-var CROWD_N = Math.round(W.perMinMedian*W.policeArrivalMin);           // people passing before police typically arrive
-var CROWD_N2 = Math.round(W.perMinMedian*W.jobClosedMin);              // ... before police typically wrap up the call
+var CR_SITE = M.pedSites.filter(function(s){ return /^Eighth Avenue \(West 44th/.test(s.name); })[0];   // busy block near Times Square
+console.assert(CR_SITE, "busy count site");
+var CR_RATE = CR_SITE.perMin, CR_RATE_R = Math.round(CR_RATE);
+var CROWD_N = Math.round(CR_RATE*W.policeArrivalMin);           // people passing before police typically arrive
+var CROWD_N2 = Math.round(CR_RATE*W.jobClosedMin);              // ... before police typically wrap up the call
 var CR_S1 = Math.round(W.policeArrivalMin*60), CR_S2 = Math.round(W.jobClosedMin*60);
 var CR_FIT = (function(){
   var all = M.points.rows.filter(function(r){ return r[0] === 2025; });
@@ -1526,7 +1531,7 @@ function renderCrowd(lvl){
   if (reduced()){ CR.stat = true; crowdStatic(); }
   else if (CR.stat){ CR.stat = false; CR.walkers = []; CR.started = false; }
   CR.walkers.forEach(function(p){ p.el = null; });
-  $("#crowdRange").textContent = lvl >= 2 ? "Midtown’s counted blocks: " + W.perMinRange[0] + "–" + W.perMinRange[1] + " people a minute, weekdays 4–7pm; typically " + W.perMinMedian + "." : "";
+  $("#crowdRange").textContent = lvl >= 2 ? "Midtown’s counted blocks: " + W.perMinRange[0] + "–" + W.perMinRange[1] + " people a minute, weekdays 4–7pm. This block: about " + CR_RATE_R + "." : "";
   $("#crowdReplay").hidden = reduced();
   crowdDraw();
 }
@@ -1543,7 +1548,7 @@ function crowdStart(){
   CR.raf = requestAnimationFrame(crowdTick);
 }
 $("#crowdReplay").addEventListener("click", crowdStart);
-$("#crowdNote").textContent = "Illustration: a sidewalk assault on a busy block at evening rush. About 1 in " + CR_FIT.nice + " Midtown felony assaults fit that description. ‘Wrap up the call’ is when the 911 job is closed, a stand-in for when officers leave. Sources: NYC DOT pedestrian counts; NYPD 911 call times.";
+$("#crowdNote").textContent = "Illustration: a sidewalk assault on a busy block at evening rush (8th Ave between 44th and 45th Streets, about " + CR_RATE_R + " people a minute). Police times are typical for all of Midtown, not this block. About 1 in " + CR_FIT.nice + " Midtown felony assaults fit that description. ‘Wrap up the call’ is when the 911 job is closed, a stand-in for when officers leave. Sources: NYC DOT pedestrian counts; NYPD 911 call times.";
 
 function renderYtd(lvl, anim){
   var P = prep($("#ytdBody")), svg = P.svg, w = P.w, h = P.h;
@@ -2219,7 +2224,7 @@ function exRender(full){
     "Time of day: by the reported start time, in three-hour windows (Explore the map uses single hours). " + T.note + " Weekdays are Monday through Friday.",
     "Subway: " + SUB.note + " Rides: " + (SUB.ridesMillions[0]/1000).toFixed(3) + " billion in 2019 and " + (SUB.ridesMillions[1]/1000).toFixed(3) + " billion in 2025. Felony assaults on riders per 100 million rides: " + SUB.per100M[0] + " in 2019 and " + SUB.per100M[1] + " in 2025. All felony assaults in Midtown subway stations: " + SUB.midtownAll[0] + " in 2019 and " + SUB.midtownAll[1] + " in 2025.",
     "“Still roughly doubled”: individual reports, 2019 → 2025. " + EX2.map(function(e){ return e[0] + ": " + fmt(e[1]) + " → " + fmt(e[2]); }).join("; ") + ". The simple chart shows the third row; “×” is the 2025 count divided by the 2019 count.",
-    "The crowd: an illustration. NYC DOT counts at Midtown’s " + M.pedSites.length + " counted blocks show " + W.perMinRange[0] + "–" + W.perMinRange[1] + " people a minute pass on weekdays 4–7pm, typically " + W.perMinMedian + ". Police typically arrive " + W.policeArrivalMin + " minutes after a 911 call (" + W.perMinMedian + " × " + W.policeArrivalMin + " ≈ " + CROWD_N + " people) and wrap up the call about " + W.jobClosedMin + " minutes after it comes in, by which time " + fmt(Math.round(W.perMinRange[0]*W.jobClosedMin)) + "–" + fmt(Math.round(W.perMinRange[1]*W.jobClosedMin)) + " people pass at those rates. The sidewalk-assault illustration: " + CR_FIT.k + " of " + fmt(CR_FIT.n) + " felony assault reports in 2025 were on a street, sidewalk or in a park on a weekday between 4 and 7 p.m. Caveat: " + W.note,
+    "The crowd: an illustration. NYC DOT counts at Midtown’s " + M.pedSites.length + " counted blocks show " + W.perMinRange[0] + "–" + W.perMinRange[1] + " people a minute pass on weekdays 4–7pm, typically " + W.perMinMedian + ". The scene uses a busy block, 8th Ave between 44th and 45th Streets, at about " + CR_RATE_R + " a minute. Police typically arrive " + W.policeArrivalMin + " minutes after a 911 call (" + CR_RATE + " × " + W.policeArrivalMin + " ≈ " + fmt(CROWD_N) + " people on that block) and wrap up the call about " + W.jobClosedMin + " minutes after it comes in (≈ " + fmt(CROWD_N2) + " people on that block); by which time " + fmt(Math.round(W.perMinRange[0]*W.jobClosedMin)) + "–" + fmt(Math.round(W.perMinRange[1]*W.jobClosedMin)) + " people pass at those rates. The sidewalk-assault illustration: " + CR_FIT.k + " of " + fmt(CR_FIT.n) + " felony assault reports in 2025 were on a street, sidewalk or in a park on a weekday between 4 and 7 p.m. Caveat: " + W.note,
     "2026 so far, NYPD CompStat through " + Y.through + ": Midtown felony assault " + fmt(Y.midtown[1]) + " vs. " + fmt(Y.midtown[0]) + " (" + pct(Y.pct) + "); Midtown South " + fmt(Y.south[1]) + " vs. " + fmt(Y.south[0]) + " (" + pct(Y.southPct) + "), Midtown North " + fmt(Y.north[1]) + " vs. " + fmt(Y.north[0]) + " (" + pct(Y.northPct) + "); citywide " + pct(Y.citywidePct) + ". Midtown robbery " + pct(Y.robberyPct) + "; all major crime " + pct(Y.allMajorPct) + ". Misdemeanor assault " + fmt(MD.ytd2026.midtown[1]) + " vs. " + fmt(MD.ytd2026.midtown[0]) + " (" + pct(MD.ytd2026.pct) + "); Midtown South " + pct(MD.ytd2026.southPct) + ", Midtown North " + pct(MD.ytd2026.northPct) + "; citywide " + fmt(MD.ytd2026.citywide[1]) + " vs. " + fmt(MD.ytd2026.citywide[0]) + " (" + pct(MD.ytd2026.citywidePct) + ").",
     "How it feels: Citizens Budget Commission survey. Felt safe on the subway at night: " + PER.subwayNightSafe.map(function(p){ return p[1] + "% in " + p[0]; }).join(", ") + ". During the day: " + PER.subwayDaySafe.map(function(p){ return p[1] + "% in " + p[0]; }).join(", ") + "."
   ];
